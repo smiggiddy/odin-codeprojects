@@ -1,0 +1,66 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#skills {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-photo {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+.quote h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    min-height: 100vh;
+}
+
+ul {
+    list-style-type: none;
+}
