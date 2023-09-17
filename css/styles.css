@@ -1,7 +1,14 @@
+.header {
+    padding: 0 170px;
+    background-color: #2C3639;
+    height: 550px;
+    color: #DCD7C9;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 75px;
 }
 
 .navbar ul {
@@ -21,6 +28,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    min-height: 450px;
 }
 
 
@@ -28,11 +36,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
+
+.card {
+    width: 150px;
+    height: 150px;
+    padding: 50px;
+    gap: 52px;
+    word-wrap: break-word;
+}
+
 .card-photo {
     width: 100px;
     height: 100px;
     background-color: green;
+}
+
+.quote {
+    height: 400px;
+    background-color: #3F4E4F;
 }
 
 .quote h1 {
@@ -41,16 +64,26 @@
     justify-content: center;
 }
 
+.contact {
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
 .email-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    height: 150px;
+    /* width: 75%; */
 }
 
 .footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #2C3639;
 }
 
 body {
@@ -58,7 +91,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-content: space-between;
-    min-height: 100vh;
+    min-height: 98vh;
 }
 
 ul {
