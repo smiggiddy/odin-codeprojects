@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item {
+    min-height: 250px;
+    min-width: 250px;
+    padding: 20px;
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-image {
+    height: 200px;
+    width: 200px;
+}
+
+body {
+    text-align: center;
+}
+
+button {
+    cursor: pointer;
+}

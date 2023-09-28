@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TicTacToe</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1 class="title-text">
+                Rock, Paper, Scissors!
+            </h1>
+        </div>
+        <div class="row">
+            <div class="item">
+                <button class="card-title">
+                <img src="static/rock.png" alt="" class="card-image" data-item="rock">
+                </button>
+            </div>
+            <div class="item">
+                <button class="card-title">
+                <img src="static/paper.png" alt="" class="card-image" data-item="rock">
+                </button>
+            </div>
+            <div class="item">
+                <button class="card-title">
+                <img src="static/scissors.png" alt="" class="card-image" data-item="rock">
+                </button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="results">
+                <div class="score">
+                    <h1 class="title-text">
+                        SCORE:
+                    </h1>  
+                    <table class="scoreboard">
+                        <tr>
+                            <th>Player</th>
+                            <th>Win</th>
+                            <th>Loss</th>
+                            <th>Tie</th>
+                        </tr>
+                        <tr class="user-row">
+                            <td>User</td>
+                            <td class="user-win">0</td>
+                            <td class="user-loss">0</td>
+                            <td class="user-tie">0</td>
+                        </tr>
+                        <tr class="cpu-row">
+                            <td>Computer</td>
+                            <td class="cpu-win">0</td>
+                            <td class="cpu-loss">0</td>
+                            <td class="cpu-tie">0</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+   <script src="tictactoe.js"></script> 
+</body>
+</html>
