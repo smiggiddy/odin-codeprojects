@@ -1,6 +1,10 @@
-let firstNum = undefined
-let secondNum = undefined
-let operator = undefined
+let firstNum = undefined;
+let secondNum = undefined;
+let operator = undefined;
+let screen = document.querySelector('.screen');
+
+
+const buttons = document.querySelectorAll('.btn');
 
 function add(x, y) {
     return Number(x + y);
@@ -35,3 +39,23 @@ function operate(firstNum, secondNum, operator) {
             return divive(firstNum, secondNum);
     }
 }
+
+function updateDisplay(displayValue) {
+    let currentScreen = screen.textContent.trim();
+    console.log(currentScreen);
+    if (currentScreen.length >= 8) return;
+
+    if (Number(currentScreen) === 0) {
+        screen.textContent = displayValue;
+    } else {
+        screen.textContent += displayValue;
+    }
+}
+
+
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', e => {
+         updateDisplay(e.target.value);
+    });
+});

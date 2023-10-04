@@ -37,6 +37,10 @@
     margin: 5px;
     font-size: 25px;
     width: 110px;
+    -webkit-transition: all 0.5s; /* add this line, chrome, safari, etc */
+    -moz-transition: all 0.5s; /* add this line, firefox */
+    -o-transition: all 0.5s; /* add this line, opera */
+    transition: all 0.5s; /* add this line */
 }
 
 #clear {
@@ -49,6 +53,14 @@
 
 #zero {
     width: 230px;
+}
+
+#action:hover {
+    background-color: #F0ECE2;
+}
+
+#clear:hover {
+    background-color: #FF6D60;
 }
 
 body {
