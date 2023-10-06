@@ -63,21 +63,26 @@ function updateDisplay(displayValue) {
     screen.textContent = displayValue;
 }
 
+function handleOperatorClick(operatorClicked) {
+    
+    // TODO handle ops for = or clear
+    if (operatorClicked === '=' || operatorClicked === 'cls') {
+        console.log('Clear or = pressed');
+    }
+    ops.operator = operatorClicked;
+    //TODO fix this conditional should be if numFlag and a check if = or additional ops 
+    if(ops.secondNum){
+    console.log(operate(ops.firstNum, ops.secondNum, ops.operator));
+    } else {
+        ops.toggleNumFlag();
+        console.log('set second num');
+    }
+}
+
 function calculator(event){
 
     if(event.target.dataset.ops === "") {
-        // TODO handle ops for = or clear
-        // TODO other ops should indicate a swap to second number
-        ops.operator = event.target.value;
-        //TODO fix this conditional should be if numFlag and a check if = or additional ops 
-        if(ops.secondNum){
-        console.log(operate(ops.firstNum, ops.secondNum, ops.operator));
-        console.log(ops.operator);
-        } else {
-            ops.toggleNumFlag();
-            console.log(ops.numFlag);
-            console.log('set second num');
-        }
+        handleOperatorClick(event.target.value);
     } 
     else if(event.target.dataset.num === "") {
             if(!ops.numFlag) {
