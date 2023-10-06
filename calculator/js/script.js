@@ -18,10 +18,11 @@ const ops = {
     this.numFlag = !this.numFlag
  },
  clear: function(){
-    this.firstNum = Number();
-    this.secondNum = Number();
+    this.firstNum = String();
+    this.secondNum = String();
     this.operator = undefined;
     this.numFlag =  false;
+    screen.textContent = "0";
  }
 };
 
@@ -47,6 +48,7 @@ function divive(x, y) {
 }
 
 function operate(firstNum, secondNum, operator) {
+    console.log(operator);
     switch (operator) {
         case '+':
             return add(firstNum, secondNum);
@@ -59,6 +61,17 @@ function operate(firstNum, secondNum, operator) {
     }
 }
 
+function handleOperation() {
+    first = Number(ops.firstNum);
+    second = Number(ops.secondNum);
+    let result = operate(first, second, ops.operator);
+    updateDisplay(result);
+    ops.operator = undefined;
+    ops.firstNum = result;
+    ops.secondNum = String();
+    ops.numFlag = false;
+}
+
 function updateDisplay(displayValue) {
     screen.textContent = displayValue;
 }
@@ -67,12 +80,18 @@ function handleOperatorClick(operatorClicked) {
     
     // TODO handle ops for = or clear
     if (operatorClicked === '=' || operatorClicked === 'cls') {
-        console.log('Clear or = pressed');
+        if (operatorClicked === 'cls') {
+            ops.clear();
+        }
+        if (operatorClicked === '=') {
+            handleOperation();
+        }
     }
     ops.operator = operatorClicked;
     //TODO fix this conditional should be if numFlag and a check if = or additional ops 
-    if(ops.secondNum){
-    console.log(operate(ops.firstNum, ops.secondNum, ops.operator));
+    if(ops.secondNum && ops.numFlag){
+        handleOperation();
+        console.log("this should be second num doing stuff");
     } else {
         ops.toggleNumFlag();
         console.log('set second num');
