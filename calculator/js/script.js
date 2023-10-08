@@ -92,6 +92,12 @@ function handleOperatorClick(operatorClicked) {
         return;
     } else if (operatorClicked === '=') {
         handleOperation();
+    } else if (operatorClicked === '+/-') {
+        negateNumber();
+        return
+    } else if (operatorClicked === '%') {
+        percentageNumber();
+        return
     } else {
         if(ops.secondNum && ops.numFlag){
             handleOperation();
@@ -119,6 +125,31 @@ function calculator(event){
                 updateDisplay(ops.secondNum);
             }
     }
+}
+
+function negateNumber(){
+    // returns a negated number
+    let negated;
+    if (!ops.numFlag || !ops.onSecondNumber) {
+        negated =  Number(ops.firstNum) * -1;
+        ops.firstNum = String(negated);
+    } else {
+        negated = Number(ops.secondNum) * -1;
+        ops.secondNum = String(negated);
+    }
+    updateDisplay(negated);
+}
+
+function percentageNumber() {
+    let percent;
+    if (!ops.numFlag || !ops.onSecondNumber) {
+        percent = Number(ops.firstNum) / 100;
+        ops.firstNum = String(percent);
+    } else {
+        percent = Number(ops.secondNum) / 100;
+        ops.secondNum = String(percent);
+    }
+    updateDisplay(percent);
 }
 
 buttons.forEach(btn => {
