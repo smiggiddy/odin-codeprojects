@@ -7,6 +7,8 @@ const ops = {
  operator:  undefined,
  numFlag: false,
  onSecondNumber: false,
+ stringLength: 8,
+ periodClicked: false,
 
  updateNum: (num) => {
         if (!this.updateSecondNum){
@@ -25,6 +27,20 @@ const ops = {
     this.numFlag =  false;
     this.onSecondNumber = false;
     display.textContent = "0";
+ },
+ appendNumber: function(num) {
+    if(!ops.numFlag && ops.checkLength(ops.firstNum)) {
+        ops.firstNum += num;
+        updateDisplay(ops.firstNum);
+    } else if(this.numFlag) {
+        if (this.checkLength(ops.secondNum)) {
+            ops.secondNum += num;
+            updateDisplay(ops.secondNum);
+         }
+    }
+ },
+ checkLength: function(string) {
+    return string.length < this.stringLength;
  }
 };
 
@@ -67,7 +83,8 @@ function handleOperation() {
     let first = Number(ops.firstNum);
     let second = Number(ops.secondNum);
     let result = operate(first, second, ops.operator);
-    result = Math.round(result * (10^3)/(10^3));
+    // result = Math.round(result * (10^3)/(10^3));
+    result = result.toPrecision(3);
     updateDisplay(result);
     ops.firstNum = result;
     ops.secondNum = String();
@@ -115,15 +132,15 @@ function calculator(event){
 
     if(event.target.dataset.ops === "") {
         handleOperatorClick(event.target.value);
-    } 
-    else if(event.target.dataset.num === "") {
-            if(!ops.numFlag) {
-                ops.firstNum += event.target.value;
-                updateDisplay(ops.firstNum);
-            } else {
-                ops.secondNum += event.target.value;
-                updateDisplay(ops.secondNum);
-            }
+    } else if (event.target.value === '.') {
+        if (display.textContent.includes('.')) {
+            return
+       } else {
+        ops.appendNumber(event.target.value)
+       }
+
+    } else if(event.target.dataset.num === "") {
+        ops.appendNumber(event.target.value)
     }
 }
 
