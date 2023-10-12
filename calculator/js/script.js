@@ -29,6 +29,7 @@ const ops = {
     display.textContent = "0";
  },
  appendNumber: function(num) {
+    if(num === "0" && display.textContent === "0") return
     if(!ops.numFlag && ops.checkLength(ops.firstNum)) {
         ops.firstNum += num;
         updateDisplay(ops.firstNum);
