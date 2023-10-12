@@ -84,6 +84,10 @@ function handleOperation() {
     let second = Number(ops.secondNum);
     let result = operate(first, second, ops.operator);
     // result = Math.round(result * (10^3)/(10^3));
+    if (result === "error") {
+        ops.clear();
+        return;
+    }
     result = result.toPrecision(3);
     updateDisplay(result);
     ops.firstNum = result;
