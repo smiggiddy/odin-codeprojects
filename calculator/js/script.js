@@ -89,7 +89,7 @@ function handleOperation() {
         ops.clear();
         return;
     }
-    result = result.toPrecision(3);
+    result = roundThreeDecimals(result);
     updateDisplay(result);
     ops.firstNum = result;
     ops.secondNum = String();
@@ -104,6 +104,15 @@ function handleOperation() {
 
 function updateDisplay(displayValue) {
     display.textContent = displayValue;
+}
+
+function roundThreeDecimals(number) {
+    if (!Number.isInteger(number) && Number.isFinite(number)
+    ) {
+        return parseFloat(number.toPrecision(3));
+    } else {
+        return number;
+    }
 }
 
 function handleOperatorClick(operatorClicked) {
