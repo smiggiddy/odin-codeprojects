@@ -63,6 +63,13 @@
     background-color: #FF6D60;
 }
 
+.footer {
+    margin-top: 30px;
+}
+
+.footer a {
+    text-decoration: none;
+}
 body {
     display: flex;
     justify-content: center;
@@ -73,4 +80,5 @@ body {
     margin-top: 80px;
     padding: 10px;
     background-color: #F0ECE2;
+    flex-direction: column;
 }
