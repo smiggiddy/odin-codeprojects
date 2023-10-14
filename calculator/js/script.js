@@ -141,15 +141,18 @@ function handleOperatorClick(operatorClicked) {
             return;
         }
     }
+
+    
     ops.operator = operatorClicked;
     //TODO fix this conditional should be if numFlag and a check if = or additional ops 
     if(!ops.onSecondNumber ){
         ops.numFlag = true;
-    } else if (ops.result !== undefined ) {
-        console.log('this is running the ops.result');
-        ops.firstNum = ops.result;
-        ops.onSecondNumber = true;
-        return
+        if (ops.result !== "" ) {
+            console.log('this is running the ops.result');
+            ops.firstNum = ops.result;
+            ops.onSecondNumber = true;
+            return
+        }
     }
     ops.onSecondNumber = !ops.onSecondNumber;
 }
@@ -185,9 +188,11 @@ function negateNumber(){
 
 function percentageNumber() {
     let percent;
-    if (!ops.numFlag || !ops.onSecondNumber) {
+    if ((!ops.numFlag || !ops.onSecondNumber)) {
         percent = Number(ops.firstNum) / 100;
         ops.firstNum = String(percent);
+    } else if (ops.result !== "" ) {
+        percent = Number(ops.result) / 100;
     } else {
         percent = Number(ops.secondNum) / 100;
         ops.secondNum = String(percent);
