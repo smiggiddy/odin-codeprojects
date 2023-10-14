@@ -188,7 +188,7 @@ function negateNumber(){
 
 function percentageNumber() {
     let percent;
-    if ((!ops.numFlag || !ops.onSecondNumber) && !ops.result) {
+    if ((!ops.numFlag || !ops.onSecondNumber)) {
         percent = Number(ops.firstNum) / 100;
         ops.firstNum = String(percent);
     } else if (ops.result !== "" ) {
