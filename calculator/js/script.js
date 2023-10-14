@@ -93,14 +93,11 @@ function handleOperation() {
     ops.result = result;
 
     if (ops.lastOperator === '=') {
-        console.log('This ran');
         ops.firstNum = String();
         ops.secondNum = String();
         ops.numFlag = false;
         ops.onSecondNumber = !ops.onSecondNumber;
-        console.log(`Changing second number ${ops.onSecondNumber}`);
     } else {
-        console.log("this else ran");
         ops.firstNum = ops.result;
         ops.secondNum = "";
         ops.onSecondNumber = true;
@@ -134,21 +131,26 @@ function handleOperatorClick(operatorClicked) {
         return;
     } else if (operatorClicked === '+/-') {
         negateNumber();
-        return
+        return;
     } else if (operatorClicked === '%') {
         percentageNumber();
-        return
+        return;
     } else {
         if(ops.secondNum && ops.numFlag){
             handleOperation();
+            return;
         }
     }
     ops.operator = operatorClicked;
     //TODO fix this conditional should be if numFlag and a check if = or additional ops 
-    if(!ops.onSecondNumber){
+    if(!ops.onSecondNumber ){
         ops.numFlag = true;
-    } 
-
+    } else if (ops.result !== undefined ) {
+        console.log('this is running the ops.result');
+        ops.firstNum = ops.result;
+        ops.onSecondNumber = true;
+        return
+    }
     ops.onSecondNumber = !ops.onSecondNumber;
 }
 
