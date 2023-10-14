@@ -5,18 +5,13 @@ const ops = {
  firstNum:  String(),
  secondNum:  String(),
  operator:  undefined,
+ lastOperator: undefined,
  numFlag: false,
  onSecondNumber: false,
  stringLength: 8,
  periodClicked: false,
+ result: String(),
 
- updateNum: (num) => {
-        if (!this.updateSecondNum){
-            this.firstNum = num;
-        } else {
-            this.secondNum = num;
-        }
- },
  toggleNumFlag: function() { 
     this.numFlag = !this.numFlag
  },
@@ -26,6 +21,7 @@ const ops = {
     this.operator = undefined;
     this.numFlag =  false;
     this.onSecondNumber = false;
+    this.result = String();
     display.textContent = "0";
  },
  appendNumber: function(num) {
@@ -81,25 +77,35 @@ function operate(firstNum, secondNum, operator) {
 }
 
 function handleOperation() {
-    let first = Number(ops.firstNum);
-    let second = Number(ops.secondNum);
+    const first = Number(ops.firstNum);
+    const second = Number(ops.secondNum);
     let result = operate(first, second, ops.operator);
-    // result = Math.round(result * (10^3)/(10^3));
+
     if (result === "error") {
         ops.clear();
         return;
     }
+
     result = roundThreeDecimals(result);
     updateDisplay(result);
-    ops.firstNum = result;
-    ops.secondNum = String();
-    if (ops.operator === '=') {
+    
+    // store result
+    ops.result = result;
+
+    if (ops.lastOperator === '=') {
+        console.log('This ran');
+        ops.firstNum = String();
+        ops.secondNum = String();
         ops.numFlag = false;
-        ops.onSecondNumber = false;
+        ops.onSecondNumber = !ops.onSecondNumber;
+        console.log(`Changing second number ${ops.onSecondNumber}`);
     } else {
+        console.log("this else ran");
+        ops.firstNum = ops.result;
+        ops.secondNum = "";
         ops.onSecondNumber = true;
     }
-    ops.operator = undefined;
+    // ops.operator = undefined;
 }
 
 function updateDisplay(displayValue) {
@@ -116,13 +122,16 @@ function roundThreeDecimals(number) {
 }
 
 function handleOperatorClick(operatorClicked) {
-    
+   
+    ops.lastOperator = operatorClicked;
     // TODO handle ops for = or clear
     if (operatorClicked === 'cls') {
         ops.clear();
         return;
     } else if (operatorClicked === '=') {
+        ops.lastOperator = '=';
         handleOperation();
+        return;
     } else if (operatorClicked === '+/-') {
         negateNumber();
         return
@@ -139,6 +148,7 @@ function handleOperatorClick(operatorClicked) {
     if(!ops.onSecondNumber){
         ops.numFlag = true;
     } 
+
     ops.onSecondNumber = !ops.onSecondNumber;
 }
 
