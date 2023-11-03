@@ -1,8 +1,12 @@
 .container {
     justify-content: center;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     align-content: center;
+}
+
+.form {
+    width: 50vw;
 }
 
 .form-input {
@@ -13,7 +17,9 @@
     flex-wrap: wrap;
 }
 
-.form-row input[type='text'] {
+.form-input input[type='text'],
+.form-input input[type='password'],
+.form-input input[type='email'] {
     background-color: #FFFFFF;
     border: 1px solid #D6D9DC;
     border-radius: 3px;
@@ -22,26 +28,35 @@
     font-size: 14px;
   }
   
-  .form-row label {
+  .form-input label {
     margin-bottom: 15px;
   }
 
 
   @media only screen and (min-width: 700px) {
+
+    .container {
+        height: 95vh;
+    }
+    .sidebar {
+        width: 50vw;
+    }
     .form {
-        width: 600px;
+        width: 50vw;
     }
 
-    .form-row {
+    .form-input {
         flex-direction: row;
         align-items: flex-start; /* To avoid stretching */
         margin-bottom: 20px;
     }
-    .form-row input[type='text'] {
+    .form-input input[type='text'],
+    .form-input input[type='password'],
+    .form-input input[type='email'] {
         width: 250px;
         height: initial;
     }
-    .form-row label {
+    .form-input label {
         text-align: right;
         width: 120px;
         margin-top: 7px;
