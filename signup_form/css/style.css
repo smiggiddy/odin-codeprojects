@@ -28,13 +28,11 @@
     font-size: 14px;
   }
   
-  .form-input label {
+.form-input label {
     margin-bottom: 15px;
-  }
+}
 
-
-  @media only screen and (min-width: 700px) {
-
+@media only screen and (min-width: 700px) {
     .container {
         height: 95vh;
     }
@@ -62,4 +60,5 @@
         margin-top: 7px;
         padding-right: 20px;
     }
-  }
+}
+
