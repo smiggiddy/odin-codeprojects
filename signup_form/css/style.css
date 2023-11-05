@@ -14,7 +14,6 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    flex-wrap: wrap;
 }
 
 .form-input input[type='text'],
@@ -29,7 +28,7 @@
   }
   
 .form-input label {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 @media only screen and (min-width: 700px) {
@@ -42,11 +41,16 @@
     .form {
         width: 50vw;
     }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        width: 600px;
+        gap: 20px;
+    }
 
     .form-input {
-        flex-direction: row;
         align-items: flex-start; /* To avoid stretching */
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .form-input input[type='text'],
     .form-input input[type='password'],
@@ -55,10 +59,7 @@
         height: initial;
     }
     .form-input label {
-        text-align: right;
-        width: 120px;
-        margin-top: 7px;
-        padding-right: 20px;
+        width: 250px;
     }
 }
 
