@@ -98,10 +98,16 @@
     .logo img {
         height: 14vh;
     }
+
+    .logo h1 {
+        font-weight: 900;
+        font-size: 3rem;
+    }
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
 }
