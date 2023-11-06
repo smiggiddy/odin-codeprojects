@@ -1,3 +1,9 @@
+:root {
+    --main-bg: #C4DFDF;
+    --light-bg: #F8F6F4;
+}
+
+
 .container {
     justify-content: center;
     display: flex;
@@ -5,6 +11,7 @@
     align-content: center;
     height: 100vh;
     margin: 0;
+    background-color: var(--light-bg);
 }
 
 /* .sidebar {
