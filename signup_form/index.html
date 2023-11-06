@@ -5,18 +5,22 @@
     <title>Join Our Awesome Mailing list!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,900&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="logo logo-photo"></div>
-            <div class="logo logo-text"></div>
+            <div class="logo logo-text">
+               <img src="static/logo.png" alt="" srcset=""> 
+            </div>
         </div>
         <div class="form">
             <h1 class="call-to-action">Join our mailing list!</h1>
-            <form action="" method="post">
+            <form action="" method="#">
                 <div class="form-input">
                     <label for="name">NAME</label>
                     <input type="text" name="name" id="name" placeholder="Enter your name." required>
@@ -34,7 +38,7 @@
                     <input type="password" name="password_confirmation" id="password_confirmation" required
                         minlength="8">
                 </div>
-                <div class="form-input">
+                <div class="form-button">
                     <button type="submit">Sign Up</button>
                 </div>
             </form>
