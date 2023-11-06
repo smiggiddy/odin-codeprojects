@@ -3,10 +3,12 @@
     display: flex;
     align-items: center;
     align-content: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .form {
-    width: 50vw;
+    width: 60vw;
 }
 
 .form-input {
@@ -32,19 +34,18 @@
 }
 
 @media only screen and (min-width: 700px) {
-    .container {
-        height: 95vh;
-    }
     .sidebar {
         width: 50vw;
+        margin-right: 10px;
     }
     .form {
-        width: 50vw;
+        margin-left: 30px;
+        padding: 20px;
     }
     form {
         display: flex;
         flex-wrap: wrap;
-        width: 600px;
+        width: 700px;
         gap: 20px;
     }
 
@@ -55,11 +56,25 @@
     .form-input input[type='text'],
     .form-input input[type='password'],
     .form-input input[type='email'] {
-        width: 250px;
+        width: 290px;
         height: initial;
     }
     .form-input label {
-        width: 250px;
+        width: 290px;
+    }
+
+    /* Left side of the screen */
+
+    .sidebar {
+        background-image: url(../static/background.jpg);
+        background-position: center;
+        background-size: auto;
+        background-repeat: no-repeat;
+        height: 100%; 
     }
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
