@@ -75,6 +75,13 @@
     margin-bottom: 5px;
 }
 
+.form-button {
+    margin-top: 20px;
+}
+
+.form-button p {
+    margin-top: 25px;
+}
 
 .error {
     color: var(--error-color);
@@ -159,4 +166,25 @@ body {
 
 button {
     cursor: pointer;
+    padding: 0.7rem 4.5rem;
+    border: 0.2rem solid var(--text-color);
+    margin: 1;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--light-bg);
+    background-color: var(--text-color);
+    transition: all 0.15s;
+}
+
+button:hover {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 900;
 }
