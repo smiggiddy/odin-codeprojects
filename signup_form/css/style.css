@@ -2,6 +2,7 @@
     --main-bg: #C4DFDF;
     --light-bg: #F8F6F4;
     --text-color: rgb(22, 72, 99);
+    --error-color: #EF6262;
 }
 
 
@@ -73,6 +74,14 @@
 .form-input label {
     margin-bottom: 5px;
 }
+
+
+.error {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-left: 5px;
+}
+
 
 @media only screen and (min-width: 700px) {
     .container {
@@ -146,4 +155,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     color: var(--text-color);
+}
+
+button {
+    cursor: pointer;
 }
