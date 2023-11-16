@@ -70,7 +70,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(330px, 1fr));
-    gap: 5px;
+    row-gap: 15px;
+    column-gap: 15px;
     padding: 20px;
 }
 
@@ -80,6 +81,8 @@
     width: 300px;
     height: 300px;
     padding: 20px;
+    background-color: var(--light-bg);
+    border-radius: 5%;
 }
 
 .card h1 {
