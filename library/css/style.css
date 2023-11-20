@@ -1,5 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background-color: #000000; 
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+.navbar ul {
+    display: flex;
+    gap: 20px;
+}
+
+.book-cards {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    min-width: 200px;
+    min-height: 200px;
 }
