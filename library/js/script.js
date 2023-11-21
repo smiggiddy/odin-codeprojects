@@ -1,6 +1,15 @@
 const myLibrary = [];
+const submitButton = document.querySelector('#submit-btn');
+
 const booksDiv = document.querySelector('.book-cards');
-const defaultData = new Book('James Clear', 'Atomic Habits', true);
+const dialog = document.querySelector("dialog");
+const addBookButton = document.querySelector(".show-modal");
+const closeDialogButton = document.querySelector(".close-btn");
+
+
+
+const defaultData = new Book('Atomic Habits', 'James Clear', false);
+
 
 function Book(title, author, read) {
   this.title = title;
@@ -40,9 +49,8 @@ function displayBooks(books) {
   });
 }
 
-const button = document.querySelector('#btn');
 
-button.addEventListener('click', event => {
+submitButton.addEventListener('click', event => {
   const author = document.querySelector('#author').value;
   const title = document.querySelector('#title').value;
   const newBook = new Book(title, author, false);
@@ -50,7 +58,22 @@ button.addEventListener('click', event => {
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
   event.preventDefault();
-})
+});
+
+addBookButton.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+closeDialogButton.addEventListener('click', () => {
+  dialog.close();
+});
+
+// document.addEventListener('click', e => {
+//   if (!e.target.closest("dialog")) {
+//     dialog.showModal();
+//   }
+// });
+
 
 // default data
 myLibrary.push(defaultData)
