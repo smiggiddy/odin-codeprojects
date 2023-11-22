@@ -98,6 +98,8 @@ submitButton.addEventListener('click', event => {
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
   event.preventDefault();
+  dialog.close();
+
 });
 
 addBookButton.addEventListener('click', () => {

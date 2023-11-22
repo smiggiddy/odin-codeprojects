@@ -13,6 +13,11 @@ body, html {
 
 button {
     font-size: 1.3rem;
+    font-family: inherit;
+}
+
+dialog {
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .container {
@@ -32,9 +37,9 @@ button {
     align-items: center;
 }
 
-.navbar ul {
-    display: flex;
-    gap: 20px;
+.navbar .header {
+    font-size: 2.6rem;
+    font-weight: 900;
 }
 
 .content {
@@ -63,7 +68,7 @@ button {
 }
 
 .modal {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     min-height: 43vh;
     min-width: 20vw;
@@ -83,9 +88,13 @@ button {
 }
 
 .form-header {
-    margin-top: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.form-header h1 {
+    font-size: 1.7rem;
+    align-self: center;
 }
 
 .form-item {
