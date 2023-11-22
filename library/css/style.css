@@ -1,0 +1,161 @@
+:root {
+    --background-color: #DBDADD;
+    --card-color: #EFEEF0;
+    --btn-red-color: #e15252;
+    --btn-green-color: #7ed7a9;
+    --spacing-sm: 16px;
+    --spacing-md: 20px;
+}
+
+body, html {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+button {
+    font-size: 1.3rem;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+dialog {
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.navbar .header {
+    font-size: 2.6rem;
+    font-weight: 900;
+}
+
+.content {
+    min-width: 1200px;
+    margin-left: 30px;
+}
+
+.book-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+    gap: 10px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 300px;
+    min-height: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 20px;
+    margin: 20px;
+    background-color: var(--card-color);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card p {
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.card>.card-title {
+   font-weight: 700; 
+}
+
+.card>.card-author {
+    font-weight: 300;
+}
+
+.modal {
+    /* display: flex; */
+    flex-direction: column;
+    min-height: 43vh;
+    min-width: 20vw;
+    border: none;
+    padding: 20px 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form input {
+    min-height: 2.2rem;
+    font-size: 1.2rem;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-header h1 {
+    font-size: 1.7rem;
+    align-self: center;
+}
+
+.form-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.form-item input {
+    transform: scale(1.5);
+}
+
+.form-item label {
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+
+.close-btn {
+    height: 30px;
+    align-self: center;
+    padding: 4px;
+}
+
+.btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.red-btn-color {
+    background-color: var(--btn-red-color);
+
+}
+
+.green-btn-color {
+    background-color: var(--btn-green-color);
+}
