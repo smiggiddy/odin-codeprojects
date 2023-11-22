@@ -31,15 +31,43 @@
 
 .book-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    min-width: 200px;
-    min-height: 200px;
+    gap: 5px;
+    width: 300px;
+    min-height: 250px;
+    text-align: center;
 }
 
+.card p {
+    padding: 0;
+    margin: 0;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    min-width: 20vw;
+    border: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.close-btn {
+    height: 30px;
+    align-self: center;
+}

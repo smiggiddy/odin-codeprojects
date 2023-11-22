@@ -26,18 +26,21 @@
         </footer>
     </div>
         <dialog class="modal">
-            <main>
-                <div class="form">
-                    <form action="" >
-                        <input type="text" name="title" id="title">
-                        <input type="text" name="author" id="author">
-                        <button type="submit" id="submit-btn" class="btn">Submit</button>
-                    </form>
+                <div class="form-header">
+                    <h1 class="form-header">Add Book</h1>
                     <button class="btn close-btn">
                         <span class="material-symbols-outlined">close</span>                
                     </button>
                 </div>
-            </main>
+                <form action="" class="form">
+                    <input type="text" name="title" id="title">
+                    <input type="text" name="author" id="author">
+                    <div class="form-item">
+                        <label for="checkbox">Have you read the book?</label>
+                        <input type="checkbox" id="read-button">
+                    </div>
+                    <button type="submit" id="submit-btn" class="btn">Submit</button>
+                </form>
         </dialog>
     <script src="js/script.js"></script>
 </body>
