@@ -1,5 +1,8 @@
 :root {
-    --background-color: #000000; 
+    --background-color: #DBDADD;
+    --card-color: #EFEEF0;
+    --btn-red-color: #e15252;
+    --btn-green-color: #7ed7a9;
     --spacing-sm: 16px;
     --spacing-md: 20px;
 }
@@ -9,11 +12,16 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    background-color: var(--background-color);
 }
 
 button {
     font-size: 1.3rem;
     font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
 }
 
 dialog {
@@ -43,28 +51,47 @@ dialog {
 }
 
 .content {
-    min-height: 1000px;
-    min-width: 1000px;
+    min-width: 1200px;
+    margin-left: 30px;
 }
 
 .book-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+    gap: 10px;
 }
 
 .card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
+    gap: 20px;
     width: 300px;
     min-height: 250px;
     text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 20px;
+    margin: 20px;
+    background-color: var(--card-color);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .card p {
+    font-size: 1.5rem;
     padding: 0;
     margin: 0;
+}
+
+.card>.card-title {
+   font-weight: 700; 
+}
+
+.card>.card-author {
+    font-weight: 300;
 }
 
 .modal {
@@ -117,8 +144,18 @@ dialog {
 .close-btn {
     height: 30px;
     align-self: center;
+    padding: 4px;
 }
 
 .btn {
     padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.red-btn-color {
+    background-color: var(--btn-red-color);
+
+}
+
+.green-btn-color {
+    background-color: var(--btn-green-color);
 }

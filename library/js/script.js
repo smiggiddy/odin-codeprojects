@@ -46,8 +46,12 @@ function displayBooks(books) {
     const author = document.createElement('p');
     author.classList.add('card-author');
     const readBtn = document.createElement('button');
-    readBtn.classList.add('btn','read-btn');
-    readBtn.textContent = element.read ? "read" : "not read";
+    const readBtnFlag = element.read ? "read" : "not read";
+    const readBtnColor = element.read ? "green-btn-color" : "red-btn-color";
+    console.log(readBtnColor, element.read, readBtnFlag);
+    readBtn.classList.add('btn','read-btn',readBtnColor);
+     
+    readBtn.textContent = readBtnFlag;
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('btn', 'delete-btn')
     deleteBtn.textContent = 'delete book';
