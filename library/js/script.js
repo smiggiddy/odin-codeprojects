@@ -90,11 +90,13 @@ submitButton.addEventListener('click', event => {
   const title = document.querySelector('#title').value;
   const readBtn = document.querySelector('#read-button').checked;
 
+
   if (author === "" || title === "") {
     return
   }
-  // create book object
+  
   const newBook = new Book(title, author, readBtn);
+
 
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
