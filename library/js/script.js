@@ -48,7 +48,6 @@ function displayBooks(books) {
     const readBtn = document.createElement('button');
     const readBtnFlag = element.read ? "read" : "not read";
     const readBtnColor = element.read ? "green-btn-color" : "red-btn-color";
-    console.log(readBtnColor, element.read, readBtnFlag);
     readBtn.classList.add('btn','read-btn',readBtnColor);
      
     readBtn.textContent = readBtnFlag;
@@ -89,15 +88,13 @@ booksDiv.addEventListener('click', event => {
 submitButton.addEventListener('click', event => {
   const author = document.querySelector('#author').value;
   const title = document.querySelector('#title').value;
-  const readBtn = document.querySelector('#read-button').value;
-  const bookIsRead = readBtn === 'on' ? true : false;
+  const readBtn = document.querySelector('#read-button').checked;
 
   if (author === "" || title === "") {
     return
   }
-
   // create book object
-  const newBook = new Book(title, author, bookIsRead);
+  const newBook = new Book(title, author, readBtn);
 
   addBookToLibrary(newBook);
   displayBooks(myLibrary);
