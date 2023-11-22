@@ -88,6 +88,10 @@ submitButton.addEventListener('click', event => {
   const readBtn = document.querySelector('#read-button').value;
   const bookIsRead = readBtn === 'on' ? true : false;
 
+  if (author === "" || title === "") {
+    return
+  }
+
   // create book object
   const newBook = new Book(title, author, bookIsRead);
 

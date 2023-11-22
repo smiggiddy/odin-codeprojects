@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" 
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;0,900;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Anonymous Library</title>
 </head>
@@ -27,14 +30,16 @@
     </div>
         <dialog class="modal">
                 <div class="form-header">
-                    <h1 class="form-header">Add Book</h1>
-                    <button class="btn close-btn">
+                    <h1 class="form-header">Add New Book</h1>
+                    <button class="close-btn">
                         <span class="material-symbols-outlined">close</span>                
                     </button>
                 </div>
-                <form action="" class="form">
-                    <input type="text" name="title" id="title">
-                    <input type="text" name="author" id="author">
+                <form action="dialog" class="form">
+                    <input type="text" name="title" id="title" placeholder="Book title"
+                    required>
+                    <input type="text" name="author" id="author" placeholder="Author"
+                    required>
                     <div class="form-item">
                         <label for="checkbox">Have you read the book?</label>
                         <input type="checkbox" id="read-button">
