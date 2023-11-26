@@ -1,4 +1,12 @@
 const game = (function() {
+    // only needed for CLI game
+    const readline = require("readline");
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    
+
     let gameBoard = new Array(['', '', ''], ['', '', ''], ['', '', '']);
     
     const resetGameBoard = () => {
@@ -9,14 +17,20 @@ const game = (function() {
         })
     }
 
+
     const playGame = function(){
-        placeOnBoard(2, 'x');
-        printGameBoard();
-        // for (i=0; i<9; i++) {
+        rl.question('Where would you like the piece placed?', position => {
+            position = Number(position);
+            placeOnBoard(position, 'x');
+            rl.close();
+            printGameBoard();
+        })
+
+        // for (let i=0; i<9; i++) {
         //     printGameBoard();
-        // };
-        // evalGameOutcome(gameBoard);
-    };
+        //     // evalGameOutcome(gameBoard);
+        //     };
+        };
 
     const placeOnBoard = (position, marker) => {
         // places marker on the gameboard
@@ -49,6 +63,7 @@ const game = (function() {
                 gameBoard[2][2] = marker;
                 break;
             default:
+                console.log('Must enter a number 1 - 9');
                 break;
         }
     }
@@ -65,13 +80,13 @@ const game = (function() {
         let diagArray = [
             [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
             [gameBoard[0,2], gameBoard[1][1], gameBoard[2][0]]
-        ]
+        ];
         
         let checkGameBoard = [gameBoard, diagArray, vertArray];
         for (i=0; i<3; i++) {
             let outcome = _evalGameOutcome(checkGameBoard[i]);
             if (outcome) console.log(outcome[0]);
-        }
+        };
     };
 
     const _evalGameOutcome = arr => {
@@ -89,8 +104,9 @@ const game = (function() {
         return outcome;
     };
 
+
     return { playGame, printGameBoard };
-})();
+    })();
 
 game.playGame();
 
