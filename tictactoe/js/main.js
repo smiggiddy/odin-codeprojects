@@ -1,4 +1,7 @@
 const game = (function() {
+    //settings
+    
+
     // only needed for CLI game
     const readline = require("readline");
     const rl = readline.createInterface({
@@ -16,20 +19,40 @@ const game = (function() {
             item[2] = '';
         })
     }
-
-
-    const playGame = function(){
-        rl.question('Where would you like the piece placed?', position => {
+    const askQuestion = () => { 
+            return new Promise( resolve => {
+            rl.question('Where would you like the piece placed?', position => {
             position = Number(position);
-            placeOnBoard(position, 'x');
-            rl.close();
-            printGameBoard();
-        })
+            resolve(position);
+            });
+        });
+    };
 
-        // for (let i=0; i<9; i++) {
-        //     printGameBoard();
-        //     // evalGameOutcome(gameBoard);
-        //     };
+    const handleAskQuestion = (position, piece) => {
+            placeOnBoard(position, piece);
+            printGameBoard();
+    }
+            
+
+
+    const playGame = async function(){
+        for(let i = 0; i<9; i++) {
+            const move = await askQuestion();
+            if (i % 2 === 0) {
+            
+                handleAskQuestion(move, 'o');
+            } else {
+                handleAskQuestion(move, 'x');
+            }
+
+            if (i > 1) {
+                let results = evalGameOutcome(gameBoard);
+                console.log(results + ' game over');
+                if (results) return
+            }
+            
+        }
+        rl.close();
         };
 
     const placeOnBoard = (position, marker) => {
@@ -71,7 +94,6 @@ const game = (function() {
     const printGameBoard = () => console.log(gameBoard[0] + "\n" + gameBoard[1] + "\n" + gameBoard[2]);
 
     const evalGameOutcome = gameBoard => {
-
         // create a new array of the vertical indexes in the game board
         let vertArray = [];
         gameBoard.forEach((_, index) => vertArray.push(gameBoard.map(e => e[index])));
@@ -85,8 +107,9 @@ const game = (function() {
         let checkGameBoard = [gameBoard, diagArray, vertArray];
         for (i=0; i<3; i++) {
             let outcome = _evalGameOutcome(checkGameBoard[i]);
-            if (outcome) console.log(outcome[0]);
+            if (outcome) return outcome[0];
         };
+        return false;
     };
 
     const _evalGameOutcome = arr => {
@@ -108,11 +131,15 @@ const game = (function() {
     return { playGame, printGameBoard };
     })();
 
+const playerInfo = (function(){
+    class Player {
+        constructor(name, piece) {
+            this.piece = piece;
+            this.name = name;
+        }
+    }
+})();
+
+
 game.playGame();
 
-
-    // let gameBoard = [
-    //     ['x', '', 'o'],
-    //     ['', '', 'o'],
-    //     ['x', 'o', 'o']
-    // ]
