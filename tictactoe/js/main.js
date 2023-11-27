@@ -1,7 +1,4 @@
 const game = (function() {
-    //settings
-    
-
     // only needed for CLI game
     const readline = require("readline");
     const rl = readline.createInterface({
@@ -32,20 +29,17 @@ const game = (function() {
             placeOnBoard(position, piece);
             printGameBoard();
     }
-            
-
 
     const playGame = async function(){
         for(let i = 0; i<9; i++) {
             const move = await askQuestion();
             if (i % 2 === 0) {
-            
-                handleAskQuestion(move, 'o');
-            } else {
                 handleAskQuestion(move, 'x');
+            } else {
+                handleAskQuestion(move, 'o');
             }
 
-            if (i > 1) {
+            if (i > 3) {
                 let results = evalGameOutcome(gameBoard);
                 console.log(results + ' game over');
                 if (results) return
