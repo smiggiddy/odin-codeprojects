@@ -4,7 +4,7 @@ const tictactoeBoard = (function() {
 
     const getGameBoard = () => gameBoard;
     const printGameBoard = () => console.log(gameBoard[0] + "\n" + gameBoard[1] + "\n" + gameBoard[2]);
-    
+
     const resetGameBoard = () => {
         gameBoard.forEach(item => {
             item[0] = '';
@@ -32,7 +32,7 @@ const tictactoeBoard = (function() {
             case 8:
                 return isEmpty(gameBoard[2][1]);
             case 9:
-                return isEmpty(gameBoard[2][2]); 
+                return isEmpty(gameBoard[2][2]);
             default:
                 console.log('Must enter a number 1 - 9');
                 break;
@@ -79,7 +79,7 @@ const tictactoeBoard = (function() {
         }
     }
 
-    return { 
+    return {
         resetGameBoard,
         printGameBoard,
         getGameBoard,
@@ -87,9 +87,9 @@ const tictactoeBoard = (function() {
         posititionAvailable
     };
 })();
-    
 
-const playerInfo = (function(){
+
+const playerInfo = (function() {
     class Player {
         constructor(name, piece) {
             this.piece = piece;
@@ -101,7 +101,7 @@ const playerInfo = (function(){
         return new Player(name, piece);
     };
 
-    return { player}
+    return { player }
 })();
 
 
@@ -113,16 +113,12 @@ function block() {
     };
 
     const getValue = () => value;
-    
+
     return {
         addToken,
         getValue
     };
 };
-
-
-
-
 
 const gameController = (() => {
     // Controls the overall flow of the game
@@ -133,21 +129,24 @@ const gameController = (() => {
 
     let xTurn = true; // True = X's turn, False = O's turn
     let round = 0; // 9 Total Rounds for Tic Tac Toe
-    
+
 
     const switchPlayerTurn = () => {
         xTurn = !xTurn;
     }
-    
+
     const playRound = position => {
         let marker = new block()
         let positionOpen = tictactoeBoard.posititionAvailable(position);
         if (round < 10 && positionOpen) {
             let player = xTurn ? players[0] : players[1];
             marker.addToken(player);
-            tictactoeBoard.placeOnBoard(position, marker ); // position on board 
+            tictactoeBoard.placeOnBoard(position, marker); // position on board 
             tictactoeBoard.printGameBoard();
-            switchPlayerTurn();
+            let gameOver = evalGameOutcome(tictactoeBoard);
+            if (!gameOver) {
+                switchPlayerTurn();
+            }
         } else {
             return
         }
@@ -162,20 +161,22 @@ const gameController = (() => {
         // create an array of diagnal pieces
         let diagArray = [
             [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
-            [gameBoard[0,2], gameBoard[1][1], gameBoard[2][0]]
+            [gameBoard[0, 2], gameBoard[1][1], gameBoard[2][0]]
         ];
-        
+
         let checkGameBoard = [gameBoard, diagArray, vertArray];
-        for (i=0; i<3; i++) {
+        for (i = 0; i < 3; i++) {
             let outcome = _evalGameOutcome(checkGameBoard[i]);
-            if (outcome) return outcome[0];
+            if (outcome) {
+                return true;
+            };
         };
         return false;
     };
 
     const _evalGameOutcome = arr => {
         // Checks if array values are equal to determine winner
-        let isWinner = checkArr => checkArr.reduce(function(a,b) { return a === b ? a : false; });
+        let isWinner = checkArr => checkArr.reduce(function(a, b) { return a === b ? a : false; });
 
         const outcome = arr.find(element => {
             let result = isWinner(element);
@@ -196,8 +197,6 @@ gameController.playRound(4);
 gameController.playRound(4);
 gameController.playRound(5);
 
-// tictactoeBoard.placeOnBoard(1, block)
-// tictactoeBoard.printGameBoard();
 
 
 // const inputController = (function(){
@@ -229,58 +228,58 @@ gameController.playRound(5);
 
 // tictactoeBoard.playGame();
 
-    // const playGame = async function(){
-    //     for(let i = 0; i<9; i++) {
-    //         const move = await askQuestion();
-    //         if (i % 2 === 0) {
-    //             handleAskQuestion(move, 'x');
-    //         } else {
-    //             handleAskQuestion(move, 'o');
-    //         }
-    //
-    //         if (i > 3) {
-    //             let results = evalGameOutcome(gameBoard);
-    //             console.log(results + ' game over');
-    //             if (results) return
-    //
-    //         }
-    //         
-    //     }
-    //     rl.close();
-    //     };
-    //
+// const playGame = async function(){
+//     for(let i = 0; i<9; i++) {
+//         const move = await askQuestion();
+//         if (i % 2 === 0) {
+//             handleAskQuestion(move, 'x');
+//         } else {
+//             handleAskQuestion(move, 'o');
+//         }
+//
+//         if (i > 3) {
+//             let results = evalGameOutcome(gameBoard);
+//             console.log(results + ' game over');
+//             if (results) return
+//
+//         }
+//
+//     }
+//     rl.close();
+//     };
 //
 //
-    // const evalGameOutcome = gameBoard => {
-    //     // create a new array of the vertical indexes in the game board
-    //     let vertArray = [];
-    //     gameBoard.forEach((_, index) => vertArray.push(gameBoard.map(e => e[index])));
-    //
-    //     // create an array of diagnal pieces
-    //     let diagArray = [
-    //         [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
-    //         [gameBoard[0,2], gameBoard[1][1], gameBoard[2][0]]
-    //     ];
-    //     
-    //     let checkGameBoard = [gameBoard, diagArray, vertArray];
-    //     for (i=0; i<3; i++) {
-    //         let outcome = _evalGameOutcome(checkGameBoard[i]);
-    //         if (outcome) return outcome[0];
-    //     };
-    //     return false;
-    // };
-    //
-    // const _evalGameOutcome = arr => {
-    //     // Checks if array values are equal to determine winner
-    //     let isWinner = checkArr => checkArr.reduce(function(a,b) { return a === b ? a : false; });
-    //
-    //     const outcome = arr.find(element => {
-    //         let result = isWinner(element);
-    //         if (result != false) {
-    //             return result;
-    //         } else {
-    //             return false;
-    //         }
-    //     });
-    //     return outcome;
-    // };
+//
+// const evalGameOutcome = gameBoard => {
+//     // create a new array of the vertical indexes in the game board
+//     let vertArray = [];
+//     gameBoard.forEach((_, index) => vertArray.push(gameBoard.map(e => e[index])));
+//
+//     // create an array of diagnal pieces
+//     let diagArray = [
+//         [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
+//         [gameBoard[0,2], gameBoard[1][1], gameBoard[2][0]]
+//     ];
+//
+//     let checkGameBoard = [gameBoard, diagArray, vertArray];
+//     for (i=0; i<3; i++) {
+//         let outcome = _evalGameOutcome(checkGameBoard[i]);
+//         if (outcome) return outcome[0];
+//     };
+//     return false;
+// };
+//
+// const _evalGameOutcome = arr => {
+//     // Checks if array values are equal to determine winner
+//     let isWinner = checkArr => checkArr.reduce(function(a,b) { return a === b ? a : false; });
+//
+//     const outcome = arr.find(element => {
+//         let result = isWinner(element);
+//         if (result != false) {
+//             return result;
+//         } else {
+//             return false;
+//         }
+//     });
+//     return outcome;
+// };
