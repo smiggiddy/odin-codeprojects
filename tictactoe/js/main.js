@@ -3,7 +3,7 @@ const tictactoeBoard = (function() {
     let gameBoard = new Array(["", "", ""], ["", "", ""], ["", "", ""]);
 
     const getGameBoard = () => gameBoard;
-    const printGameBoard = () => console.log(gameBoard[0] + "\n" + gameBoard[1] + "\n" + gameBoard[2]);
+    // const printGameBoard = () => console.log(gameBoard[0] + "\n" + gameBoard[1] + "\n" + gameBoard[2]);
 
     const resetGameBoard = () => {
         gameBoard.forEach(item => {
@@ -81,7 +81,7 @@ const tictactoeBoard = (function() {
 
     return {
         resetGameBoard,
-        printGameBoard,
+        // printGameBoard,
         getGameBoard,
         placeOnBoard,
         posititionAvailable
@@ -127,9 +127,17 @@ const gameController = (() => {
         playerInfo.player('Player 2', 'O')
     ]
 
+    let gameOver;
     let xTurn = true; // True = X's turn, False = O's turn
     let round = 0; // 9 Total Rounds for Tic Tac Toe
 
+    const resetGame = () => {
+        round = 0;
+        xTurn = true;
+        tictactoeBoard.resetGameBoard();
+    }
+
+    const gameStatus = () => gameOver;
 
     const switchPlayerTurn = () => {
         xTurn = !xTurn;
@@ -138,15 +146,22 @@ const gameController = (() => {
     const playRound = position => {
         let marker = new block()
         let positionOpen = tictactoeBoard.posititionAvailable(position);
+
         if (round < 10 && positionOpen) {
+
             let player = xTurn ? players[0] : players[1];
             marker.addToken(player);
             tictactoeBoard.placeOnBoard(position, marker); // position on board 
-            tictactoeBoard.printGameBoard();
-            let gameOver = evalGameOutcome(tictactoeBoard.getGameBoard());
-            if (!gameOver) {
-                switchPlayerTurn();
-            }
+
+            // Check for Winner
+            gameOver = evalGameOutcome(tictactoeBoard.getGameBoard());
+
+            if (gameOver) {
+                console.log(`${player.name}: ${player.piece} won the game`)
+                return
+            } 
+            switchPlayerTurn();
+
         } else {
             return
         }
@@ -181,7 +196,7 @@ const gameController = (() => {
         const outcome = arr.find(element => {
             let result = isWinner(element);
             if (result != false) {
-                return result;
+                return true;
             } else {
                 return false;
             }
@@ -189,27 +204,30 @@ const gameController = (() => {
         return outcome;
     };
 
-    return { playRound }
+    return { playRound, resetGame, gameStatus }
 })();
 
 
 const screenController = (() => {
+    const contentDiv = document.querySelector('.content')
     const gameDiv = document.querySelector('.game-area');
+    const gameStatus = document.querySelector('.game-status')
     const game = tictactoeBoard.getGameBoard();
-    gameController.playRound(2);
-    gameController.playRound(1);
-    gameController.playRound(5);
-    gameController.playRound(3);
-    gameController.playRound(8);
-     
+    const resetButton = document.createElement('button');
+
+    resetButton.classList.add(['btn']);
+    resetButton.textContent = 'New Game';
+    contentDiv.appendChild(resetButton);
+
     const updateScreen = () => {
-        console.log(typeof game, game);
         displayBoard();
-        console.log('Deez nuts');
     }
 
     const displayBoard = () => {
-        let count = 0;
+        // Check if someone won the game
+
+        let count = 0; // This is for the data blocks
+        gameDiv.querySelectorAll('.block').forEach(e => e.remove());
         game.forEach((e) => {
             e.forEach((element) => {
             count += 1;
@@ -217,13 +235,34 @@ const screenController = (() => {
             block.classList.add('block');
             block.setAttribute('data-block', count);
             block.textContent = element;
-
+            block.addEventListener('click', clickHandlerBoard);
             gameDiv.appendChild(block);
-            })
-        })
+            });
+        });
     }
 
 
+
+    function clickHandlerBoard(e) {
+            const selectedBlock = e.target.dataset.block;
+            const empty = e.target.textContent;
+            const gameStatus = gameController.gameStatus();
+
+            if (!selectedBlock || empty !== "" || gameStatus) return;
+
+            gameController.playRound(Number(selectedBlock));
+            updateScreen();
+    };
+
+    function clickResetButton() {
+        gameController.resetGame();
+        updateScreen();
+    }
+
+    resetButton.addEventListener('click', clickResetButton);
+
+
+    // Initial Load
     updateScreen();
 })();
 

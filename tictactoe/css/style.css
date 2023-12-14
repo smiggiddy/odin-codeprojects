@@ -25,8 +25,17 @@ header h1 {
     display: grid;
     grid-area: 1 / 1 / 4 / 4;
     gap: 15px;
-    grid-template-rows: repeat(3, 50px);
-    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 150px);
+    grid-template-columns: repeat(3, 150px);
     justify-items: center;
     align-items: center;
 }
+
+.block {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
