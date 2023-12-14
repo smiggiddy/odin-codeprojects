@@ -34,7 +34,7 @@ const tictactoeBoard = (function() {
             case 9:
                 return isEmpty(gameBoard[2][2]);
             default:
-                console.log('Must enter a number 1 - 9');
+                Alert('Must enter a number 1 - 9');
                 break;
         }
     }
@@ -74,7 +74,6 @@ const tictactoeBoard = (function() {
                 gameBoard[2][2] = marker;
                 break;
             default:
-                console.log('Must enter a number 1 - 9');
                 break;
         }
     }
@@ -134,10 +133,12 @@ const gameController = (() => {
     const resetGame = () => {
         round = 0;
         xTurn = true;
+        gameOver = false;
         tictactoeBoard.resetGameBoard();
     }
 
     const gameStatus = () => gameOver;
+    const gameRound = () => round;
 
     const switchPlayerTurn = () => {
         xTurn = !xTurn;
@@ -157,7 +158,7 @@ const gameController = (() => {
             gameOver = evalGameOutcome(tictactoeBoard.getGameBoard());
 
             if (gameOver) {
-                console.log(`${player.name}: ${player.piece} won the game`)
+                console.log(`${player.name}: ${player.piece} won!`)
                 return
             } 
             switchPlayerTurn();
@@ -204,7 +205,7 @@ const gameController = (() => {
         return outcome;
     };
 
-    return { playRound, resetGame, gameStatus }
+    return { playRound, resetGame, gameStatus, gameRound }
 })();
 
 
@@ -220,8 +221,28 @@ const screenController = (() => {
     contentDiv.appendChild(resetButton);
 
     const updateScreen = () => {
+        status()
         displayBoard();
     }
+
+    const status = () => {
+        let pTags = gameStatus.querySelectorAll('p');
+        if (pTags) pTags.forEach(e => e.remove());
+
+        let message = document.createElement('p');
+        let gameOn = gameController.gameStatus() ? "Play again?" : "";
+        let round = gameController.gameRound();
+        
+        if (round <= 9 && gameOn) {
+            message.textContent = gameOn;
+        } else if (round >= 9 && !gameOn) {
+            message.textContent = "Draw, play again?"; 
+        }
+
+        gameStatus.appendChild(message);
+
+    }
+
 
     const displayBoard = () => {
         // Check if someone won the game
@@ -256,6 +277,7 @@ const screenController = (() => {
 
     function clickResetButton() {
         gameController.resetGame();
+        status();
         updateScreen();
     }
 
@@ -267,90 +289,3 @@ const screenController = (() => {
 })();
 
 
-
-
-
-// const inputController = (function(){
-//     // only needed for CLI game
-//     const readline = require("readline");
-//     const rl = readline.createInterface({
-//         input: process.stdin,
-//         output: process.stdout
-//     });
-//
-//     const askQuestion = () => { 
-//             return new Promise( resolve => {
-//             rl.question('Where would you like the piece placed?', position => {
-//             position = Number(position);
-//             resolve(position);
-//             });
-//         });
-//     };
-//
-//     const handleAskQuestion = (position, piece) => {
-//             placeOnBoard(position, piece);
-//             printGameBoard();
-//     }
-//
-//     return {
-//         askQuestion
-//     }
-// })();
-
-// tictactoeBoard.playGame();
-
-// const playGame = async function(){
-//     for(let i = 0; i<9; i++) {
-//         const move = await askQuestion();
-//         if (i % 2 === 0) {
-//             handleAskQuestion(move, 'x');
-//         } else {
-//             handleAskQuestion(move, 'o');
-//         }
-//
-//         if (i > 3) {
-//             let results = evalGameOutcome(gameBoard);
-//             console.log(results + ' game over');
-//             if (results) return
-//
-//         }
-//
-//     }
-//     rl.close();
-//     };
-//
-//
-//
-// const evalGameOutcome = gameBoard => {
-//     // create a new array of the vertical indexes in the game board
-//     let vertArray = [];
-//     gameBoard.forEach((_, index) => vertArray.push(gameBoard.map(e => e[index])));
-//
-//     // create an array of diagnal pieces
-//     let diagArray = [
-//         [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
-//         [gameBoard[0,2], gameBoard[1][1], gameBoard[2][0]]
-//     ];
-//
-//     let checkGameBoard = [gameBoard, diagArray, vertArray];
-//     for (i=0; i<3; i++) {
-//         let outcome = _evalGameOutcome(checkGameBoard[i]);
-//         if (outcome) return outcome[0];
-//     };
-//     return false;
-// };
-//
-// const _evalGameOutcome = arr => {
-//     // Checks if array values are equal to determine winner
-//     let isWinner = checkArr => checkArr.reduce(function(a,b) { return a === b ? a : false; });
-//
-//     const outcome = arr.find(element => {
-//         let result = isWinner(element);
-//         if (result != false) {
-//             return result;
-//         } else {
-//             return false;
-//         }
-//     });
-//     return outcome;
-// };
