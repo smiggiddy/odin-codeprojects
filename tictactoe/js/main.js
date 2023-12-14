@@ -143,7 +143,7 @@ const gameController = (() => {
             marker.addToken(player);
             tictactoeBoard.placeOnBoard(position, marker); // position on board 
             tictactoeBoard.printGameBoard();
-            let gameOver = evalGameOutcome(tictactoeBoard);
+            let gameOver = evalGameOutcome(tictactoeBoard.getGameBoard());
             if (!gameOver) {
                 switchPlayerTurn();
             }
@@ -192,10 +192,42 @@ const gameController = (() => {
     return { playRound }
 })();
 
-gameController.playRound(2);
-gameController.playRound(4);
-gameController.playRound(4);
-gameController.playRound(5);
+
+const screenController = (() => {
+    const gameDiv = document.querySelector('.game-area');
+    const game = tictactoeBoard.getGameBoard();
+    gameController.playRound(2);
+    gameController.playRound(1);
+    gameController.playRound(5);
+    gameController.playRound(3);
+    gameController.playRound(8);
+     
+    const updateScreen = () => {
+        console.log(typeof game, game);
+        displayBoard();
+        console.log('Deez nuts');
+    }
+
+    const displayBoard = () => {
+        let count = 0;
+        game.forEach((e) => {
+            e.forEach((element) => {
+            count += 1;
+            const block = document.createElement('div');
+            block.classList.add('block');
+            block.setAttribute('data-block', count);
+            block.textContent = element;
+
+            gameDiv.appendChild(block);
+            })
+        })
+    }
+
+
+    updateScreen();
+})();
+
+
 
 
 
