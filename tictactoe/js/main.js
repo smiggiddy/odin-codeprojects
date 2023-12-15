@@ -180,7 +180,7 @@ const gameController = (() => {
             [gameBoard[0, 2], gameBoard[1][1], gameBoard[2][0]]
         ];
 
-        let checkGameBoard = [gameBoard, diagArray, vertArray];
+        let checkGameBoard = [gameBoard, diagArray[0],diagArray[1], vertArray];
         for (i = 0; i < 3; i++) {
             let outcome = _evalGameOutcome(checkGameBoard[i]);
             if (outcome) {
