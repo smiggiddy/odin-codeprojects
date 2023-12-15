@@ -177,11 +177,11 @@ const gameController = (() => {
         // create an array of diagnal pieces
         let diagArray = [
             [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]],
-            [gameBoard[0, 2], gameBoard[1][1], gameBoard[2][0]]
+            [gameBoard[0][2], gameBoard[1][1], gameBoard[2][0]]
         ];
 
-        let checkGameBoard = [gameBoard, diagArray[0],diagArray[1], vertArray];
-        for (i = 0; i < 3; i++) {
+        let checkGameBoard = [gameBoard, vertArray, [diagArray[0]], [diagArray[1]]];
+        for (i = 0; i < 4; i++) {
             let outcome = _evalGameOutcome(checkGameBoard[i]);
             if (outcome) {
                 return true;
