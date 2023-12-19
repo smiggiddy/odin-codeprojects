@@ -13,7 +13,7 @@
 
 .navbar {
     display: grid;
-    grid-template-columns: 150px 150px 150px;
+    grid-template-columns: repeat(3, 100px);
     gap: 15px;
 }
 

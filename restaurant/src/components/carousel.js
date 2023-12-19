@@ -2,6 +2,31 @@ class Carousel {
     constructor(items) {
         this.items = items;
     };
+    
+    carouselDiv = document.createElement('div');
+    createComponent() {
+        this.carouselDiv.classList.add(['carousel']);
+
+        this.items.forEach(element => {
+            let div = document.createElement('div');
+            div.classList.add(['carousel-item']);
+
+            let heading = document.createElement('h1');
+            let desc = document.createElement('p');
+            let link = document.createElement('a');
+
+            heading.textContent = element.heading;
+            desc.textContent = element.desc;
+            link.textContent = element.link;
+
+            div.appendChild(heading);
+            div.appendChild(desc);
+            div.appendChild(link);
+
+            this.carouselDiv.appendChild(div);
+        });
+        return this.carouselDiv;
+    };
 };
 
 
@@ -41,4 +66,9 @@ let carouselItems = [
     }
 ]
 
-carouselItems.forEach(e => new Items(e));
+let items = carouselItems.map(e => new Items(e.heading, e.desc, e.link));
+let carousel = new Carousel(items);
+
+export { carousel };
+
+

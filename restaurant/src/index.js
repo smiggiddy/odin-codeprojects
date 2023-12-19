@@ -1,11 +1,16 @@
-import { menuBar } from "./menu";
+import { carousel } from "./components/carousel"
+import { menuBar as navbar } from "./components/navbar";
 import './style.css'
 
-function navbar(){
-    const element = document.createElement('div');
-    let menu = new menuBar();
+function nav(){
+    const element = document.createElement('header');
+    const brandName = document.createElement('h1');
+    let menu = new navbar();
 
-    element.classList.add(['container']);
+    brandName.style.textAlign = 'center';
+    brandName.textContent = 'This Wondrous Coffee';
+    
+    element.appendChild(brandName);
     element.appendChild(menu);
    
     return element;
@@ -20,5 +25,6 @@ function content(data) {
     return content;
 
 }
-
-document.body.appendChild(navbar());
+let carouselComponent = carousel.createComponent();
+document.body.appendChild(nav());
+document.body.appendChild(carouselComponent);
