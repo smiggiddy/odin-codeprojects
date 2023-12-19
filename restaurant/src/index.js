@@ -1,5 +1,7 @@
+import { contactComponent } from "./components/contact";
 import { carousel } from "./components/carousel"
 import { menuBar as navbar } from "./components/navbar";
+import { menuComponent } from "./components/menu";
 import './style.css'
 
 function nav(){
@@ -28,3 +30,5 @@ function content(data) {
 let carouselComponent = carousel.createComponent();
 document.body.appendChild(nav());
 document.body.appendChild(carouselComponent);
+document.body.appendChild(menuComponent());
+document.body.appendChild(contactComponent());
