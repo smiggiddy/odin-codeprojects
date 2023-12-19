@@ -4,11 +4,24 @@ import { menuBar as navbar } from "./components/navbar";
 import { menuComponent } from "./components/menu";
 import './style.css'
 
+let _carousel = carousel.createComponent();
+
+function website() {
+
+    // Navbar
+    document.body.appendChild(nav());
+
+    loadPage();
+
+}
+
 function nav(){
     const element = document.createElement('header');
     const brandName = document.createElement('h1');
-    let menu = new navbar();
 
+    let menu = new navbar();
+    menu.addEventListener('click', e => loadPage(e.target.outerText));
+    
     brandName.style.textAlign = 'center';
     brandName.textContent = 'This Wondrous Coffee';
     
@@ -16,19 +29,43 @@ function nav(){
     element.appendChild(menu);
    
     return element;
+};
+
+function loadPage(page='home') {
+    let home = _carousel;
+    let menu = menuComponent();
+    let contact = contactComponent();
+    let contentData;
+
+    switch(page){
+        case 'menu':
+            contentData = content(menu);
+            break;
+        case 'contact':
+            contentData = content(contact);
+            break;
+        default:
+            contentData = content(home);
+            break;
+        
+    }        
+    console.log(contentData);
+    document.body.appendChild(contentData);
 }
 
 function content(data) {
-    const content = document.createElement('div');
-    content.classList.add('content');
+    const old = document.querySelector('.content');
+    if (old) {
+        console.log(old);
+        old.textContent = '';
+        document.body.removeChild(old);
+    }
+    const _content = document.createElement('div');
+    _content.classList.add('content');
+    _content.appendChild(data);
     
-    console.log(data);
+    return _content;
 
-    return content;
+};
 
-}
-let carouselComponent = carousel.createComponent();
-document.body.appendChild(nav());
-document.body.appendChild(carouselComponent);
-document.body.appendChild(menuComponent());
-document.body.appendChild(contactComponent());
+website();
