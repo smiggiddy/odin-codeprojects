@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.navbar {
+    display: grid;
+    grid-template-columns: 150px 150px 150px;
+    gap: 15px;
+}
+
+.navbar li {
+    list-style-type: none;
+}
