@@ -8,6 +8,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-size: var(--font-size);
+    background: url('./background.jpg');
+    background-size: cover;
 }
 
 header {
