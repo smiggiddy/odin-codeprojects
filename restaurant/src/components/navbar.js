@@ -1,8 +1,8 @@
 function menuBar() {
     const items = [
-        "home",
-        "menu",
-        "contact"
+        'HOME',
+        'MENU',
+        'CONTACT'
     ];
 
     const navbar = document.createElement('div');

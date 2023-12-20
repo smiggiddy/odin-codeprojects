@@ -37,7 +37,7 @@ function loadPage(page='home') {
     let contact = contactComponent();
     let contentData;
 
-    switch(page){
+    switch(page.toLowerCase()){
         case 'menu':
             contentData = content(menu);
             break;
@@ -49,14 +49,12 @@ function loadPage(page='home') {
             break;
         
     }        
-    console.log(contentData);
     document.body.appendChild(contentData);
 }
 
 function content(data) {
     const old = document.querySelector('.content');
     if (old) {
-        console.log(old);
         old.textContent = '';
         document.body.removeChild(old);
     }

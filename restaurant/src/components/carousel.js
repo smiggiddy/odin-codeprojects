@@ -57,20 +57,20 @@ class Items {
 
 let carouselItems = [
     {
-        "heading": "Specialty Baked Goods",
+        "heading": "Specialty Baked Goods and coffee",
         "desc": "Exclusively delicious baked goods, homemade and all that",
         "link": "Order Now!"
     },
-    {
-        "heading": "Subscribe and Save today!",
-        "desc": "We offer flexible subscription plans to meet your needs",
-        "link": "Get started"
-    },
-    {
-        "heading": "Explore our blog",
-        "desc": "This Wondrous Life teaches you how to dream, inspire, and embrace life",
-        "link": "Embrace this"
-    }
+    // {
+    //     "heading": "Subscribe and Save today!",
+    //     "desc": "We offer flexible subscription plans to meet your needs",
+    //     "link": "Get started"
+    // },
+    // {
+    //     "heading": "Explore our blog",
+    //     "desc": "This Wondrous Life teaches you how to dream, inspire, and embrace life",
+    //     "link": "Embrace this"
+    // }
 ]
 
 let items = carouselItems.map(e => new Items(e.heading, e.desc, e.link));
