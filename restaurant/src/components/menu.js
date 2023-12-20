@@ -2,42 +2,45 @@ const menuItems = {
     "drinks": [
         {
             "item": "latte",
-            "price": 2.99,
             "desc": "A nice homemade latte from the Breville."
         },
         {
             "item": "nespresso",
-            "price": 2.49,
             "desc": "a nespresso pod coffee"
         },
         {
             "item": "tea",
-            "price": 2,
             "desc": "a steeped tea for ninjas"
         }
     ],
     "snacks": [
         {
             "item": "cookies",
-            "price": 3.99,
             "desc": "homemade chocolate chip cookies or another delicious treat"
         },
         {
             "item": "pumpkin cake",
-            "price": 9.99,
             "desc": "homemade pumpkin cake, leaving you wanting more"
+        },
+        {
+            "item": "cinnamon rolls",
+            "desc": "delicious mouth watering cinnamon rolls"
         }
     ]
 }
 
 function menuComponent(){
     const div = document.createElement('div');
+    const drinksDiv = document.createElement('div');
+    const snacksDiv = document.createElement('div');
     div.classList.add(['cards']);
+    drinksDiv.classList.add('drinks-container');
+    snacksDiv.classList.add('snacks-container');
     
     const drinkHeader = document.createElement('h2');
     const snackHeader = document.createElement('h2');
-    drinkHeader.classList.add('header');
-    snackHeader.classList.add('header');
+    drinkHeader.classList.add(['header', 'drink-header']);
+    snackHeader.classList.add(['header', 'snack-header']);
 
     drinkHeader.textContent = 'Drinks';
     snackHeader.textContent = 'Snacks';
@@ -45,10 +48,13 @@ function menuComponent(){
     let drinks = card(menuItems['drinks']);
     let snacks = card(menuItems['snacks']);
 
-    div.appendChild(drinkHeader);
-    drinks.forEach(e => div.appendChild(e));
-    div.appendChild(snackHeader);
-    snacks.forEach(e => div.appendChild(e));
+    drinksDiv.appendChild(drinkHeader);
+    drinks.forEach(e => drinksDiv.appendChild(e));
+    snacksDiv.appendChild(snackHeader);
+    snacks.forEach(e => snacksDiv.appendChild(e));
+
+    div.appendChild(drinksDiv);
+    div.appendChild(snacksDiv);
     
     return div;
 
@@ -59,15 +65,12 @@ function card(item) {
         let div = document.createElement('div');
         div.classList.add(['card']);
 
-        let item = document.createElement('p');
-        let price = document.createElement('p');
+        let item = document.createElement('h3');
         let desc = document.createElement('p');
         item.textContent = element.item;
-        price.textContent = element.price;
         desc.textContent = element.desc;
 
         div.appendChild(item);
-        div.appendChild(price);
         div.appendChild(desc);
         return div;
     });

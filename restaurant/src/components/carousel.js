@@ -5,15 +5,21 @@ class Carousel {
     
     carouselDiv = document.createElement('div');
     createComponent() {
+        let count = 0;
         this.carouselDiv.classList.add(['carousel']);
-
+    
         this.items.forEach(element => {
             let div = document.createElement('div');
-            div.classList.add(['carousel-item']);
+
+            let classList = count === 0 ? ['carousel-item', 'slide-visible'] : ['carousel-item', 'slide-hidden'];
+            div.classList.add(...classList);
+
 
             let heading = document.createElement('h1');
             let desc = document.createElement('p');
             let link = document.createElement('a');
+            link.href = '#';
+            link.type = 'button';
 
             heading.textContent = element.heading;
             desc.textContent = element.desc;
@@ -24,6 +30,7 @@ class Carousel {
             div.appendChild(link);
 
             this.carouselDiv.appendChild(div);
+            count += 1;
         });
         return this.carouselDiv;
     };
