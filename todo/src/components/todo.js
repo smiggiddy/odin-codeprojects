@@ -21,9 +21,16 @@ function createProject(name) {
 
 class todoHandler {
     // Create default project during construction
-    constructor() {
-        this.projects = [new createProject('default')];
+    constructor(projects=null) {
+        if (projects) {
+            this.projects = projects;
+        } else {
+            this.projects = [new createProject('default')];
+        }
     }
+
+    getEverything() { return this.projects }
+
 
     getTodos() {
         return this.projects.map(item => item.todos);
@@ -67,7 +74,15 @@ class todoHandler {
         return todoArr.find(todo => todo.title === title);
     }
 
-    addProject = name => this.projects.push(createProject(name));
+    addProject(name) {
+        let exists = this.projects.find(x => x.name === name);
+        if (!exists) {
+            this.projects.push(createProject(name));
+            return
+        }
+        console.log(`Project ${name} already exists!`);
+
+    } 
 
     getProjects () {
         return this.projects.map(item => item.name);
