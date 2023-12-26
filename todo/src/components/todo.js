@@ -10,17 +10,6 @@ function createTodo(title, description, dueDate, pomodoros) {
     return _todo;
 }
 
-function editTodo(_todo, title, description, dueDate, pomodoros) {
-    if (description) _todo.description = description;
-    if (dueDate) _todo.dueDate = dueDate;
-    if (pomodoros) _todo.pomodors = pomodoros;
-    
-}
-
-function deleteTodo() {
-
-}
-
 function createProject(name) {
     let project = {
         name: name,
