@@ -30,17 +30,19 @@ function createProject(name) {
     return project;
 }
 
-function todoHandler() {
+class todoHandler {
     // Create default project during construction
-    this.projects = [new createProject('default')];
+    constructor() {
+        this.projects = [new createProject('default')];
+    }
 
-    const getTodos = () => {
+    getTodos() {
         return this.projects.map(item => item.todos);
     }    
     
-    const addTodo = (project = 'default', title, description, dueDate, pomodoros) => {
+    addTodo(project = 'default', title, description, dueDate, pomodoros) {
         let index = this.projects.findIndex(x => x.name === project);
-        let _titleExists = titleExists(title, this.projects[index].todos);
+        let _titleExists = this.titleExists(title, this.projects[index].todos);
 
         if (!_titleExists) {
             this.projects[index].todos.push(new createTodo(title, description, dueDate, pomodoros));
@@ -51,7 +53,7 @@ function todoHandler() {
 
     }
 
-    const editTodo = (project, title, description, dueDate, pomodors) => {
+    editTodo(project, title, description, dueDate, pomodors) {
         let projectIndex = this.projects.findIndex(x => x.name === project);
         let todo = this.projects[projectIndex].todos.find(t => t.title === title)
 
@@ -62,7 +64,7 @@ function todoHandler() {
         }
     }
 
-    const deleteTodo = (project, title) => {
+    deleteTodo(project, title) {
         let projectIndex = this.projects.findIndex(x => x.name === project);
         let tempArr = this.projects[projectIndex].todos.filter(item => {
             if (item.title !== title){
@@ -72,17 +74,17 @@ function todoHandler() {
         this.projects[projectIndex].todos = tempArr;
     }
 
-    const titleExists = (title, todoArr) => {
+    titleExists(title, todoArr) {
         return todoArr.find(todo => todo.title === title);
     }
 
-    const addProject = name => this.projects.push(createProject(name));
+    addProject = name => this.projects.push(createProject(name));
 
-    const getProjects = () => {
+    getProjects () {
         return this.projects.map(item => item.name);
     }
 
-    const delProject = name => {
+    delProject = name => {
         let index = this.projects.findIndex(proj => proj.name === name);
         let tempArr = this.projects.filter(item => {
             if (item !== this.projects[index] || name === 'default' ){
@@ -92,11 +94,11 @@ function todoHandler() {
         this.projects = tempArr;
     }
 
-    return { getTodos, addTodo, editTodo, deleteTodo, addProject, getProjects, delProject }
+    // return { getTodos, addTodo, editTodo, deleteTodo, addProject, getProjects, delProject }
     
 }
 
-export { todoHandler };
+export {  todoHandler };
 
 
 
