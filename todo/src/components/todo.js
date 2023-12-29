@@ -85,10 +85,10 @@ class todoHandler {
     } 
 
     getProjects () {
-        return this.projects.map(item => item.name);
+        return this.projects;
     }
 
-    delProject = name => {
+    delProject(name) {
         let index = this.projects.findIndex(proj => proj.name === name);
         let tempArr = this.projects.filter(item => {
             if (item !== this.projects[index] || name === 'default' ){

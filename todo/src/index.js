@@ -1,7 +1,9 @@
+import { navbar } from "./components/navbar";
 import { todoHandler } from "./components/todo";
 import { save, load } from "./components/storage";
 
-let todos; let data = load();
+let todos; 
+let data = load();
 
 // if there's local data save it in the array 
 if (data) {
@@ -15,6 +17,10 @@ if (data) {
 todos.addProject('job');
 todos.addTodo('default', 'test default 2', 'some stuff', 'today', 5);
 todos.addTodo('default', 'default 2', 'some stuff', 'today', 5);
+
+
+document.body.appendChild(navbar(todos.getProjects()));
+
 // todos.addTodo('chores', 'choretest', 'some stuff', 'today', 5);
 // todos.delProject('de');
 // todos.editTodo('default', 'test', 'stuffing', 'tomorrow', 4);
