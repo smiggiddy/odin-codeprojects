@@ -24,7 +24,7 @@ class todoHandler {
     constructor(projects=null) {
         if (projects) {
             this.projects = projects;
-        } else {
+        } else if (!this.projects) {
             this.projects = [new createProject('default')];
         }
     }
@@ -35,6 +35,10 @@ class todoHandler {
     getTodos() {
         return this.projects.map(item => item.todos);
     }    
+
+    getTodosFromProject(project) {
+        return this.projects.filter((item) => item.name === project)[0].todos;
+    }
     
     addTodo(project = 'default', title, description, dueDate, pomodoros) {
         let index = this.projects.findIndex(x => x.name === project);

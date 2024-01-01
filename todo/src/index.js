@@ -1,3 +1,4 @@
+import { todoTableComponent } from "./components/todoComponent";
 import { navbar } from "./components/navbar";
 import { todoHandler } from "./components/todo";
 import { save, load } from "./components/storage";
@@ -13,13 +14,30 @@ if (data) {
     todos = new todoHandler();
 }
 
-// todoHandler().addTodo('default', 'test', 'some stuff', 'today', 5);
+let projects = todos.getProjects();
+
+// starter test data to remove
 todos.addProject('job');
 todos.addTodo('default', 'test default 2', 'some stuff', 'today', 5);
 todos.addTodo('default', 'default 2', 'some stuff', 'today', 5);
 
+const defaultProject = todos.getTodosFromProject('default');
 
-document.body.appendChild(navbar(todos.getProjects()));
+function website() {
+    const div = document.createElement('div');
+    div.classList.add('container');
+
+    const _navbar = navbar(projects);
+    const _todos = todoTableComponent(defaultProject);
+
+    div.appendChild(_navbar);
+    div.appendChild(_todos);
+
+    document.body.appendChild(div);
+
+}
+
+website();
 
 // todos.addTodo('chores', 'choretest', 'some stuff', 'today', 5);
 // todos.delProject('de');

@@ -2,9 +2,14 @@ function navbar(projects) {
     let nav = document.createElement('nav');
     nav.classList.add('nav');
 
+    let heading = document.createElement('h1');
+    heading.classList.add(['project-heading']);
+    heading.textContent = 'Projects';
+
     let projectsDiv = projectButtons(projects);
     let addProjectBtn = addProject();
 
+    nav.appendChild(heading);
     nav.appendChild(projectsDiv);
     nav.appendChild(addProjectBtn);
     
@@ -16,12 +21,10 @@ function projectButtons(projects) {
     projectsDiv.classList.add(['projects']);
 
     projects.forEach(e => {
-        if (e.name !== 'default') {
             let btn = document.createElement('button');
             btn.classList.add(['btn', 'project-btn']);
             btn.textContent = e.name; 
             projectsDiv.append(btn);
-        };
     });
     return projectsDiv;
 }
