@@ -37,7 +37,7 @@ class todoHandler {
     }    
 
     getTodosFromProject(project) {
-        return this.projects.filter((item) => item.name === project)[0].todos;
+        return this.projects.find((item) => item.name === project).todos;
     }
     
     addTodo(project = 'default', title, description, dueDate, pomodoros) {

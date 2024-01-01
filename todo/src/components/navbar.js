@@ -24,6 +24,8 @@ function projectButtons(projects) {
             let btn = document.createElement('button');
             btn.classList.add(['btn', 'project-btn']);
             btn.textContent = e.name; 
+            btn.dataset.projectName = e.name;
+            // btn.addEventListener('click', e => console.log(e.target.dataset.projectName));
             projectsDiv.append(btn);
     });
     return projectsDiv;

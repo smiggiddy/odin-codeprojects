@@ -18,17 +18,17 @@ let projects = todos.getProjects();
 
 // starter test data to remove
 todos.addProject('job');
-todos.addTodo('default', 'test default 2', 'some stuff', 'today', 5);
-todos.addTodo('default', 'default 2', 'some stuff', 'today', 5);
+todos.addTodo('default', 'test default 3', 'some stuff', 'today', 5);
+todos.addTodo('job', 'default 5', 'some stuff', 'today', 5);
 
-const defaultProject = todos.getTodosFromProject('default');
 
 function website() {
+    const currentProject = todos.getTodosFromProject('default');
     const div = document.createElement('div');
     div.classList.add('container');
 
     const _navbar = navbar(projects);
-    const _todos = todoTableComponent(defaultProject);
+    const _todos = todoTableComponent(currentProject);
 
     div.appendChild(_navbar);
     div.appendChild(_todos);
@@ -38,13 +38,4 @@ function website() {
 }
 
 website();
-
-// todos.addTodo('chores', 'choretest', 'some stuff', 'today', 5);
-// todos.delProject('de');
-// todos.editTodo('default', 'test', 'stuffing', 'tomorrow', 4);
-// console.log(todos.getTodos());
-// todos.deleteTodo('chores', 'choretest');
-// console.log(todos.getTodos());
-//
-//
 save(todos.getEverything());
