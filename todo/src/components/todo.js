@@ -47,7 +47,7 @@ class todoHandler {
         if (!_titleExists) {
             this.projects[index].todos.push(new createTodo(title, description, dueDate, pomodoros));
         } else {
-            console.log('unable to create duplicate note');
+            alert('unable to create duplicate note');
             return
         }
 
@@ -84,7 +84,7 @@ class todoHandler {
             this.projects.push(createProject(name));
             return
         }
-        console.log(`Project ${name} already exists!`);
+        alert(`Project ${name} already exists!`);
 
     } 
 

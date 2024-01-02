@@ -1,3 +1,6 @@
+import { updateDisplay } from "..";
+import { save } from "./storage";
+
 function todoTableComponent(todos) {
     const div = document.createElement('div');
     div.classList.add('todos');
@@ -14,6 +17,8 @@ function todoTableComponent(todos) {
             const tdPomodoro = document.createElement('td');
             const tdCompleted = document.createElement('td');
 
+            tr.classList.add('todo-row');
+            tr.dataset.todoId = element.title;
             tdTitle.textContent = element.title;
             tdDesc.textContent = element.description;
             tdDueDate.textContent = element.dueDate;
@@ -36,8 +41,47 @@ function todoTableComponent(todos) {
     return div;
 }
 
-function addTodo() {
+function projectComponent() {
+    const div = document.createElement('div');
+    const input = document.createElement('input');
+    const cancelButton = document.createElement('button');
+    const submitButton = document.createElement('button');
 
+    div.classList.add('project-add');
+    input.classList.add('project-input-name');
+    cancelButton.classList.add('cancel-project-btn');
+    submitButton.classList.add('submit-project-btn');
+
+    input.placeholder = 'Project name...';
+    submitButton.textContent = 'Submit';
+    cancelButton.textContent = 'Cancel';
+
+    div.appendChild(input);
+    div.appendChild(submitButton);
+    div.appendChild(cancelButton);
+
+    return div;
 }
 
-export { todoTableComponent }
+function addProject(proj) {
+    const button = document.querySelector('.add-project-btn');
+    const submitButton = document.querySelector('.submit-project-btn')
+    const cancelButton = document.querySelector('.cancel-project-btn');
+    const div = document.querySelector('.project-add');
+    const input = document.querySelector('.project-input-name');
+
+    button.addEventListener('click', () => div.classList.add('project-add-active'));
+    cancelButton.addEventListener('click', () => div.classList.remove('project-add-active'));
+    submitButton.addEventListener('click', () => { 
+        let name = input.value;
+        
+        // Add project via the global todos component
+        proj.addProject(name);
+        div.classList.remove('project-add-active');
+        updateDisplay();
+        save(proj.getEverything());
+    });
+}
+
+
+export { projectComponent, todoTableComponent, addProject };

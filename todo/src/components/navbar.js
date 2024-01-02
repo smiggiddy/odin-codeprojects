@@ -22,7 +22,7 @@ function projectButtons(projects) {
 
     projects.forEach(e => {
             let btn = document.createElement('button');
-            btn.classList.add(['btn', 'project-btn']);
+            btn.classList.add('btn', 'project-btn');
             btn.textContent = e.name; 
             btn.dataset.projectName = e.name;
             // btn.addEventListener('click', e => console.log(e.target.dataset.projectName));
@@ -33,7 +33,7 @@ function projectButtons(projects) {
 
 function addProject() {
     let btn = document.createElement('button');
-    btn.classList.add(['btn', 'add-project']);
+    btn.classList.add('btn','add-project-btn');
     btn.textContent = 'New Project';
     return btn;
 
