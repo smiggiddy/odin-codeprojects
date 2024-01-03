@@ -30,11 +30,11 @@ function projectButtons(projects) {
             
             
             if (e.name === 'default') {
-                iTag.classList.add('fas', 'fa-home');
+                iTag.classList.add('fas', 'fa-home', 'itag');
             } else {
                 let closeSpan = document.createElement('span');
                 let closeITag = document.createElement('i')
-                iTag.classList.add('fas', 'fa-tasks');
+                iTag.classList.add('fas', 'fa-tasks', 'itag');
                 closeITag.classList.add('fa', 'fa-trash');
                 closeSpan.classList.add('project-delete-btn');
                 closeSpan.appendChild(closeITag);
@@ -56,9 +56,14 @@ function projectButtons(projects) {
 }
 
 function addProject() {
-    let btn = document.createElement('button');
+    const btn = document.createElement('button');
+    const iTag = document.createElement('i');
+    const span = document.createElement('span');
+    iTag.classList.add('fas', 'fa-plus', 'itag');
     btn.classList.add('btn','add-project-btn');
-    btn.textContent = 'New Project';
+    span.textContent = 'New Project';
+    btn.appendChild(iTag);
+    btn.appendChild(span);
     return btn;
 
 }

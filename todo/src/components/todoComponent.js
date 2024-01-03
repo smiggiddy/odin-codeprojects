@@ -1,4 +1,4 @@
-import { updateDisplay } from "..";
+import { setActiveProject, updateDisplay } from "..";
 import { save } from "./storage";
 
 function todoTableComponent(todos) {
@@ -91,14 +91,38 @@ function deleteProject(proj) {
 
     deleteButtons.forEach(e => {
         e.addEventListener('click', element => {
-        let projectName = element.target.parentNode.parentNode.dataset.projectName; 
-        proj.delProject(projectName);
-        save(proj.getEverything());
-        updateDisplay();
-        });
+            // prevent this click from bubbling into button clicks
+            element.stopPropagation();
+            let projectName = element.target.parentNode.parentNode.dataset.projectName; 
+            proj.delProject(projectName);
+            setActiveProject('default');
+            save(proj.getEverything());
+            // Always load default project after deleting 
+            updateDisplay();
+            });
     });
 
 }
 
+function getTodoFromActiveProject() {
+    const projectBtns = document.querySelectorAll('.project-btn');
+    let projectName;
 
-export { projectComponent, todoTableComponent, addProject, deleteProject };
+    const setProjectName = name => { 
+        projectName = name.target.closest('.project-btn').dataset.projectName; 
+        
+        if (projectName) {
+            setActiveProject(projectName);
+            updateDisplay();
+        } else {
+            return;
+        }         
+    };
+
+    if (projectBtns) {
+        projectBtns.forEach(btn => btn.addEventListener('click', setProjectName));
+    }
+}
+
+
+export { getTodoFromActiveProject, projectComponent, todoTableComponent, addProject, deleteProject };

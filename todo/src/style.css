@@ -11,6 +11,10 @@ html {
     line-height: 1.5;
 }
 
+table {
+    width: 100%;
+}
+
 button {
     padding: 10px 20px;
     margin: 10px;
@@ -81,4 +85,14 @@ button {
 .project-buttons button {
     width: 100%;
     margin: 10px 0;
+}
+
+.itag {
+    float: left;
+}
+
+/* TODOS */
+
+.todos {
+    flex: 1;
 }
