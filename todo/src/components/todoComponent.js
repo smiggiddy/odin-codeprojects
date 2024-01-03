@@ -46,19 +46,22 @@ function projectComponent() {
     const input = document.createElement('input');
     const cancelButton = document.createElement('button');
     const submitButton = document.createElement('button');
+    const buttonDiv = document.createElement('div');
 
     div.classList.add('project-add');
     input.classList.add('project-input-name');
     cancelButton.classList.add('cancel-project-btn');
     submitButton.classList.add('submit-project-btn');
+    buttonDiv.classList.add('project-buttons');
 
     input.placeholder = 'Project name...';
     submitButton.textContent = 'Submit';
     cancelButton.textContent = 'Cancel';
 
     div.appendChild(input);
-    div.appendChild(submitButton);
-    div.appendChild(cancelButton);
+    buttonDiv.appendChild(submitButton);
+    buttonDiv.appendChild(cancelButton);
+    div.appendChild(buttonDiv);
 
     return div;
 }
@@ -83,5 +86,19 @@ function addProject(proj) {
     });
 }
 
+function deleteProject(proj) {
+    const deleteButtons = document.querySelectorAll('.project-delete-btn');
 
-export { projectComponent, todoTableComponent, addProject };
+    deleteButtons.forEach(e => {
+        e.addEventListener('click', element => {
+        let projectName = element.target.parentNode.parentNode.dataset.projectName; 
+        proj.delProject(projectName);
+        save(proj.getEverything());
+        updateDisplay();
+        });
+    });
+
+}
+
+
+export { projectComponent, todoTableComponent, addProject, deleteProject };

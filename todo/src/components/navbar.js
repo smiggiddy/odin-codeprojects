@@ -22,10 +22,34 @@ function projectButtons(projects) {
 
     projects.forEach(e => {
             let btn = document.createElement('button');
+            let iTag = document.createElement('i');
+            // let btnText = document.createTextNode(`${e.name}`);
+            let btnSpan = document.createElement('span');
+
+            btnSpan.textContent = ` ${e.name}`;
+            
+            
+            if (e.name === 'default') {
+                iTag.classList.add('fas', 'fa-home');
+            } else {
+                let closeSpan = document.createElement('span');
+                let closeITag = document.createElement('i')
+                iTag.classList.add('fas', 'fa-tasks');
+                closeITag.classList.add('fa', 'fa-trash');
+                closeSpan.classList.add('project-delete-btn');
+                closeSpan.appendChild(closeITag);
+                btn.appendChild(closeSpan);
+            }
+
+            // delete button
+
             btn.classList.add('btn', 'project-btn');
-            btn.textContent = e.name; 
+            
+            btn.addEventListener('click', activeProjectBtn);
+
+            btn.appendChild(iTag);
+            btn.appendChild(btnSpan);
             btn.dataset.projectName = e.name;
-            // btn.addEventListener('click', e => console.log(e.target.dataset.projectName));
             projectsDiv.append(btn);
     });
     return projectsDiv;
@@ -37,6 +61,23 @@ function addProject() {
     btn.textContent = 'New Project';
     return btn;
 
+}
+
+function activeProjectBtn() {
+    const projectContainer = document.querySelector('.projects');
+    const btns = projectContainer.querySelectorAll('.project-btn');
+
+
+    for (let i=0; i < btns.length; i++) {
+
+        let current = document.getElementsByClassName('active');
+
+        if (current.length > 0) {
+            current[0].className = current[0].className.replace(' active', '');
+        }
+
+        this.className += ' active';
+    };
 }
 
 

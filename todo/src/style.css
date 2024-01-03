@@ -1,11 +1,24 @@
 :root {
     --color: 1234;
+    --font-size: 18px;
 }
 
 body,
 html {
     margin: 0;
     padding: 0;
+    font-size: var(--font-size);
+    line-height: 1.5;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
 }
 
 .container {
@@ -15,7 +28,9 @@ html {
 .nav {
     display: flex;
     flex-direction: column;
-    min-width: 30vw;
+    min-width: 250px;
+    width: 350px;
+    padding: 20px;
 }
 
 .projects {
@@ -23,12 +38,47 @@ html {
     flex-direction: column;
 }
 
+.project-heading {
+    padding-left: 15px;
+}
+
 .project-add {
     display: none;
+    width: 100%;
+}
+
+.project-add input {
+    padding: 10px;
 }
 
 .project-add-active {
     display: flex;
     flex-direction: column;
-    padding: 25px 0;
+    padding: 15px 10px;
+}
+
+.active,
+.project-btn:hover {
+    background-color: gray;
+}
+
+.project-btn .project-delete-btn {
+    visibility: hidden;
+    float: right;
+}
+
+.project-btn:hover .project-delete-btn {
+    visibility: visible;
+    float: right;
+}
+
+
+.project-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.project-buttons button {
+    width: 100%;
+    margin: 10px 0;
 }

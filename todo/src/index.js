@@ -1,4 +1,4 @@
-import { addProject, projectComponent, todoTableComponent } from "./components/todoComponent";
+import { addProject, deleteProject, projectComponent, todoTableComponent } from "./components/todoComponent";
 import { navbar } from "./components/navbar";
 import { todoHandler } from "./components/todo";
 import { save, load } from "./components/storage";
@@ -15,7 +15,6 @@ if (data) {
     todos = new todoHandler();
 }
 
-let projects = todos.getProjects();
 let selectedProject = todos.getTodosFromProject('default');
 console.table(todos.getEverything());
 // starter test data to remove
@@ -23,6 +22,13 @@ console.table(todos.getEverything());
 // todos.addTodo('default', 'test default 3', 'some stuff', 'today', 5);
 // todos.addTodo('job', 'default 5', 'some stuff', 'today', 5);
 
+function fontAwesome() {
+    let script = document.createElement('script');
+    script.src = 'https://kit.fontawesome.com/24f16b96cf.js';
+    script.crossOrigin = 'anonymous';
+
+    document.head.appendChild(script);
+}
 
 function website() {
     const div = document.createElement('div');
@@ -35,6 +41,9 @@ function website() {
 function updateDisplay() {
     const div = document.querySelector('.container');
     if (div) div.innerHTML = '';
+   
+    // ensure grabbing latest projects
+    let projects = todos.getProjects();
 
     const _navbar = navbar(projects);
     const _todos = todoTableComponent(selectedProject);
@@ -46,9 +55,10 @@ function updateDisplay() {
 
     document.body.appendChild(div);
     addProject(todos);
+    deleteProject(todos);
 }
 
-
+fontAwesome();
 website();
 save(todos.getEverything());
 
