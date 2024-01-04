@@ -30,6 +30,7 @@ button {
     font-size: 1rem;
 }
 
+
 input[type="checkbox"] {
     /* appearance: none; */
     /* For iOS < 15 to remove gradient background */

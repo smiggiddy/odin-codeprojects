@@ -1,8 +1,12 @@
+import { format, compareAsc } from "date-fns";
+
 function createTodo(title, description, dueDate, pomodoros) {
+    dueDate = dueDate.replaceAll('-', '/');
+    
     const newTodo = {
         title: title,
         description: description,
-        dueDate: dueDate,
+        dueDate: format(new Date(dueDate), 'MM/dd/yyyy'),
         pomodoros: pomodoros,
         completed: false
     }
@@ -46,6 +50,12 @@ class todoHandler {
 
         if (!_titleExists) {
             this.projects[index].todos.push(new createTodo(title, description, dueDate, pomodoros));
+            this.projects[index].todos.sort((a,b) => { 
+            
+                return compareAsc(new Date(a.dueDate), new Date(b.dueDate));
+            });
+            console.log(this.projects[index]);
+                //(itemA, itemB) => {return itemA.dueDate - itemB.dueDate})
         } else {
             alert('unable to create duplicate note');
             return

@@ -127,7 +127,7 @@ function addTodo(todoHandler) {
         let newTodo = handleTodoInput(input.childNodes);
         let title = newTodo[0];
         let description = newTodo[1];
-        let date = new Date(newTodo[2]);
+        let date = newTodo[2]; // new Date(newTodo[2]);
         console.log(date);
         todoHandler.addTodo(activeProject, title, description, date, 0);
         div.classList.remove('todo-add-active');
