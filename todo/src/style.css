@@ -1,5 +1,4 @@
 :root {
-    --color: 1234;
     --font-size: 18px;
 }
 
@@ -8,11 +7,17 @@ html {
     margin: 0;
     padding: 0;
     font-size: var(--font-size);
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 table {
     width: 100%;
+    margin-bottom: 30px;
+    padding: 0 5px;
+}
+
+tr {
+    height: 2em;
 }
 
 button {
@@ -23,6 +28,16 @@ button {
     border: none;
     width: 100%;
     font-size: 1rem;
+}
+
+input[type="checkbox"] {
+    /* appearance: none; */
+    /* For iOS < 15 to remove gradient background */
+    /* background-color: #fff; */
+    /* Not removed via appearance */
+    /* margin: 0; */
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .container {
@@ -77,12 +92,12 @@ button {
 }
 
 
-.project-buttons {
+.popup-buttons {
     display: flex;
     gap: 10px;
 }
 
-.project-buttons button {
+.popup-buttons button {
     width: 100%;
     margin: 10px 0;
 }
@@ -95,4 +110,64 @@ button {
 
 .todos {
     flex: 1;
+    padding: 0 20px;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    
 }
+
+.todos p {
+    text-align: center;
+}
+
+.todo-add {
+    display: none;
+    width: 100%;
+}
+
+.todo-add-active {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    width: 100%;
+}
+
+.todo-add input {
+    padding: 10px;
+}
+
+.todo-add-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.todo-add-inputs input {
+    flex: 1 1 auto;
+}
+
+.todo-delete-btn {
+    visibility: hidden;
+    background: none;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-row:hover .todo-delete-btn {
+    visibility: visible;
+}
+
+.add-todo-btn {
+    width: initial;
+}
+
+/* .todo-buttons { */
+/*     display: flex; */
+/*     gap: 10px; */
+/* } */
+/**/
+/* .todo-buttons button { */
+/*     width: 100%; */
+/*     margin: 10px 0; */
+/* } */

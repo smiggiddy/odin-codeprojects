@@ -1,3 +1,5 @@
+import { getActiveProject } from "..";
+
 function navbar(projects) {
     let nav = document.createElement('nav');
     nav.classList.add('nav');
@@ -17,7 +19,8 @@ function navbar(projects) {
 }
 
 function projectButtons(projects) {
-    let projectsDiv = document.createElement('div');
+    const projectsDiv = document.createElement('div');
+    const activeProject = getActiveProject();
     projectsDiv.classList.add(['projects']);
 
     projects.forEach(e => {
@@ -44,8 +47,9 @@ function projectButtons(projects) {
             // delete button
 
             btn.classList.add('btn', 'project-btn');
-            
-            btn.addEventListener('click', activeProjectBtn);
+            if (e.name === activeProject) {
+                btn.classList += ' active';
+                };
 
             btn.appendChild(iTag);
             btn.appendChild(btnSpan);
@@ -67,23 +71,5 @@ function addProject() {
     return btn;
 
 }
-
-function activeProjectBtn() {
-    const projectContainer = document.querySelector('.projects');
-    const btns = projectContainer.querySelectorAll('.project-btn');
-
-
-    for (let i=0; i < btns.length; i++) {
-
-        let current = document.getElementsByClassName('active');
-
-        if (current.length > 0) {
-            current[0].className = current[0].className.replace(' active', '');
-        }
-
-        this.className += ' active';
-    };
-}
-
 
 export { navbar };
