@@ -1,4 +1,4 @@
-import { getActiveProject, setActiveProject, updateDisplay } from "..";
+import { getActiveProject, setActiveProject, updateDisplay, getTodoHandler } from "..";
 import { save } from "./storage";
 
 function todoTableComponent(todos) {
@@ -62,6 +62,7 @@ function createTableCheckBox(content) {
     checkbox.type = 'checkbox';
     checkbox.classList.add('todo-checkbox');
     checkbox.checked = content;
+
     return checkbox;
 }
 
@@ -81,6 +82,7 @@ function createTableTodoDeleteBtn() {
 function createTableRow(_todo) {
     const tr = document.createElement('tr');
     tr.classList.add('todo-row');
+    
     tr.dataset.todoId = _todo.title;
     
     let checkbox = createTableCheckBox(_todo.completed);
@@ -88,15 +90,22 @@ function createTableRow(_todo) {
         createTableCell(checkbox),
         createTableCell(_todo.title),
         createTableCell(_todo.description),
-        createTableCell(_todo.dueDate),
+        createTableCell(_todo.dueDate.toString()),
         createTableCell(createTableTodoDeleteBtn())
         // createTableCell(_todo.pomodoros)
     ]
     
     cells.forEach(cell => tr.appendChild(cell));
 
+    if (_todo.completed) {
+        tr.classList.add('completed');
+    } else {
+        tr.classList.remove('completed');
+    }
+
     return tr;
 }
+
 
 function addTodo(todoHandler) {
     const activeProject = getActiveProject();
@@ -118,7 +127,8 @@ function addTodo(todoHandler) {
         let newTodo = handleTodoInput(input.childNodes);
         let title = newTodo[0];
         let description = newTodo[1];
-        let date = Date(newTodo[2]);
+        let date = new Date(newTodo[2]);
+        console.log(date);
         todoHandler.addTodo(activeProject, title, description, date, 0);
         div.classList.remove('todo-add-active');
         updateDisplay();
@@ -144,6 +154,20 @@ function deleteTodo(todoHandler) {
             });
     });
 
+}
+
+function handleCompletedTodo(todoHandler) {
+    const activeProject = getActiveProject();
+    const checkbox = document.querySelectorAll('.todo-checkbox');
+    checkbox.forEach(c => {
+        c.addEventListener('click', e => {
+        const title = e.target.parentNode.parentNode.dataset.todoId;
+        todoHandler.editTodo(activeProject, title);
+
+        save(todoHandler.getEverything());
+        updateDisplay();
+        });
+    });
 }
 
 function projectComponent() {
@@ -290,6 +314,6 @@ export {
     addProject, 
     deleteProject,
     addTodo,
-    deleteTodo
-
+    deleteTodo,
+    handleCompletedTodo
 };

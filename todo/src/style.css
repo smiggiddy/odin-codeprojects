@@ -162,12 +162,6 @@ input[type="checkbox"] {
     width: initial;
 }
 
-/* .todo-buttons { */
-/*     display: flex; */
-/*     gap: 10px; */
-/* } */
-/**/
-/* .todo-buttons button { */
-/*     width: 100%; */
-/*     margin: 10px 0; */
-/* } */
+.completed {
+    text-decoration: line-through 3px;
+}

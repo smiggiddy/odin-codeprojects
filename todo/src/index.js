@@ -7,15 +7,17 @@ import {
     todoTableComponent, 
     getTodoFromActiveProject,
     addTodoComponent,
+    handleCompletedTodo
     } from "./components/todoComponent";
 import { navbar } from "./components/navbar";
-import { todoHandler as todoManager } from "./components/todo";
 import { save, load } from "./components/storage";
 import './style.css';
-import { add } from "date-fns";
+import { todoHandler as todoManager } from "./components/todo";
+// import { add } from "date-fns";
 
 const data = load();
-let todos = data ? new todoManager(JSON.parse(data)) : new todoManager();
+let todos;
+todos = data ? new todoManager(JSON.parse(data)) : new todoManager();
 
 let activeProject = 'default';
 
@@ -67,7 +69,9 @@ function updateDisplay() {
     deleteTodo(todos);
     addProject(todos);
     deleteProject(todos);
+    handleCompletedTodo(todos);
 }
+
 
 fontAwesome();
 website();

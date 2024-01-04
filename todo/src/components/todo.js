@@ -53,14 +53,16 @@ class todoHandler {
 
     }
 
-    editTodo(project, title, description, dueDate, pomodors) {
+    editTodo(project, title) {
+        // TODO: implement todo method currently just a toggle for completed;
         let projectIndex = this.projects.findIndex(x => x.name === project);
         let todo = this.projects[projectIndex].todos.find(t => t.title === title)
 
         if (todo){
-            if(description) todo.description = description;
-            if(dueDate) todo.dueDate = dueDate;
-            if(pomodors) todo.pomodoros = pomodors;
+            todo.completed = !todo.completed;
+            // if(description) todo.description = description;
+            // if(dueDate) todo.dueDate = dueDate;
+            // if(pomodors) todo.pomodoros = pomodors;
         }
     }
 
