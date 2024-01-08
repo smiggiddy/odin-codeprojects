@@ -128,7 +128,6 @@ function addTodo(todoHandler) {
         let title = newTodo[0];
         let description = newTodo[1];
         let date = newTodo[2]; // new Date(newTodo[2]);
-        console.log(date);
         todoHandler.addTodo(activeProject, title, description, date, 0);
         div.classList.remove('todo-add-active');
         updateDisplay();

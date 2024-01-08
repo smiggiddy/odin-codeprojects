@@ -54,7 +54,7 @@ class todoHandler {
             
                 return compareAsc(new Date(a.dueDate), new Date(b.dueDate));
             });
-            console.log(this.projects[index]);
+            // console.log(this.projects[index]);
                 //(itemA, itemB) => {return itemA.dueDate - itemB.dueDate})
         } else {
             alert('unable to create duplicate note');
