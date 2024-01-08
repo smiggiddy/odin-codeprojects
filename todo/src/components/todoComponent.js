@@ -1,4 +1,4 @@
-import { getActiveProject, setActiveProject, updateDisplay, getTodoHandler } from "..";
+import { getActiveProject, setActiveProject, updateDisplay, } from "..";
 import { save } from "./storage";
 
 function todoTableComponent(todos) {
