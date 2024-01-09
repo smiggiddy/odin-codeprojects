@@ -37,10 +37,13 @@ class DropDown {
         this.dropdownItems.style.fontSize = '18px';
         this.dropdownItems.style.position = 'absolute';
         this.dropdownItems.style.top = '100px';
-        this.dropdownItems.style.background = '#E8E8E8';
+        this.dropdownItems.style.background = '#FFF';
         this.dropdownItems.style.width = '100%';
         this.dropdownItems.style.alignItems = 'center';
-        // this.dropdownItems.style.padding = '15px';
+        this.dropdownItems.style.border = '1px solid black';
+        this.dropdownItems.style.color = 'black';
+        this.dropdownItems.style.boxSizing = 'border-box';
+
 
         this.menu.forEach(e => {
             const a = document.createElement('a');
@@ -48,14 +51,16 @@ class DropDown {
             a.textContent = e;
             a.style.textDecoration = 'none';
             a.style.display = 'inline-block';
-            a.style.width = '100%';
+            a.style.width = 'calc(100% - 10px)';
             a.style.textAlign = 'center';
             a.style.padding = '5px';
             
 
-            // a.addEventListener('mouseover', () => {
-            //     a.style.background = '#E8E8E8'
-            // })
+            a.addEventListener('mouseover', () => {
+                a.style.background = '#E8E8E8';
+                // a.style.background = 'black'
+            });
+            a.addEventListener('mouseleave', () => a.style.background = '#FFF');
             this.dropdownItems.appendChild(a)
         })
     }

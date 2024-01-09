@@ -1,4 +1,5 @@
 import { DropDown } from "./components/dropDown";
+import './style.css';
 
 const dropdown = new DropDown(['main', 'about', 'store', 'blog']);
 
