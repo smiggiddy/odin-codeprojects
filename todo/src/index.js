@@ -1,14 +1,14 @@
-import { 
+import {
     addTodo,
     deleteTodo,
-    addProject, 
-    deleteProject, 
-    projectComponent, 
-    todoTableComponent, 
+    addProject,
+    deleteProject,
+    projectComponent,
+    todoTableComponent,
     getTodoFromActiveProject,
     addTodoComponent,
     handleCompletedTodo
-    } from "./components/todoComponent";
+} from "./components/todoComponent";
 import { navbar } from "./components/navbar";
 import { save, load } from "./components/storage";
 import './style.css';
@@ -22,7 +22,7 @@ todos = data ? new todoManager(JSON.parse(data)) : new todoManager();
 let activeProject = 'default';
 
 function setActiveProject(value) {
-   activeProject = value; 
+    activeProject = value;
 }
 
 function getActiveProject() {
@@ -47,9 +47,9 @@ function website() {
 function updateDisplay() {
     const div = document.querySelector('.container');
     if (div) div.innerHTML = '';
-   
+
     // ensure grabbing latest projects
-    let projects = todos.getProjects(); 
+    let projects = todos.getProjects();
     let currentActiveProject = activeProject;
     let todosToRender = todos.getTodosFromProject(currentActiveProject);
 

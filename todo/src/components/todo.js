@@ -2,7 +2,7 @@ import { format, compareAsc } from "date-fns";
 
 function createTodo(title, description, dueDate, pomodoros) {
     dueDate = dueDate.replaceAll('-', '/');
-    
+
     const newTodo = {
         title: title,
         description: description,
@@ -25,7 +25,7 @@ function createProject(name) {
 
 class todoHandler {
     // Create default project during construction
-    constructor(projects=null) {
+    constructor(projects = null) {
         if (projects) {
             this.projects = projects;
         } else if (!this.projects) {
@@ -38,24 +38,24 @@ class todoHandler {
 
     getTodos() {
         return this.projects.map(item => item.todos);
-    }    
+    }
 
     getTodosFromProject(project) {
         return this.projects.find((item) => item.name === project).todos;
     }
-    
+
     addTodo(project = 'default', title, description, dueDate, pomodoros) {
         let index = this.projects.findIndex(x => x.name === project);
         let _titleExists = this.titleExists(title, this.projects[index].todos);
 
         if (!_titleExists) {
             this.projects[index].todos.push(new createTodo(title, description, dueDate, pomodoros));
-            this.projects[index].todos.sort((a,b) => { 
-            
+            this.projects[index].todos.sort((a, b) => {
+
                 return compareAsc(new Date(a.dueDate), new Date(b.dueDate));
             });
             // console.log(this.projects[index]);
-                //(itemA, itemB) => {return itemA.dueDate - itemB.dueDate})
+            //(itemA, itemB) => {return itemA.dueDate - itemB.dueDate})
         } else {
             alert('unable to create duplicate note');
             return
@@ -68,7 +68,7 @@ class todoHandler {
         let projectIndex = this.projects.findIndex(x => x.name === project);
         let todo = this.projects[projectIndex].todos.find(t => t.title === title)
 
-        if (todo){
+        if (todo) {
             todo.completed = !todo.completed;
             // if(description) todo.description = description;
             // if(dueDate) todo.dueDate = dueDate;
@@ -79,9 +79,9 @@ class todoHandler {
     deleteTodo(project, title) {
         let projectIndex = this.projects.findIndex(x => x.name === project);
         let tempArr = this.projects[projectIndex].todos.filter(item => {
-            if (item.title !== title){
-               return item; 
-            };
+            if (item.title !== title) {
+                return item;
+            }
         });
         this.projects[projectIndex].todos = tempArr;
     }
@@ -98,24 +98,24 @@ class todoHandler {
         }
         alert(`Project ${name} already exists!`);
 
-    } 
+    }
 
-    getProjects () {
+    getProjects() {
         return this.projects;
     }
 
     delProject(name) {
         let index = this.projects.findIndex(proj => proj.name === name);
         let tempArr = this.projects.filter(item => {
-            if (item !== this.projects[index] || name === 'default' ){
+            if (item !== this.projects[index] || name === 'default') {
                 return item;
-            };
+            }
         });
         this.projects = tempArr;
     }
 
     // return { getTodos, addTodo, editTodo, deleteTodo, addProject, getProjects, delProject }
-    
+
 }
 
-export {  todoHandler };
+export { todoHandler };
