@@ -1,3 +1,4 @@
+import { Carousel } from "./components/imageCarousel";
 import { DropDown } from "./components/dropDown";
 import { Menu } from "./components/mobileMenu";
 import "./style.css";
@@ -14,14 +15,16 @@ function website() {
     const _menu = ["main", "about", "store", "blog", "contact"];
     const dropdown = new DropDown(_menu);
     const mobile = new Menu(_menu);
+    const carouselObj = new Carousel();
 
     const div = dropdown.dropdownComponent();
     const h1 = document.createElement("h1");
+    const carousel = carouselObj.getCarousel();
     h1.textContent = "DEEZ NUTS MAN";
 
     const menuMobile = mobile.buildMenu();
 
-    document.body.append(menuMobile, div, h1);
+    document.body.append(menuMobile, div, h1, carousel);
 }
 
 fontAwesome();
