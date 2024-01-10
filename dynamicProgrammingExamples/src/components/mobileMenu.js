@@ -1,27 +1,27 @@
 class Menu {
     constructor(menuItems) {
         this.menuItems = menuItems;
-        this.menu = document.createElement("nav");
-        this.burgerIcon = document.createElement("i");
-        this.container = document.createElement("div");
+        this.menu = document.createElement('nav');
+        this.burgerIcon = document.createElement('i');
+        this.container = document.createElement('div');
 
         this.setupMenuStructure();
         this.setupResizeListener();
     }
 
     setupMenuStructure() {
-        this.container.classList.add("navbar");
-        this.container.style.display = "flex";
-        this.container.style.padding = "20px";
+        this.container.classList.add('navbar');
+        this.container.style.display = 'flex';
+        this.container.style.padding = '20px';
 
         // Determine if Burger Icon should show
         this.burgerIconStyles();
         this.burgerIconSetter();
 
         this.menuItems.forEach((element) => {
-            const li = document.createElement("li");
+            const li = document.createElement('li');
             li.textContent = element;
-            li.style.listStyleType = "none";
+            li.style.listStyleType = 'none';
 
             this.container.appendChild(li);
         });
@@ -30,27 +30,28 @@ class Menu {
     }
 
     adjustStylesForSmallScreen() {
-        this.container.style.flexDirection = "column";
-        this.burgerIcon.style.display = "inline-block";
-        this.container.style.gap = "20px";
-        this.container.style.alignItems = "center";
-        this.container.style.display = "none";
+        this.container.style.flexDirection = 'column';
+        this.burgerIcon.style.display = 'inline-block';
+        this.container.style.gap = '20px';
+        this.container.style.alignItems = 'center';
+        this.container.style.display = 'none';
     }
 
     adjustStylesForLargeScreen() {
-        this.container.style.display = "flex";
-        this.container.style.flexDirection = "row";
-        this.container.style.justifyContent = "space-around";
-        this.burgerIcon.style.display = "none";
+        this.container.style.display = 'flex';
+        this.container.style.flexDirection = 'row';
+        this.container.style.justifyContent = 'space-around';
+        this.burgerIcon.style.display = 'none';
     }
 
     burgerIconStyles() {
-        this.burgerIcon.classList.add("fas", "fa-bars", "fa-2x");
-        this.burgerIcon.style.margin = "10px";
+        this.burgerIcon.classList.add('fas', 'fa-bars', 'fa-2x');
+        this.burgerIcon.style.margin = '10px';
     }
 
     burgerIconSetter() {
         const isSmallScreen = window.innerWidth <= 600;
+        console.log(window.screen.width);
         if (isSmallScreen) {
             this.adjustStylesForSmallScreen();
             this.burgerIconClickListener();
@@ -60,14 +61,16 @@ class Menu {
     }
 
     burgerIconClickListener() {
-        this.burgerIcon.addEventListener("click", () => {
+        this.burgerIcon.addEventListener('click', () => {
+            console.log(this.container.style.display);
             this.container.style.display =
-                this.container.style.display === "none" ? "flex" : "none";
+                this.container.style.display === 'none' ? 'flex' : 'none';
+            return;
         });
     }
 
     setupResizeListener() {
-        window.addEventListener("resize", () => this.burgerIconSetter());
+        window.addEventListener('resize', () => this.burgerIconSetter());
     }
 
     buildMenu() {

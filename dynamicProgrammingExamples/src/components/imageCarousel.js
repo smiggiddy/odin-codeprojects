@@ -1,18 +1,115 @@
 class Carousel {
-    constructor() {
-        this.container = document.createElement("div");
+    constructor(imgArr = []) {
+        this.container = document.createElement('div');
+        this.carousel = document.createElement('div');
+        this.imgArr = imgArr;
+        this.totalImages = imgArr.length;
+        this.imagePointer = 0; // starting index
+        this.careouselCards = [];
 
+        this.previousImage = this.previousImage.bind(this);
+        this.nextImage = this.nextImage.bind(this);
+
+        // setup styling
+        this.carouselPickerStyles();
+        this.carouselLeftButton();
+        this.carouselRightButton();
+
+        // setup structure
         this.setupCarouselStructure();
     }
 
     setupCarouselStructure() {
-        this.container.classList.add("container");
-        this.container.style.height = "60vh";
+        this.container.classList.add('container');
+        this.container.style.maxHeight = '75vh';
+        this.container.style.position = 'absolute';
 
-        this.carousel = document.createElement("div");
-        this.carousel.classList.add("carousel");
+        this.carousel.classList.add('carousel');
+        this.carousel.style.maxHeight = '75vh';
+        this.carousel.style.overflow = 'hidden';
 
-        this.container.append(this.carousel);
+        // generate an image thing for each item in carousel array
+        this.imgArr.forEach((element, i) => {
+            //TODO create method to load images from path
+            const item = document.createElement('div');
+            item.classList.add('carousel-item');
+            item.dataset.itemNo = i;
+            item.style.display = 'none';
+
+            let img = new Image();
+            img.classList.add('img', 'carousel-img');
+            img.style.maxWidth = '100%';
+            img.src = element;
+
+            item.appendChild(img);
+            this.carousel.appendChild(item);
+            this.careouselCards.push(item);
+        });
+
+        // Make sure the first card renders
+
+        this.showActiveSlide();
+        this.container.append(this.carousel, this.RightButton, this.leftButton);
+    }
+
+    showActiveSlide() {
+        console.log(this.imagePointer);
+        this.careouselCards.forEach((e) => {
+            if (Number(e.dataset.itemNo) === this.imagePointer) {
+                e.style.display = 'block';
+            } else {
+                e.style.display = 'none';
+            }
+        });
+    }
+
+    carouselPickerStyles() {
+        this.pickerActive = document.createElement('i');
+        this.pickerActive.classList.add('fas', 'fa-circle', 'carousel-active');
+
+        this.pickerInActive = document.createElement('i');
+        this.pickerInActive.classList.add('far', 'fa-circle');
+    }
+
+    carouselLeftButton() {
+        this.leftButton = document.createElement('i');
+        this.leftButton.classList.add(
+            'carousel-left-btn',
+            'fas',
+            'fa-angle-left',
+            'fa-10x',
+        );
+        this.leftButton.style.position = 'absolute';
+        this.leftButton.style.top = '50%';
+        this.leftButton.style.left = '2%';
+
+        this.leftButton.addEventListener('click', this.previousImage);
+    }
+
+    carouselRightButton() {
+        this.RightButton = document.createElement('i');
+        this.RightButton.classList.add(
+            'carousel-right-btn',
+            'fas',
+            'fa-angle-right',
+            'fa-10x',
+        );
+        this.RightButton.style.position = 'absolute';
+        this.RightButton.style.top = '50%';
+        this.RightButton.style.right = '2%';
+
+        this.RightButton.addEventListener('click', this.nextImage);
+    }
+
+    previousImage() {
+        this.imagePointer =
+            (this.imagePointer - 1 + this.totalImages) % this.totalImages;
+        this.showActiveSlide();
+    }
+
+    nextImage() {
+        this.imagePointer = (this.imagePointer + 1) % this.totalImages;
+        this.showActiveSlide();
     }
 
     getCarousel = () => this.container;

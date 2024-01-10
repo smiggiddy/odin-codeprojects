@@ -10,3 +10,12 @@ a {
 a:hover {
     color: black;
 }
+
+.carousel img {
+    object-fit: contain;
+
+}
+
+.active-slide {
+    display: block;
+}
