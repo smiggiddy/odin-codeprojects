@@ -3,82 +3,83 @@ class DropDown {
         this.menu = menu;
     }
 
-    title = 'Menu';
+    title = "Menu";
     clicked = false;
 
     getMenu = () => {
         this.div;
-    }
+    };
 
     dropdownComponent() {
-        // render items 
+        // render items
         this.createDropdownItems();
         this.createMenuButton();
 
-        this.div = document.createElement('div');
-        this.div.classList.add('menu-bar');
-        this.div.style = 'margin-left: 50px; display: flex; flex-direction: column; width: 200px; align-items: center;';
+        this.div = document.createElement("div");
+        this.div.classList.add("menu-bar");
+        this.div.style =
+            "margin-left: 50px; display: flex; flex-direction: column; width: 200px; align-items: center;";
 
-        this.div.style.position = 'relative';
+        this.div.style.position = "relative";
 
         this.div.append(this.button, this.dropdownItems);
         return this.div;
     }
 
     createDropdownItems() {
-        this.dropdownItems = document.createElement('div');
-        this.dropdownItems.classList.add('menu-items');
+        this.dropdownItems = document.createElement("div");
+        this.dropdownItems.classList.add("menu-items");
 
-        this.dropdownItems.style.display = 'flex';
-        this.dropdownItems.style.flexDirection = 'column';
-        this.dropdownItems.style.visibility = 'hidden';
-        this.dropdownItems.style.gap = '10px';
-        this.dropdownItems.style.lineHeight = '1.7';
-        this.dropdownItems.style.fontSize = '18px';
-        this.dropdownItems.style.position = 'absolute';
-        this.dropdownItems.style.top = '100px';
-        this.dropdownItems.style.background = '#FFF';
-        this.dropdownItems.style.width = '100%';
-        this.dropdownItems.style.alignItems = 'center';
-        this.dropdownItems.style.border = '1px solid black';
-        this.dropdownItems.style.color = 'black';
-        this.dropdownItems.style.boxSizing = 'border-box';
+        this.dropdownItems.style.display = "flex";
+        this.dropdownItems.style.flexDirection = "column";
+        this.dropdownItems.style.visibility = "hidden";
+        this.dropdownItems.style.gap = "10px";
+        this.dropdownItems.style.lineHeight = "1.7";
+        this.dropdownItems.style.fontSize = "18px";
+        this.dropdownItems.style.position = "absolute";
+        this.dropdownItems.style.top = "100px";
+        this.dropdownItems.style.background = "#FFF";
+        this.dropdownItems.style.width = "100%";
+        this.dropdownItems.style.alignItems = "center";
+        this.dropdownItems.style.border = "1px solid black";
+        this.dropdownItems.style.color = "black";
+        this.dropdownItems.style.boxSizing = "border-box";
 
-
-        this.menu.forEach(e => {
-            const a = document.createElement('a');
-            a.href = '#';
+        this.menu.forEach((e) => {
+            const a = document.createElement("a");
+            a.href = "#";
             a.textContent = e;
-            a.style.textDecoration = 'none';
-            a.style.display = 'inline-block';
-            a.style.width = 'calc(100% - 10px)';
-            a.style.textAlign = 'center';
-            a.style.padding = '5px';
-            
+            a.style.textDecoration = "none";
+            a.style.display = "inline-block";
+            a.style.width = "calc(100% - 10px)";
+            a.style.textAlign = "center";
+            a.style.padding = "5px";
 
-            a.addEventListener('mouseover', () => {
-                a.style.background = '#E8E8E8';
+            a.addEventListener("mouseover", () => {
+                a.style.background = "#E8E8E8";
                 // a.style.background = 'black'
             });
-            a.addEventListener('mouseleave', () => a.style.background = '#FFF');
-            this.dropdownItems.appendChild(a)
-        })
+            a.addEventListener(
+                "mouseleave",
+                () => (a.style.background = "#FFF"),
+            );
+            this.dropdownItems.appendChild(a);
+        });
     }
 
     createMenuButton() {
-        this.button = document.createElement('button');
-        this.button.classList.add('menu-btn,btn');
+        this.button = document.createElement("button");
+        this.button.classList.add("menu-btn,btn");
         this.button.textContent = this.title;
 
-        this.button.style = "padding: 20px; margin: 20px;"
+        this.button.style = "padding: 20px; margin: 20px;";
 
-        this.button.addEventListener('click', () => {
-            this.clicked = !this.clicked
-            let visibilityToggle = this.clicked ? 'visible' : 'hidden';
+        this.button.addEventListener("click", () => {
+            this.clicked = !this.clicked;
+            let visibilityToggle = this.clicked ? "visible" : "hidden";
             this.dropdownItems.style.visibility = visibilityToggle;
-        })
+        });
     }
-
 }
 
-export { DropDown }
+export { DropDown };
