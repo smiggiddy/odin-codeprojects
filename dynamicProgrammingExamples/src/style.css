@@ -13,9 +13,16 @@ a:hover {
 
 .carousel img {
     object-fit: contain;
-
 }
 
 .active-slide {
     display: block;
+}
+
+.carousel-img {
+    transform: 200%;
+}
+
+.carousel-img .active {
+    transition: transform 200ms ease-out;
 }

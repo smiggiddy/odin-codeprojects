@@ -51,7 +51,6 @@ class Menu {
 
     burgerIconSetter() {
         const isSmallScreen = window.innerWidth <= 600;
-        console.log(window.screen.width);
         if (isSmallScreen) {
             this.adjustStylesForSmallScreen();
             this.burgerIconClickListener();
@@ -62,7 +61,6 @@ class Menu {
 
     burgerIconClickListener() {
         this.burgerIcon.addEventListener('click', () => {
-            console.log(this.container.style.display);
             this.container.style.display =
                 this.container.style.display === 'none' ? 'flex' : 'none';
             return;

@@ -7,8 +7,8 @@ class Carousel {
         this.imagePointer = 0; // starting index
         this.careouselCards = [];
 
-        this.previousImage = this.previousImage.bind(this);
-        this.nextImage = this.nextImage.bind(this);
+        // this.previousImage = this.previousImage.bind(this);
+        // this.nextImage = this.nextImage.bind(this);
 
         // setup styling
         this.carouselPickerStyles();
@@ -49,16 +49,17 @@ class Carousel {
         // Make sure the first card renders
 
         this.showActiveSlide();
-        this.container.append(this.carousel, this.RightButton, this.leftButton);
+        this.container.append(this.carousel, this.rightButton, this.leftButton);
     }
 
     showActiveSlide() {
-        console.log(this.imagePointer);
         this.careouselCards.forEach((e) => {
             if (Number(e.dataset.itemNo) === this.imagePointer) {
                 e.style.display = 'block';
+                e.firstChild.classList.add('active');
             } else {
                 e.style.display = 'none';
+                e.firstChild.classList.remove('active');
             }
         });
     }
@@ -83,22 +84,22 @@ class Carousel {
         this.leftButton.style.top = '50%';
         this.leftButton.style.left = '2%';
 
-        this.leftButton.addEventListener('click', this.previousImage);
+        this.leftButton.addEventListener('click', () => this.previousImage());
     }
 
     carouselRightButton() {
-        this.RightButton = document.createElement('i');
-        this.RightButton.classList.add(
+        this.rightButton = document.createElement('i');
+        this.rightButton.classList.add(
             'carousel-right-btn',
             'fas',
             'fa-angle-right',
             'fa-10x',
         );
-        this.RightButton.style.position = 'absolute';
-        this.RightButton.style.top = '50%';
-        this.RightButton.style.right = '2%';
+        this.rightButton.style.position = 'absolute';
+        this.rightButton.style.top = '50%';
+        this.rightButton.style.right = '2%';
 
-        this.RightButton.addEventListener('click', this.nextImage);
+        this.rightButton.addEventListener('click', () => this.nextImage());
     }
 
     previousImage() {
