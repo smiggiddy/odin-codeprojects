@@ -15,7 +15,7 @@ class MainWebsite {
 
         const title = document.createElement('h1');
         title.classList.add('title');
-        title.textContent = 'Weather';
+        title.textContent = 'How is it outside?';
 
         // Add form to container
         this.container.append(title, this.weatherDiv);
@@ -184,7 +184,6 @@ class MainWebsite {
         // convert the F and C temps
         weatherReportData.convertTemp('C');
         weatherReportData.convertTemp('F');
-        console.table(weatherReportData);
 
         reportUpdater.updateReportText(this.reportCity, weatherReportData.city);
         reportUpdater.updateReportText(

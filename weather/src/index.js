@@ -17,7 +17,7 @@ function fonts() {
     let style = document.createElement('link');
     style.rel = 'stylesheet';
     style.href =
-        'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap';
+        'https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@100..900&display=swap';
 
     document.head.appendChild(fontLink);
     document.head.appendChild(fontLinkTwo);

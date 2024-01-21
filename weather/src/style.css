@@ -1,5 +1,7 @@
 :root {
-    --dark-color: #000;
+    --dark-color: hsla(146, 14%, 10%, 0.897);
+    --lgiht-color: hsla(160, 6%, 90%, 0.89);
+    --interface-color: rgba(235, 236, 236, 0.726);
     --font-size: 18px;
 }
 
@@ -10,9 +12,11 @@ body {
     font-size: var(--font-size);
     font-family: 'Inter', sans-serif;
     font-optical-sizing: auto;
-    font-weight: <weight>;
+    font-weight: 400;
     font-style: normal;
     font-variation-settings: 'slnt' 0;
+    background-color: var(--interface-color);
+    height: 100vh;
 }
 
 .title {
@@ -20,6 +24,9 @@ body {
     font-weight: 800;
     text-align: center;
     margin: 0;
+    background-color: var(--dark-color);
+    color: var(--lgiht-color);
+    font-family: 'Indie Flower', cursive;
 }
 
 .form {
@@ -33,12 +40,13 @@ body {
     display: flex;
     flex-direction: column;
     margin: auto;
+    align-items: center;
 }
 
 .form button {
     align-self: baseline;
     flex: 1;
-    height: 41px;
+    height: 46px;
 }
 
 .form-input input {
@@ -48,7 +56,7 @@ body {
 }
 
 .form-input span {
-    color: red;
+    color: hsla(0, 79%, 54%, 0.829);
     margin-left: 5px;
 }
 
@@ -65,11 +73,13 @@ body {
 .report-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
 }
 
 .city {
     grid-column: 1 / span 3;
-    place-self: center;
 }
 
 .temp {
