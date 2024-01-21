@@ -1,4 +1,4 @@
-class WeatherComponent {
+export default class WeatherComponent {
     constructor(apiKey) {
         this.apiKey = apiKey;
     }
@@ -84,13 +84,13 @@ class WeatherComponent {
     }
 }
 
-const api = 'bd5d23eea5751c12b0ef75344e3df932';
-
-const weather = new WeatherComponent(api);
-weather.getWeather(20716).then((data) => console.log(data));
-weather.getWeather(22030).then((data) => {
-    data.convertTemp('C');
-    console.log(data);
-    data.convertTemp('F');
-    console.log(data);
-});
+// const api = 'bd5d23eea5751c12b0ef75344e3df932';
+//
+// const weather = new WeatherComponent(api);
+// weather.getWeather(20716).then((data) => console.log(data));
+// weather.getWeather(22030).then((data) => {
+//     data.convertTemp('C');
+//     console.log(data);
+//     data.convertTemp('F');
+//     console.log(data);
+// });
