@@ -25,6 +25,7 @@ export default class WeatherComponent {
         const self = this;
         let data = {
             time: this.currentWeatherData.dt,
+            icon: `https://openweathermap.org/img/wn/${this.currentWeatherData.weather[0].icon}@2x.png`,
             weather: {
                 main: this.currentWeatherData.weather[0].main,
                 description: this.currentWeatherData.weather[0].description,
@@ -83,14 +84,3 @@ export default class WeatherComponent {
         this.currentWeatherData = data;
     }
 }
-
-// const api = 'bd5d23eea5751c12b0ef75344e3df932';
-//
-// const weather = new WeatherComponent(api);
-// weather.getWeather(20716).then((data) => console.log(data));
-// weather.getWeather(22030).then((data) => {
-//     data.convertTemp('C');
-//     console.log(data);
-//     data.convertTemp('F');
-//     console.log(data);
-// });

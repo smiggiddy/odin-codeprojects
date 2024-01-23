@@ -43,6 +43,7 @@ class MainWebsite {
             this.reportTemp,
             this.reportTime,
             this.reportTempDetails,
+            this.reportIcon,
         );
 
         this.weatherDiv.append(this.form, this.reportDiv);
@@ -72,6 +73,8 @@ class MainWebsite {
         this.reportMinTemp = document.createElement('span');
         this.reportMinTemp.classList.add('min');
 
+        this.reportIcon = document.createElement('img');
+        this.reportIcon.classList.add('icon-img');
         // this.reportConditions = document.createElement('span');
         // this.reportConditions.classList.add('conditions');
 
@@ -119,7 +122,7 @@ class MainWebsite {
         input.id = 'zipcode';
         input.name = 'zipcode';
         input.type = 'text';
-        input.placeholder = 'Zipcode';
+        input.placeholder = 'Search by zipcode';
         input.required = true;
         input.addEventListener('input', (input) =>
             this.formInputValidationChecker(input.target),
@@ -131,7 +134,7 @@ class MainWebsite {
         this.button = document.createElement('button');
         this.button.type = 'submit';
         this.button.classList.add('btn');
-        this.button.textContent = 'Submit';
+        this.button.textContent = 'Get report';
         this.button.addEventListener('click', (e) => this.handleSubmit(e));
 
         div.append(input, span);
@@ -144,13 +147,17 @@ class MainWebsite {
 
     handleSubmit(e) {
         e.preventDefault();
-        if (this.validZipcode) {
-            const input = document.querySelector('#zipcode');
-            // this.updateWeatherComponent({ temp: { current: 98 } });
+        // one more sanity check before submit
+        const span = document.querySelector('.zipcode-span');
+        const input = document.querySelector('#zipcode');
+
+        if (this.validZipcode && input.value !== '') {
             this.weatherComponent
                 .getWeather(input.value)
                 .then((report) => this.updateWeatherComponent(report));
             input.value = '';
+        } else {
+            span.textContent = 'Please enter a 5 digit zip code!';
         }
     }
 
@@ -216,6 +223,11 @@ class MainWebsite {
             weatherReportData.F.minTemp,
             'min',
         );
+
+        this.reportIcon.src = weatherReportData.icon;
+
+        // Set report div desplay to flex
+        this.reportDiv.classList.add('show-report');
     }
 }
 
