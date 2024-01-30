@@ -1,15 +1,15 @@
 class LinkedList {
   constructor() {
     this.size = 0;
-    this.head = null;
     this.tail = null;
+    this.head = null;
   }
 
   getHead() {
-    return this.head;
+    return this.tail;
   }
   getTail() {
-    return this.tail;
+    return this.head;
   }
 
   getSize() {
@@ -18,15 +18,15 @@ class LinkedList {
 
   append(value) {
     let newNode = new Node(value);
-    if (this.tail == null) {
-      this.tail = newNode;
-    } else {
-      const temp = this.tail;
-      this.tail = newNode;
-      this.tail.nextNode = temp;
-    }
     if (this.head == null) {
       this.head = newNode;
+    } else {
+      const temp = this.head;
+      this.head = newNode;
+      this.head.nextNode = temp;
+    }
+    if (this.tail == null) {
+      this.tail = newNode;
     }
 
     this.size += 1;
@@ -34,15 +34,15 @@ class LinkedList {
 
   prepend(value) {
     let newNode = new Node(value);
-    if (this.head == null) {
-      this.head = newNode;
-      if (this.tail == null) {
-        this.tail = newNode;
+    if (this.tail == null) {
+      this.tail = newNode;
+      if (this.head == null) {
+        this.head = newNode;
       }
     } else {
-      const temp = this.head;
+      const temp = this.tail;
       temp.nextNode = newNode;
-      this.head = newNode;
+      this.tail = newNode;
     }
     this.size += 1;
   }
@@ -58,14 +58,14 @@ class LinkedList {
       }
     }
 
-    return nodeAtIndex(index, 0, this.tail);
+    return nodeAtIndex(index, 0, this.head);
   }
   pop() {
-    if (this.tail.nextNode == null) {
-      this.tail = null;
+    if (this.head.nextNode == null) {
       this.head = null;
+      this.tail = null;
     } else {
-      this.tail = this.tail.nextNode;
+      this.head = this.head.nextNode;
     }
     this.size -= 1;
   }
@@ -81,7 +81,7 @@ class LinkedList {
       }
     }
 
-    return searchNodes(this.tail, value);
+    return searchNodes(this.head, value);
   }
 
   find(value) {
@@ -96,13 +96,13 @@ class LinkedList {
       }
     }
 
-    return searchNodes(this.tail, value, index);
+    return searchNodes(this.head, value, index);
   }
 
   insertAt(value, index) {
     let previousNode = null;
     let newNode = new Node(value);
-    let currentNode = this.tail;
+    let currentNode = this.head;
     let count = 0;
 
     if (index === 0) {
@@ -131,7 +131,7 @@ class LinkedList {
 
   removeAt(index) {
     let previousNode = null;
-    let currentNode = this.tail;
+    let currentNode = this.head;
     let count = 0;
 
     if (index === 0) {
@@ -158,7 +158,7 @@ class LinkedList {
 
   toString() {
     let nodes = [];
-    let current = this.tail;
+    let current = this.head;
 
     while (current != null) {
       nodes.push(current.value);
@@ -203,9 +203,13 @@ list.toString();
 list.removeAt(6);
 console.log("Removing element 6");
 list.toString();
+console.log('removing inserted elements')
 list.removeAt(1);
 list.removeAt(3);
-list.removeAt(0);
-list.removeAt(3);
+list.toString();
 console.log("Removing element 1");
+list.removeAt(0);
+list.toString();
+console.log("Removing element Deez Nuts");
+list.removeAt(3);
 list.toString();
