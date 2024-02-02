@@ -5,16 +5,6 @@ class LinkedList {
     this.head = null;
   }
 
-  getHead() {
-    return this.tail;
-  }
-  getTail() {
-    return this.head;
-  }
-
-  getSize() {
-    return this.size;
-  }
 
   append(value) {
     let newNode = new Node(value);
@@ -27,6 +17,7 @@ class LinkedList {
     }
     if (this.tail == null) {
       this.tail = newNode;
+
     }
 
     this.size += 1;
@@ -34,6 +25,7 @@ class LinkedList {
 
   prepend(value) {
     let newNode = new Node(value);
+
     if (this.tail == null) {
       this.tail = newNode;
       if (this.head == null) {
@@ -43,6 +35,7 @@ class LinkedList {
       const temp = this.tail;
       temp.nextNode = newNode;
       this.tail = newNode;
+
     }
     this.size += 1;
   }
@@ -66,6 +59,7 @@ class LinkedList {
       this.tail = null;
     } else {
       this.head = this.head.nextNode;
+
     }
     this.size -= 1;
   }
@@ -82,6 +76,7 @@ class LinkedList {
     }
 
     return searchNodes(this.head, value);
+
   }
 
   find(value) {
@@ -97,12 +92,14 @@ class LinkedList {
     }
 
     return searchNodes(this.head, value, index);
+
   }
 
   insertAt(value, index) {
     let previousNode = null;
     let newNode = new Node(value);
     let currentNode = this.head;
+
     let count = 0;
 
     if (index === 0) {
@@ -132,6 +129,7 @@ class LinkedList {
   removeAt(index) {
     let previousNode = null;
     let currentNode = this.head;
+
     let count = 0;
 
     if (index === 0) {
@@ -159,6 +157,7 @@ class LinkedList {
   toString() {
     let nodes = [];
     let current = this.head;
+
 
     while (current != null) {
       nodes.push(current.value);
@@ -212,4 +211,5 @@ list.removeAt(0);
 list.toString();
 console.log("Removing element Deez Nuts");
 list.removeAt(3);
+
 list.toString();
