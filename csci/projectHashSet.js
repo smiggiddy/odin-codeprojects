@@ -35,8 +35,14 @@ class HashSet {
     set(key) {
         let _hash = this.hash(key);
         let bucketIndex = _hash % this.capacity;
+
+        // Check if we need to add more buckets
         this.capacityWatcher();
-        if (this.buckets[bucketIndex] == undefined) {
+
+        if (
+            this.buckets[bucketIndex] == undefined ||
+            this.buckets[bucketIndex] == null
+        ) {
             let linkedList = new LinkedList();
             linkedList.append(key);
 
@@ -45,6 +51,7 @@ class HashSet {
             let keyExists = this.buckets[bucketIndex].contains(key);
 
             if (keyExists) {
+                // no dups
                 return;
             } else {
                 this.buckets[bucketIndex].append(key);
@@ -55,12 +62,13 @@ class HashSet {
     get(key) {
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
-                let value = this.buckets[i].find(key);
-                if (value) return true;
+                let _key = this.buckets[i].find(key);
+                if (_key) return true;
             }
         }
         return false;
     }
+
     remove(key) {
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
@@ -71,6 +79,7 @@ class HashSet {
         }
         return false;
     }
+
     length() {
         let count = 0;
 
@@ -81,10 +90,12 @@ class HashSet {
         }
         return count;
     }
+
     clear() {
         this.capacity = this.initialCapacity;
         this.buckets = Array(this.capacity);
     }
+
     keys() {
         let _keys = [];
 
