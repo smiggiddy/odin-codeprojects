@@ -1,0 +1,17 @@
+{
+    "name": "csci",
+    "version": "1.0.0",
+    "description": "",
+    "main": "doublyLinkedList.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint-config-prettier": "^9.1.0",
+        "prettier": "3.2.4"
+    },
+    "type": "module"
+}
