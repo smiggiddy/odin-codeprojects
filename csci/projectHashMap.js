@@ -94,7 +94,7 @@ class LinkedList {
       return true;
     }
 
-    while (currentNode != null) {
+    while (currentNode) {
       if (currentNode.key === key) {
         lastNode.next = currentNode.next;
         this.size -= 1;
@@ -133,16 +133,8 @@ class HashMap {
 
   capacityWatcher() {
     let consumed = this.buckets.filter(Object).length;
-    console.log(`This is the consumed value ${consumed}`);
-    console.log(this.capacity * this.loadFactor);
     if (consumed >= this.capacity * this.loadFactor) {
-      console.log(
-        `BUCKET SIZE: ${this.capacity} increasing to ${
-          this.capacity * 2
-        }.\n${consumed} capacity`,
-      );
       this.capacity = Math.round(1.25 * this.capacity);
-      console.log(this.capacity);
     }
   }
 
@@ -213,7 +205,7 @@ class HashMap {
     for (let i = 0; i < this.buckets.length; i++) {
       if (this.buckets[i]) {
         let currentNode = this.buckets[i].head;
-        while (currentNode != null) {
+        while (currentNode) {
           _keys.push(currentNode.key);
           currentNode = currentNode.next;
         }
@@ -227,7 +219,7 @@ class HashMap {
     for (let i = 0; i < this.buckets.length; i++) {
       if (this.buckets[i]) {
         let currentNode = this.buckets[i].head;
-        while (currentNode != null) {
+        while (currentNode) {
           _values.push(currentNode.value);
           currentNode = currentNode.next;
         }
@@ -241,7 +233,7 @@ class HashMap {
     for (let i = 0; i < this.buckets.length; i++) {
       if (this.buckets[i]) {
         let currentNode = this.buckets[i].head;
-        while (currentNode != null) {
+        while (currentNode) {
           _entries.push([currentNode.key, currentNode.value]);
           currentNode = currentNode.next;
         }
@@ -251,7 +243,7 @@ class HashMap {
   }
 }
 
-let t = new HashMap(3);
+let t = new HashMap();
 
 // Starter Data
 t.set("football", "redskins");
