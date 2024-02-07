@@ -112,16 +112,18 @@ class HashSet {
     }
 }
 
-const _set = new HashSet();
-_set.set('test');
-_set.set('test');
-_set.set('hello');
-_set.set('deeeez');
-_set.set('deeez');
-_set.set('deez');
-_set.set('dez');
-_set.set('trueskii');
-_set.set('mike');
-console.log(_set.keys());
-_set.remove('test');
-console.log(_set.buckets);
+export { HashSet };
+
+// const _set = new HashSet();
+// _set.set('test');
+// _set.set('test');
+// _set.set('hello');
+// _set.set('deeeez');
+// _set.set('deeez');
+// _set.set('deez');
+// _set.set('dez');
+// _set.set('trueskii');
+// _set.set('mike');
+// console.log(_set.keys());
+// _set.remove('test');
+// console.log(_set.buckets);
