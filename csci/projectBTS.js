@@ -6,7 +6,7 @@ class Node {
     }
 }
 
-class Tree {
+class balancedBinaryTree {
     constructor(arr = []) {
         this.sort(arr);
         this.set();
@@ -44,6 +44,10 @@ class Tree {
             node = new Node(value);
             return node;
         }
+
+        // don't insert duplicates
+        if (value === node.data) return node;
+
         if (value < node.data) {
             node.left = this.insert(value, node.left);
         } else {
@@ -81,16 +85,14 @@ class Tree {
         let found = null;
 
         function searchTree(n) {
-            if (n == null) return;
+            if (n == null) return null;
             if (n.data === value) {
-                console.log(node);
                 found = n;
-                return found;
-            } else {
-                n.left = searchTree(n.left);
-                n.right = searchTree(n.right);
+                return n;
             }
-            return node;
+            n.left = searchTree(n.left);
+            n.right = searchTree(n.right);
+            return n;
         }
         searchTree(node);
         return found;
@@ -116,20 +118,186 @@ class Tree {
             );
         }
     }
-    levelOrder(callback) {
-        // TODO implement
+    levelOrder(callback = null) {
+        const queue = [];
+        const values = [];
+        let node = this.tree;
+
+        function processQueue(arr) {
+            while (arr.length > 0) {
+                let item = arr.shift();
+                if (item) {
+                    callback ? callback(item) : values.push(item.data);
+                }
+                if (item.left) queue.push(item.left);
+                if (item.right) queue.push(item.right);
+            }
+        }
+
+        function proccessQueueRecursively(level) {
+            function _helper(n, level) {
+                if (n == null) return;
+
+                if (level === 1) {
+                    callback ? callback(n) : values.push(n.data);
+                } else {
+                    _helper(n.left, level - 1);
+                    _helper(n.right, level - 1);
+                }
+            }
+
+            for (let i = 1; i <= level; i++) {
+                _helper(node, i);
+            }
+        }
+
+        if (!node) {
+            console.log('Need a tree with some values dude');
+            return;
+        }
+        queue.push(node);
+
+        // get tree height for recursion
+        // let h = this.height(node);
+
+        processQueue(queue);
+        // proccessQueueRecursively(h);
+
+        return values;
+    }
+
+    inOrder(callback = null) {
+        const tree = this.tree;
+        const values = [];
+
+        function inOrderHelper(n) {
+            if (tree == null) {
+                return;
+            }
+            if (n.left) inOrderHelper(n.left);
+            callback ? callback(n.data) : values.push(n.data);
+            if (n.right) inOrderHelper(n.right);
+        }
+        inOrderHelper(tree);
+        return values;
+    }
+
+    preOrder(callback = null) {
+        const tree = this.tree;
+        const values = [];
+
+        function preOrderHelper(n) {
+            if (tree == null) {
+                return;
+            }
+            callback ? callback(n.data) : values.push(n.data);
+            if (n.left) preOrderHelper(n.left);
+            if (n.right) preOrderHelper(n.right);
+        }
+        preOrderHelper(tree);
+        return values;
+    }
+
+    postOrder(callback = null) {
+        const tree = this.tree;
+        const values = [];
+
+        function postOrderHelper(n) {
+            if (tree == null) {
+                return;
+            }
+            if (n.left) postOrderHelper(n.left);
+            if (n.right) postOrderHelper(n.right);
+            callback ? callback(n.data) : values.push(n.data);
+        }
+        postOrderHelper(tree);
+        return values;
+    }
+
+    height(node) {
+        function heightHelper(n) {
+            if (n == null) return 0;
+            let leftHeight = heightHelper(n.left);
+            let rightHeight = heightHelper(n.right);
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+        return heightHelper(node) - 1;
+    }
+
+    depth(node) {
+        let treeHeight = this.height(this.tree);
+        let nodeHeight = this.height(node);
+
+        return treeHeight - nodeHeight;
+    }
+
+    isBalanced() {
+        let self = this;
+        let isBalanced = true;
+
+        function balanceHelper(node) {
+            let left;
+            let right;
+
+            if (node.left) left = self.find(node.left.data);
+            if (node.right) right = self.find(node.right.data);
+
+            let leftHeight = self.height(left);
+            let rightHeight = self.height(right);
+
+            return Math.abs(leftHeight - rightHeight) <= 1;
+        }
+
+        this.levelOrder((n) => {
+            if (!balanceHelper(n)) isBalanced = false;
+        });
+
+        return isBalanced;
+    }
+
+    rebalance() {
+        let tree = this.inOrder();
+        this.tree = this.buildTree(tree, 0, tree.length - 1);
     }
 }
 
-// let testArr = [-1, -0.5, 0, 3, 4, 23, 8, 3, 5, 7, 8, 9, 10, 67, 6345, 324];
-let testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+function main() {
+    let getRandomNumber = (max) => Math.floor(Math.random() * max);
+    let buildArray = () => {
+        let arr = [];
+        for (let i = 0; i < 100; i++) {
+            arr.push(getRandomNumber(100));
+        }
+        return arr;
+    };
+    let unbalanceTree = (bst) => {
+        for (let i = 0; i < 50; i++) {
+            bst.insert(getRandomNumber(200));
+        }
+    };
 
-let t = new Tree(testArr);
-t.prettyPrint(t.tree);
-t.insert(2);
-t.delete(67);
-t.delete(6345);
-t.delete(13);
-t.prettyPrint(t.tree);
-let search = t.find(-2);
-console.log(search);
+    console.log('WELCOME TO THE BINARY TREE STUFF');
+    console.log('BUILDING TREE WITH 100 RANDOM NUMBERS');
+    let testArr = buildArray();
+    let tree = new balancedBinaryTree(testArr);
+    tree.prettyPrint(tree.tree);
+    console.log('UNBALANCING THIS JOINT');
+    unbalanceTree(tree);
+    tree.prettyPrint(tree.tree);
+    console.log('LET ME SEE IF THAT WOKRED');
+    console.log(`IS THE TREE BALANCED G? ${tree.isBalanced()}`);
+    tree.rebalance();
+    console.log('LETS FIX THAT BUDDY');
+    tree.prettyPrint(tree.tree);
+    console.log('LETS DO THE TRAVERSALS NOW');
+    console.log('LEVEL ORDER');
+    console.log(tree.levelOrder());
+    console.log('PRE ORDER');
+    console.log(tree.preOrder());
+    console.log('IN ORDER');
+    console.log(tree.inOrder());
+    console.log('POST ORDER');
+    console.log(tree.postOrder());
+}
+
+main();
