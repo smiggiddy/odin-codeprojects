@@ -103,10 +103,10 @@ class Graph {
 
             for (
                 let i = 0;
-                i < this.adjList[vertex[0]][vertex[1]].length;
+                i < this.adjList[vertex[1]][vertex[0]].length;
                 i++
             ) {
-                let neighbor = this.adjList[vertex[0]][vertex[1]][i];
+                let neighbor = this.adjList[vertex[1]][vertex[0]][i];
                 let x = neighbor[0];
                 let y = neighbor[1];
 
@@ -146,7 +146,9 @@ class Graph {
 }
 
 let g = new Graph(8, 8);
-console.log(g.adjList[1][2]);
+console.dir(g.adjList);
+console.table(g.adjList[0]);
+console.table(g.adjList[0][0]);
 g.knightMoves([0, 0], [7, 7]);
 console.log(g.lookAtBfs());
 g.knightMoves([0, 0], [3, 3]);
