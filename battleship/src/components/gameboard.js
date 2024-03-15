@@ -5,12 +5,18 @@ class Gameboard {
     constructor() {
         // some code
         this.ships = [];
+        this.sunkShipCount = 0;
 
         // load settings
         this.settings();
 
         // Create Ships
         this.createShips();
+
+        this.scoreboard = {
+            hits: new Set(),
+            misses: new Set(),
+        };
     }
 
     settings() {
@@ -26,7 +32,7 @@ class Gameboard {
                 let cords = this.generateCoordinates(shipSize[i]);
                 ship.coordinates = cords;
 
-                if (!this.checkForDuplicateCoordinates()) {
+                if (!this.checkForDuplicateCoordinates(ship)) {
                     break;
                 }
             }
@@ -58,28 +64,54 @@ class Gameboard {
         return coordinates;
     }
 
-    checkForDuplicateCoordinates() {
+    checkForDuplicateCoordinates(ship) {
         // needs to save coordinates to a list
         let ships = [];
         let duplicates = false;
 
         if (this.ships.length > 0) {
-            this.ships.forEach((ship) => {
+            this.ships.forEach((s) => {
                 for (let i = 0; i < ship.coordinates.length; i++) {
-                    let check = ships.find(
+                    let check = s.coordinates.find(
                         (s) =>
                             JSON.stringify(s) ===
                             JSON.stringify(ship.coordinates[i]),
                     );
-                    if (!check) ships.push(ship.coordinates[i]);
                     if (check) {
                         duplicates = true;
                     }
                 }
             });
         }
-
         return duplicates;
+    }
+
+    receiveAttack(coordinate) {
+        let shipIndex;
+
+        for (let i = 0; i < this.ships.length; i++) {
+            let attacked = this.ships[i].coordinates.find(
+                (c) => JSON.stringify(coordinate) === JSON.stringify(c),
+            );
+
+            if (attacked) {
+                shipIndex = i;
+                this.ships[i].hit();
+                this.scoreboard.hits.add(coordinate);
+                return;
+            }
+        }
+
+        if (!shipIndex) this.scoreboard.misses.add(coordinate);
+    }
+
+    shipStatus() {
+        for (let i = 0; i < this.ships.length; i++) {
+            if (this.ships[i].isSunk()) {
+                this.sunkShipCount += 1;
+                this.ships.splice(i, 1);
+            }
+        }
     }
 }
 
