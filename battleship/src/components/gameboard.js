@@ -1,5 +1,4 @@
 import { Ship } from './ship';
-let _ = require('lodash');
 
 class Gameboard {
     constructor() {
