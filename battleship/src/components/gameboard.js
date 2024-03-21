@@ -12,6 +12,7 @@ class Gameboard {
         // Create Ships
         this.createShips();
 
+        // Tracks the opponents attempts on the players gameboard
         this.scoreboard = {
             hits: new Set(),
             misses: new Set(),
@@ -20,15 +21,15 @@ class Gameboard {
 
     settings() {
         this.shipCount = 5;
+        this.shipSize = [2, 3, 3, 4, 5];
     }
 
     createShips() {
-        let shipSize = [2, 3, 3, 4, 5];
-        for (let i = 0; i < shipSize.length; i++) {
-            let ship = new Ship(shipSize[i]);
+        for (let i = 0; i < this.shipSize.length; i++) {
+            let ship = new Ship(this.shipSize[i]);
 
             while (true) {
-                let cords = this.generateCoordinates(shipSize[i]);
+                let cords = this.generateCoordinates(this.shipSize[i]);
                 ship.coordinates = cords;
 
                 if (!this.checkForDuplicateCoordinates(ship)) {
@@ -95,18 +96,19 @@ class Gameboard {
 
             if (attacked) {
                 shipIndex = i;
-                this.ships[i].hit();
-                this.scoreboard.hits.add(coordinate);
+                this.ships[shipIndex].hit();
+                this.scoreboard.hits.add(JSON.stringify(coordinate));
                 return;
             }
         }
 
-        if (!shipIndex) this.scoreboard.misses.add(coordinate);
+        if (!shipIndex) this.scoreboard.misses.add(JSON.stringify(coordinate));
     }
 
     shipStatus() {
         for (let i = 0; i < this.ships.length; i++) {
             if (this.ships[i].isSunk()) {
+                console.log(this.ships[i]);
                 this.sunkShipCount += 1;
                 this.ships.splice(i, 1);
             }
