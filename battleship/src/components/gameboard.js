@@ -108,7 +108,6 @@ class Gameboard {
     shipStatus() {
         for (let i = 0; i < this.ships.length; i++) {
             if (this.ships[i].isSunk()) {
-                console.log(this.ships[i]);
                 this.sunkShipCount += 1;
                 this.ships.splice(i, 1);
             }

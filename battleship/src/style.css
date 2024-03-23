@@ -1,0 +1,11 @@
+.grid {
+    display: flex;
+    width: 500px;
+    height: 500px;
+    flex-wrap: wrap;
+}
+
+.cell {
+    width: 48px;
+    height: 48px;
+}

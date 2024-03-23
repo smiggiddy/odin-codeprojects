@@ -14,10 +14,6 @@ class Player {
 
         while (true) {
             let potentialMove = coordinates();
-            console.log(
-                scoreboard.misses.has(JSON.stringify(potentialMove)),
-                potentialMove,
-            );
             if (!scoreboard.misses.has(JSON.stringify(potentialMove))) {
                 return potentialMove;
             }
