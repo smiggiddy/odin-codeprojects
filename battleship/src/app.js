@@ -2,7 +2,7 @@ export default class Game {
     constructor(players) {
         this.player1 = players.player1;
         this.player2 = players.player2;
-        this.main();
+        // this.main();
     }
 
     main() {

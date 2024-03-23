@@ -1,3 +1,9 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    gap: 100px;
+}
 .grid {
     display: flex;
     width: 500px;
