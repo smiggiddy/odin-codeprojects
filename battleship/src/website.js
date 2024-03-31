@@ -1,3 +1,5 @@
+import { forEach } from 'lodash';
+
 export default class Website {
     constructor(game) {
         this.game = game;
@@ -26,6 +28,10 @@ export default class Website {
 
         let misses = player.gameboard.scoreboard.misses;
         let hits = player.gameboard.scoreboard.hits;
+        let shipCoordinates = player.gameboard.ships.map(
+            (ship) => ship.coordinates,
+        );
+        let allShipCoordinates = shipCoordinates.concat(...shipCoordinates);
 
         for (let i = 1; i < 11; i++) {
             for (let j = 1; j < 11; j++) {
@@ -34,6 +40,14 @@ export default class Website {
                 cell.dataset.cell = `[${j}, ${i}]`;
                 cell.style.border = '1px solid black';
                 div.appendChild(cell);
+
+                if (player.playerName === 'Player1') {
+                    allShipCoordinates.forEach((ship) => {
+                        if (JSON.stringify([j, i]) === JSON.stringify(ship)) {
+                            cell.style.backgroundColor = 'blue';
+                        }
+                    });
+                }
 
                 if (hits.has(JSON.stringify([j, i]))) {
                     cell.style.backgroundColor = 'red';
@@ -44,11 +58,6 @@ export default class Website {
             }
         }
 
-        // player.gameboard.scoreboard.misses
-        //     .entries()
-        //     .array.forEach((element) => {
-        //         console.log(element);
-        //     });
         return div;
     }
 

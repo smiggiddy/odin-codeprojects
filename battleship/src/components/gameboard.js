@@ -32,7 +32,10 @@ class Gameboard {
                 let cords = this.generateCoordinates(this.shipSize[i]);
                 ship.coordinates = cords;
 
-                if (!this.checkForDuplicateCoordinates(ship)) {
+                if (
+                    !this.checkForDuplicateCoordinates(ship) &&
+                    !this.checkForAdjacentCoordinates(ship)
+                ) {
                     break;
                 }
             }
@@ -66,7 +69,6 @@ class Gameboard {
 
     checkForDuplicateCoordinates(ship) {
         // needs to save coordinates to a list
-        let ships = [];
         let duplicates = false;
 
         if (this.ships.length > 0) {
@@ -84,6 +86,63 @@ class Gameboard {
             });
         }
         return duplicates;
+    }
+
+    checkForAdjacentCoordinates(ship) {
+        // needs to save coordinates to a list
+        let adjacent = false;
+        let test = [];
+
+        const adj = [
+            [-1, 1],
+            [-1, 0],
+            [-1, -1],
+            [0, -1],
+            [1, -1],
+            [1, 0],
+            [1, 1],
+            [0, 1],
+        ];
+
+        for (let y = 1; y < 11; y++) {
+            let rowData = [];
+            for (let x = 1; x < 11; x++) {
+                let adjPositions = [];
+                for (const [adjX, adjY] of adj) {
+                    const tempX = x + adjX;
+                    const tempY = y + adjY;
+
+                    if (tempX >= 1 && tempX < 11 && tempY >= 1 && tempY < 11) {
+                        adjPositions.push([tempX, tempY]);
+                    }
+                }
+                rowData.push(adjPositions);
+            }
+            test.push(rowData);
+        }
+
+        if (this.ships.length > 0) {
+            this.ships.forEach((s) => {
+                for (let i = 0; i < ship.coordinates.length; i++) {
+                    let x = ship.coordinates[i][1];
+                    let y = ship.coordinates[i][0];
+
+                    let adjacentCords = test[x - 1][y - 1];
+
+                    for (let t = 0; t < adjacentCords.length; t++) {
+                        let check = s.coordinates.find(
+                            (s) =>
+                                JSON.stringify(s) ===
+                                JSON.stringify(adjacentCords[t]),
+                        );
+                        if (check) {
+                            adjacent = true;
+                        }
+                    }
+                }
+            });
+        }
+        return adjacent;
     }
 
     receiveAttack(coordinate) {
