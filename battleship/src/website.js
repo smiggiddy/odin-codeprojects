@@ -1,5 +1,3 @@
-import { forEach } from 'lodash';
-
 export default class Website {
     constructor(game) {
         this.game = game;
@@ -18,7 +16,10 @@ export default class Website {
     }
 
     createHeader() {
-        this.header.textContent = 'Battleship';
+        let title = document.createElement('h1');
+        title.textContent = 'Battleship';
+
+        this.header.appendChild(title);
     }
 
     drawGrid(player = null) {
@@ -53,7 +54,6 @@ export default class Website {
                     cell.style.backgroundColor = 'red';
                 } else if (misses.has(JSON.stringify([j, i]))) {
                     cell.style.backgroundColor = 'black';
-                    console.log('miss ');
                 }
             }
         }
@@ -68,37 +68,71 @@ export default class Website {
         const playerOneDiv = document.createElement('div');
         playerOneDiv.classList.add('player1');
 
-        playerOneDiv.appendChild(this.drawGrid(this.game.player1));
+        const h2 = document.createElement('h2');
+        h2.classList.add('player-title');
+        h2.textContent = 'Player 1';
+
+        playerOneDiv.append(h2, this.drawGrid(this.game.player1));
 
         const playerTwoDiv = document.createElement('div');
         playerTwoDiv.classList.add('player2');
         playerTwoDiv.addEventListener('click', (event) =>
             this.handleAttackClick(event),
         );
-        playerTwoDiv.appendChild(this.drawGrid(this.game.player2));
+
+        const h2Cpu = document.createElement('h2');
+        h2Cpu.classList.add('player-title');
+        h2Cpu.textContent = 'CPU';
+
+        playerTwoDiv.append(h2Cpu, this.drawGrid(this.game.player2));
 
         this.container.append(playerOneDiv, playerTwoDiv);
     }
 
     handleAttackClick(event) {
-        let move = JSON.parse(event.target.dataset.cell);
-
+        let move = event.target.dataset.cell
+            ? JSON.parse(event.target.dataset.cell)
+            : null;
         // Exit if the block has already been clicked
         let available = this.game.player2.gameboard.scoreboard;
         if (
             available.misses.has(JSON.stringify(move)) ||
-            available.hits.has(JSON.stringify(move))
+            available.hits.has(JSON.stringify(move)) ||
+            !move
         )
             return;
 
         this.game.handleUserMove(JSON.stringify(move));
         this.updateScreen();
+        if (this.isGameOver()) {
+            let winner = this.announceWinner();
+            this.container.textContent = `Gameover ${winner} has won the game`;
+        }
         this.CPUMove();
-        console.log(available, move);
     }
 
     CPUMove() {
         this.game.handleCPUMove();
         this.updateScreen();
+
+        if (this.isGameOver()) {
+            let winner = this.announceWinner();
+            this.container.textContent = `Gameover ${winner} has won the game`;
+        }
+    }
+
+    isGameOver() {
+        return (
+            this.game.player1.gameboard.ships.length === 0 ||
+            this.game.player2.gameboard.ships.length === 0
+        );
+    }
+
+    announceWinner() {
+        if (this.game.player1.gameboard.ships.length === 0) {
+            return 'CPU';
+        }
+
+        return 'Player 1';
     }
 }

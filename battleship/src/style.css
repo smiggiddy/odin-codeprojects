@@ -1,14 +1,28 @@
+#header {
+    display: flex;
+    justify-content: center;
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-content: center;
     gap: 100px;
 }
+
 .grid {
     display: flex;
     width: 500px;
     height: 500px;
     flex-wrap: wrap;
+}
+
+.player2 div {
+    cursor: pointer;
+}
+
+.player2 div > div:hover {
+    background-color: gray;
 }
 
 .cell {
