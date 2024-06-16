@@ -1,13 +1,14 @@
-import ContactInfo from './components/contactInfo'
-import './App.css'
+import GeneralInfo from "./components/generalInfo";
+import EducationInfo from "./components/educationInfo";
+import "./App.css";
 
 function App() {
-
   return (
     <>
-      <ContactInfo />
+      <GeneralInfo />
+      <EducationInfo />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
