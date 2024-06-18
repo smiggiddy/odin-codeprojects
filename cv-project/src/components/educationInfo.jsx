@@ -11,7 +11,7 @@ export default function EducationInfo() {
           <p>Add your Education info</p>
         </>
       ) : (
-        <EducationDisplay schools={education} />
+        <EducationDisplay schools={education} setSchools={setEducation} />
       )}
       <button
         onClick={() => {
@@ -20,6 +20,7 @@ export default function EducationInfo() {
       >
         Add Education Info
       </button>
+
       <EducationItem
         isActive={educationItemActive}
         schools={education}
@@ -34,13 +35,25 @@ function EducationDisplay(props) {
     <div>
       {props.schools.map((item) => {
         return (
-          <div key={item.school} className="education-info">
-            <h2>School: {item.school}</h2>
+          <div key={item.schoolName} className="education-info">
+            <h2>School: {item.schoolName}</h2>
             <p>
-              Graduation Date: {item.graduation + " "}
-              Field of Study: {item.concentration}
-              <button>edit</button>
-              <button>remove</button>
+              Graduation Date: {item.graduationDate + " "}
+              Field of Study: {item.fieldOfStudy}
+              <button onClick={() => EducationItem({ editActive: item })}>
+                edit
+              </button>
+              <button
+                onClick={() =>
+                  deleteEducationItem(
+                    props.schools,
+                    item.schoolName,
+                    props.setSchools,
+                  )
+                }
+              >
+                remove
+              </button>
             </p>
           </div>
         );
@@ -49,54 +62,70 @@ function EducationDisplay(props) {
   );
 }
 
-function EducationItem({ isActive, schools, setSchools }) {
+function EducationItem({ isActive, schools, setSchools, editActive }) {
   const [graduationDate, setGraduationDate] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [fieldOfStudy, setFieldOfStudy] = useState("");
+
+  if (editActive) {
+    setGraduationDate(editActive.graduationDate);
+    setSchoolName(editActive.schoolName);
+    setFieldOfStudy(editActive.fieldOfStudy);
+    isActive === true;
+  }
 
   return (
     <div>
       {isActive ? (
         <div className="education-info-form">
-          <input
-            type="text"
-            placeholder="School Name"
-            value={schoolName}
-            onChange={(e) => setSchoolName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Graduation Date"
-            value={graduationDate}
-            onChange={(e) => setGraduationDate(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Field of Study"
-            value={fieldOfStudy}
-            onChange={(e) => setFieldOfStudy(e.target.value)}
-          />
-          <button
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              setSchools([
-                ...schools,
-                {
-                  school: schoolName,
-                  concentration: fieldOfStudy,
-                  graduation: graduationDate,
-                },
-              ]);
-              setGraduationDate("");
-              setSchoolName("");
-              setFieldOfStudy("");
-            }}
-          >
-            Submit
-          </button>
+          <form action="">
+            <input
+              type="text"
+              placeholder="School Name"
+              value={schoolName}
+              onChange={(e) => setSchoolName(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Graduation Date"
+              value={graduationDate}
+              onChange={(e) => setGraduationDate(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Field of Study"
+              value={fieldOfStudy}
+              onChange={(e) => setFieldOfStudy(e.target.value)}
+            />
+            <button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                setSchools([
+                  ...schools,
+                  {
+                    schoolName: schoolName,
+                    fieldOfStudy: fieldOfStudy,
+                    graduationDate: graduationDate,
+                  },
+                ]);
+                setGraduationDate("");
+                setSchoolName("");
+                setFieldOfStudy("");
+              }}
+            >
+              Submit
+            </button>
+          </form>
         </div>
       ) : null}
     </div>
   );
+}
+
+function deleteEducationItem(schools, item, setSchools) {
+  const filteredSchools = schools.filter(
+    (school) => school.schoolName !== item,
+  );
+  setSchools(filteredSchools);
 }
