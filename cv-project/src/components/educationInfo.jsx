@@ -1,31 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function EducationInfo() {
-  const [education, setEducation] = useState([]);
+  const [schools, setSchools] = useState([]);
   const [educationItemActive, setEducationItemActive] = useState(false);
+  const [editSchool, setEditSchool] = useState(null);
+
+  const mainDivStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row-reverse",
+  };
 
   return (
-    <div>
-      {education.length <= 0 ? (
+    <div className="education-info section" style={mainDivStyle}>
+      {schools.length <= 0 ? (
         <>
           <p>Add your Education info</p>
         </>
       ) : (
-        <EducationDisplay schools={education} setSchools={setEducation} />
+        <EducationDisplay
+          schools={schools}
+          setSchools={setSchools}
+          setEditSchool={setEditSchool}
+        />
       )}
-      <button
-        onClick={() => {
-          setEducationItemActive(!educationItemActive);
-        }}
-      >
-        Add Education Info
-      </button>
+      <div>
+        <button
+          onClick={() => {
+            setEducationItemActive(!educationItemActive);
+          }}
+        >
+          Add Education Info
+        </button>
 
-      <EducationItem
-        isActive={educationItemActive}
-        schools={education}
-        setSchools={setEducation}
-      />
+        <EducationForm
+          isActive={educationItemActive}
+          schools={schools}
+          setSchools={setSchools}
+          editSchool={editSchool}
+        />
+      </div>
     </div>
   );
 }
@@ -40,9 +54,7 @@ function EducationDisplay(props) {
             <p>
               Graduation Date: {item.graduationDate + " "}
               Field of Study: {item.fieldOfStudy}
-              <button onClick={() => EducationItem({ editActive: item })}>
-                edit
-              </button>
+              <button onClick={() => props.setEditSchool(item)}>edit</button>
               <button
                 onClick={() =>
                   deleteEducationItem(
@@ -62,23 +74,38 @@ function EducationDisplay(props) {
   );
 }
 
-function EducationItem({ isActive, schools, setSchools, editActive }) {
+function EducationForm({ isActive, schools, setSchools, editSchool }) {
   const [graduationDate, setGraduationDate] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [fieldOfStudy, setFieldOfStudy] = useState("");
 
-  if (editActive) {
-    setGraduationDate(editActive.graduationDate);
-    setSchoolName(editActive.schoolName);
-    setFieldOfStudy(editActive.fieldOfStudy);
-    isActive === true;
-  }
+  useEffect(() => {
+    if (editSchool) {
+      setGraduationDate(editSchool.graduationDate);
+      setSchoolName(editSchool.schoolName);
+      setFieldOfStudy(editSchool.fieldOfStudy);
+    } else {
+      setGraduationDate("");
+      setSchoolName("");
+      setFieldOfStudy("");
+    }
+  }, [editSchool]);
+
+  let schoolId = editSchool
+    ? schools.findIndex((school) => school.schoolName === editSchool.schoolName)
+    : null;
+
+  const contactFormStyle = {
+    display: "flex",
+    flexDirection: "column",
+    width: "30vw",
+  };
 
   return (
     <div>
       {isActive ? (
         <div className="education-info-form">
-          <form action="">
+          <form action="" style={contactFormStyle}>
             <input
               type="text"
               placeholder="School Name"
@@ -101,20 +128,41 @@ function EducationItem({ isActive, schools, setSchools, editActive }) {
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                setSchools([
-                  ...schools,
-                  {
+                const updatedSchools = [...schools];
+                if (schoolId !== -1 && schoolId !== null) {
+                  updatedSchools[schoolId] = {
                     schoolName: schoolName,
-                    fieldOfStudy: fieldOfStudy,
                     graduationDate: graduationDate,
-                  },
-                ]);
+                    fieldOfStudy: fieldOfStudy,
+                  };
+                  setSchools(updatedSchools);
+                } else {
+                  setSchools([
+                    ...schools,
+                    {
+                      schoolName: schoolName,
+                      fieldOfStudy: fieldOfStudy,
+                      graduationDate: graduationDate,
+                    },
+                  ]);
+                }
+
                 setGraduationDate("");
                 setSchoolName("");
                 setFieldOfStudy("");
               }}
             >
               Submit
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setGraduationDate("");
+                setSchoolName("");
+                setFieldOfStudy("");
+              }}
+            >
+              Clear
             </button>
           </form>
         </div>
