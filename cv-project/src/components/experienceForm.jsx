@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Experience() {
+export default function ExperienceForm() {
   const [jobs, setJobs] = useState([]);
   const [showJobForm, setShowJobForm] = useState(false);
 

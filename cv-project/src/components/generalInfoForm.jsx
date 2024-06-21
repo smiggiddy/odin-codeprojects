@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function GeneralInfo() {
+export default function GeneralInfoForm(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,35 +26,43 @@ export default function GeneralInfo() {
               type="text"
               placeholder="First Name"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {
+                setFirstName(e.target.value)
+                props.setBasicInfo({ ...props.basicInfo, firstName: e.target.value })
+              }
+              }
             />
             <input
               type="text"
               placeholder="Last Name"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
+              onChange={(e) => {
+                setLastName(e.target.value)
+                props.setBasicInfo({ ...props.basicInfo, lastName: e.target.value })
+              }} />
             <input
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                props.setBasicInfo({ ...props.basicInfo, email: e.target.value })
+              }
+              }
             />
             <input
               type="text"
               placeholder="Phone Number"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value)
+                props.setBasicInfo({ ...props.basicInfo, phone: e.target.value })
+              }}
             />
           </div>
         </form>
       </div>
 
-      <div className="contact-info">
-        <h1>{firstName + " " + lastName}</h1>
-        <p>{email}</p>
-        <p>{phone}</p>
-      </div>
     </div>
   );
 }
