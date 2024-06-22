@@ -1,27 +1,26 @@
 import { useState, useEffect } from "react";
+import Input from "./input";
 
 export default function EducationInfoForm(props) {
   const [educationItemActive, setEducationItemActive] = useState(false);
 
   return (
-    <div className="education-info section">
-      <div>
-        <button
-          onClick={() => {
-            setEducationItemActive(!educationItemActive);
-          }}
-        >
-          Add Education Info
-        </button>
+    <>
+      <button
+        onClick={() => {
+          setEducationItemActive(!educationItemActive);
+        }}
+      >
+        Add Education Info
+      </button>
 
-        <EducationForm
-          isActive={educationItemActive}
-          educationInfo={props.educationInfo}
-          setEducationInfo={props.setEducationInfo}
-          editSchool={props.editEducation}
-        />
-      </div>
-    </div>
+      <EducationForm
+        isActive={educationItemActive}
+        educationInfo={props.educationInfo}
+        setEducationInfo={props.setEducationInfo}
+        editSchool={props.editEducation}
+      />
+    </>
   );
 }
 
@@ -57,23 +56,23 @@ function EducationForm({
   };
 
   return (
-    <div>
+    <>
       {isActive ? (
         <div className="education-info-form">
           <form action="" style={contactFormStyle}>
-            <input
+            <Input
               type="text"
               placeholder="Enter university/school"
               value={schoolName}
               onChange={(e) => setSchoolName(e.target.value)}
             />
-            <input
+            <Input
               type="text"
               placeholder="Enter graduation date"
               value={graduationDate}
               onChange={(e) => setGraduationDate(e.target.value)}
             />
-            <input
+            <Input
               type="text"
               placeholder="Enter degree/field of study"
               value={fieldOfStudy}
@@ -124,6 +123,6 @@ function EducationForm({
           </form>
         </div>
       ) : null}
-    </div>
+    </>
   );
 }

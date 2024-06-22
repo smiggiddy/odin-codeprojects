@@ -3,6 +3,10 @@
   flex-direction: column;
   font-size: 1.3rem;
   line-height: 1.3;
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
 }
 
 .input label {

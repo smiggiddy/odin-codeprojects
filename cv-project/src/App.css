@@ -51,6 +51,13 @@ body {
   background: hsl(var(--white-color));
 }
 
+.general-info-header {
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .basic-info {
   display: flex;
   flex-direction: column;
@@ -65,4 +72,10 @@ body {
 .basic-info-details {
   display: flex;
   gap: 1rem;
+}
+
+.education-info-form {
+  padding: 20px;
+  margin-bottom: 1rem;
+  background: hsl(var(--white-color));
 }
