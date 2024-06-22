@@ -1,31 +1,25 @@
 export default function EducationInfoDisplay(props) {
   return (
-    <div>
-      {props.educationInfo.length <= 0 ? (
-        <>
-          <p>Add your Education info</p>
-        </>
-      ) : (
-        <EducationDisplay
-          educationInfo={props.educationInfo}
-          setEducationInfo={props.setEducationInfo}
-          setEditEducation={props.setEditEducation}
-        />
-      )}
-    </div>
+    <>
+      <EducationDisplay
+        educationInfo={props.educationInfo}
+        setEducationInfo={props.setEducationInfo}
+        setEditEducation={props.setEditEducation}
+      />
+    </>
   );
 }
 
 function EducationDisplay(props) {
   return (
-    <div>
+    <>
       {props.educationInfo.map((item) => {
         return (
           <div key={item.schoolName} className="education-info">
             <h2>School: {item.schoolName}</h2>
             <p>
-              Graduation Date: {item.graduationDate + " "}
-              Field of Study: {item.fieldOfStudy}
+              Graduation: {item.graduationDate + " "}
+              Degree: {item.fieldOfStudy}
               <button onClick={() => props.setEditEducation(item)}>edit</button>
               <button
                 onClick={() =>
@@ -42,7 +36,7 @@ function EducationDisplay(props) {
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
 

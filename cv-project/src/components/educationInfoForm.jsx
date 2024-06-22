@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function EducationInfoForm(props) {
-  // const [schools, setSchools] = useState([]);
   const [educationItemActive, setEducationItemActive] = useState(false);
-  // const [editSchool, setEditSchool] = useState(null);
 
   return (
     <div className="education-info section">
@@ -50,15 +48,12 @@ function EducationForm({
   }, [editSchool]);
 
   let schoolId = editSchool
-    ? educationInfo.findIndex(
-        (school) => school.schoolName === editSchool.schoolName,
-      )
+    ? educationInfo.findIndex((school) => school.id === editSchool.id)
     : null;
 
   const contactFormStyle = {
     display: "flex",
     flexDirection: "column",
-    width: "30vw",
   };
 
   return (
@@ -68,19 +63,19 @@ function EducationForm({
           <form action="" style={contactFormStyle}>
             <input
               type="text"
-              placeholder="School Name"
+              placeholder="Enter university/school"
               value={schoolName}
               onChange={(e) => setSchoolName(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Graduation Date"
+              placeholder="Enter graduation date"
               value={graduationDate}
               onChange={(e) => setGraduationDate(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Field of Study"
+              placeholder="Enter degree/field of study"
               value={fieldOfStudy}
               onChange={(e) => setFieldOfStudy(e.target.value)}
             />
@@ -103,6 +98,7 @@ function EducationForm({
                       schoolName: schoolName,
                       fieldOfStudy: fieldOfStudy,
                       graduationDate: graduationDate,
+                      id: crypto.randomUUID(),
                     },
                   ]);
                 }
@@ -120,6 +116,7 @@ function EducationForm({
                 setGraduationDate("");
                 setSchoolName("");
                 setFieldOfStudy("");
+                schoolId = null;
               }}
             >
               Clear

@@ -3,18 +3,21 @@ import GeneralInfoDisplay from "./components/generalInfoDisplay";
 import EducationInfoDisplay from "./components/educationInfoDisplay";
 import EducationInfoForm from "./components/educationInfoForm";
 import ExperienceForm from "./components/experienceForm";
+import ExperienceDisplay from "./components/experienceDisplay";
+
 import "./App.css";
 import { useState } from "react";
 
 function App() {
   const [basicInfo, setBasicInfo] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
+    fullName: "Marvin Gaye",
+    phone: "301-240-5555",
+    email: "mgaye@motown.com",
+    location: "Detriot, MI",
   });
   const [educationInfo, setEducationInfo] = useState([]);
   const [editEducation, setEditEducation] = useState(null);
+  const [employmentHistory, setEmploymentHistory] = useState([]);
 
   return (
     <div className="container">
@@ -26,7 +29,10 @@ function App() {
           setEditEducation={setEditEducation}
           editEducation={editEducation}
         />
-        <ExperienceForm />
+        <ExperienceForm
+          employmentHistory={employmentHistory}
+          setEmploymentHistory={setEmploymentHistory}
+        />
       </div>
       <div className="resume">
         <GeneralInfoDisplay basicInfo={basicInfo} />
@@ -35,6 +41,7 @@ function App() {
           setEditEducation={setEditEducation}
           setEducationInfo={setEducationInfo}
         />
+        <ExperienceDisplay employmentHistory={employmentHistory} />
       </div>
     </div>
   );

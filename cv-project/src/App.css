@@ -1,0 +1,68 @@
+:root {
+  --font-size: 16px;
+  --default-border-radius: 0.5rem;
+
+  /* Shadows */
+  --default-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.2);
+  --small-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+  --large-shadow: 0 15px 35px hsla(0, 0%, 0%, 0.2);
+  --tight-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --wide-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+  /* Grays */
+  --lightest-gray: 208, 21%, 93%;
+  --lighter-gray: 210, 16%, 76%;
+  --light-gray: 208, 12%, 58%;
+  --dark-gray: 207, 12%, 43%;
+  --darker-gray: 209, 15%, 28%;
+
+  --white-color: 360, 100%, 100%;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-size: var(--font-size);
+  background: hsl(var(--lightest-gray));
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  gap: 30px;
+}
+
+.resume {
+  min-width: 800px;
+  /* background: gray; */
+}
+
+.form {
+  max-width: 450px;
+  min-width: 400px;
+}
+
+.general-info-form {
+  padding: 20px;
+  margin-bottom: 1rem;
+  border-radius: var(--default-border-radius);
+  box-shadow: var(--tight-shadow), var(--wide-shadow);
+  background: hsl(var(--white-color));
+}
+
+.basic-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.basic-info p {
+  padding: 0;
+  margin: 0;
+}
+
+.basic-info-details {
+  display: flex;
+  gap: 1rem;
+}

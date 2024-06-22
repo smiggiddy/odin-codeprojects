@@ -1,68 +1,83 @@
 import { useState } from "react";
+import Input from "./input";
 
 export default function GeneralInfoForm(props) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [location, setLocation] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
   const contactFormStyle = {
     display: "flex",
     flexDirection: "column",
-    width: "30vw",
-  };
-
-  const mainStyle = {
-    display: "flex",
-    justifyContent: "space-between",
   };
 
   return (
-    <div className="general-info section" style={mainStyle}>
-      <div className="contact-info-form">
+    <>
+      <div className="general-info-form">
         <form action="">
           <div style={contactFormStyle}>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={firstName}
+            <h2 className="general-info-header">Personal Details</h2>
+            <Input
+              label={true}
+              name="fullName"
+              labelName="Full name"
+              value={fullName}
+              placeholder=""
               onChange={(e) => {
-                setFirstName(e.target.value)
-                props.setBasicInfo({ ...props.basicInfo, firstName: e.target.value })
-              }
-              }
+                setFullName(e.target.value);
+                props.setBasicInfo({
+                  ...props.basicInfo,
+                  fullName: e.target.value,
+                });
+              }}
             />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
+            <Input
+              label={true}
+              name="location"
+              labelName="Location"
+              placeholder=""
+              value={location}
               onChange={(e) => {
-                setLastName(e.target.value)
-                props.setBasicInfo({ ...props.basicInfo, lastName: e.target.value })
-              }} />
-            <input
+                setLocation(e.target.value);
+                props.setBasicInfo({
+                  ...props.basicInfo,
+                  location: e.target.value,
+                });
+              }}
+            />
+            <Input
+              label={true}
               type="email"
-              placeholder="Email"
+              name="email"
+              labelName="Email"
+              placeholder=""
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value)
-                props.setBasicInfo({ ...props.basicInfo, email: e.target.value })
-              }
-              }
+                setEmail(e.target.value);
+                props.setBasicInfo({
+                  ...props.basicInfo,
+                  email: e.target.value,
+                });
+              }}
             />
-            <input
+            <Input
               type="text"
-              placeholder="Phone Number"
+              label={true}
+              labelName="Phone"
+              placeholder=""
               value={phone}
               onChange={(e) => {
-                setPhone(e.target.value)
-                props.setBasicInfo({ ...props.basicInfo, phone: e.target.value })
+                setPhone(e.target.value);
+                props.setBasicInfo({
+                  ...props.basicInfo,
+                  phone: e.target.value,
+                });
               }}
             />
           </div>
         </form>
       </div>
-
-    </div>
+    </>
   );
 }

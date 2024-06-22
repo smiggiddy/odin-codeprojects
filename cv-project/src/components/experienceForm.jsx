@@ -1,46 +1,20 @@
 import { useState } from "react";
 
-export default function ExperienceForm() {
-  const [jobs, setJobs] = useState([]);
+export default function ExperienceForm(props) {
+  // const [jobs, setJobs] = useState([]);
   const [showJobForm, setShowJobForm] = useState(false);
 
-  const mainDivStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row-reverse",
-  };
-
   return (
-    <div className="jobs" style={mainDivStyle}>
-      <div className="job-info">
-        <JobList jobs={jobs} />
-      </div>
-      <div className="Job-info-form">
-        <button onClick={() => setShowJobForm(!showJobForm)}>
-          Add Employer Info
-        </button>
-        <JobForm setJobs={setJobs} jobs={jobs} isActive={showJobForm} />
-      </div>
+    <div className="Job-info-form">
+      <button onClick={() => setShowJobForm(!showJobForm)}>
+        Add Employer Info
+      </button>
+      <JobForm
+        setJobs={props.setEmploymentHistory}
+        jobs={props.employmentHistory}
+        isActive={showJobForm}
+      />
     </div>
-  );
-}
-
-function JobList(props) {
-  return (
-    <>
-      {props.jobs.map((item) => {
-        return (
-          <div className="job" key={item.id}>
-            <h2>{item.employer}</h2>
-            <h3>{item.jobTitle}</h3>
-            <p>
-              {item.employmentStart} - {item.employmentEnd}
-            </p>
-            <p>{item.jobDescription}</p>
-          </div>
-        );
-      })}
-    </>
   );
 }
 
@@ -54,7 +28,6 @@ function JobForm({ isActive, jobs, setJobs }) {
   const formStyle = {
     display: "flex",
     flexDirection: "column",
-    width: "30vw",
   };
 
   function clear() {
@@ -68,7 +41,8 @@ function JobForm({ isActive, jobs, setJobs }) {
   function handleSubmit(event, stuff) {
     event.preventDefault();
 
-    const newJob = { ...stuff };
+    const key = crypto.randomUUID();
+    const newJob = { ...stuff, id: key };
 
     setJobs([...jobs, newJob]);
 
