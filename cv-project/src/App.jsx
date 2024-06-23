@@ -7,6 +7,7 @@ import ExperienceDisplay from "./components/experienceDisplay";
 
 import "./App.css";
 import { useState } from "react";
+import Button from "./components/button";
 
 function App() {
   const [basicInfo, setBasicInfo] = useState({
@@ -26,16 +27,18 @@ function App() {
       <div className="form">
         <GeneralInfoForm setBasicInfo={setBasicInfo} basicInfo={basicInfo} />
         <div className="btn-group">
-          <button
+          <Button
             onClick={() => {
               setEducationItemActive(!educationItemActive);
             }}
-          >
-            Add Education Info
-          </button>
-          <button onClick={() => setShowJobForm(!showJobForm)}>
-            Add Employer Info
-          </button>
+            text="Add Education"
+            className="normal-btn"
+          />
+          <Button
+            onClick={() => setShowJobForm(!showJobForm)}
+            text="Add Employment"
+            className="normal-btn"
+          />
         </div>
         <EducationInfoForm
           educationInfo={educationInfo}

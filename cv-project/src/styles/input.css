@@ -15,5 +15,13 @@
 }
 
 .input input {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  outline: 1px solid hsl(var(--light-gray));
+  border: none;
+}
+
+.input input:focus {
+  outline: 2px solid hsl(var(--dark-gray));
 }

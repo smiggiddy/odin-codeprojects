@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "./input";
+import Button from "./button";
 
 export default function ExperienceForm(props) {
   return (
@@ -94,27 +95,28 @@ function JobForm({ isActive, jobs, setJobs }) {
                 onChange={(e) => setJobDescription(e.target.value)}
               />
             </div>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                clear();
-              }}
-            >
-              Clear
-            </button>
-            <button
-              onClick={(e) =>
-                handleSubmit(e, {
-                  employer,
-                  jobTitle,
-                  jobDescription,
-                  employmentStart,
-                  employmentEnd,
-                })
-              }
-            >
-              Submit
-            </button>
+            <div className="btn-group">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  clear();
+                }}
+                text="Clear"
+              />
+              <Button
+                onClick={(e) =>
+                  handleSubmit(e, {
+                    employer,
+                    jobTitle,
+                    jobDescription,
+                    employmentStart,
+                    employmentEnd,
+                  })
+                }
+                className="submit-btn"
+                text="Submit"
+              />
+            </div>
           </form>
         </div>
       ) : null}

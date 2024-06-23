@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Input from "./input";
+import Button from "./button";
 
 export default function EducationInfoForm(props) {
   return (
@@ -78,48 +79,49 @@ function EducationForm({
               value={fieldOfStudy}
               onChange={(e) => setFieldOfStudy(e.target.value)}
             />
-            <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                const updatedSchools = [...educationInfo];
-                if (schoolId !== -1 && schoolId !== null) {
-                  updatedSchools[schoolId] = {
-                    schoolName: schoolName,
-                    graduationDate: graduationDate,
-                    fieldOfStudy: fieldOfStudy,
-                  };
-                  setEducationInfo(updatedSchools);
-                } else {
-                  setEducationInfo([
-                    ...educationInfo,
-                    {
+            <div className="btn-group">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setGraduationDate("");
+                  setSchoolName("");
+                  setFieldOfStudy("");
+                  schoolId = null;
+                }}
+                text="Clear"
+              />
+              <Button
+                type="submit"
+                className="submit-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const updatedSchools = [...educationInfo];
+                  if (schoolId !== -1 && schoolId !== null) {
+                    updatedSchools[schoolId] = {
                       schoolName: schoolName,
-                      fieldOfStudy: fieldOfStudy,
                       graduationDate: graduationDate,
-                      id: crypto.randomUUID(),
-                    },
-                  ]);
-                }
+                      fieldOfStudy: fieldOfStudy,
+                    };
+                    setEducationInfo(updatedSchools);
+                  } else {
+                    setEducationInfo([
+                      ...educationInfo,
+                      {
+                        schoolName: schoolName,
+                        fieldOfStudy: fieldOfStudy,
+                        graduationDate: graduationDate,
+                        id: crypto.randomUUID(),
+                      },
+                    ]);
+                  }
 
-                setGraduationDate("");
-                setSchoolName("");
-                setFieldOfStudy("");
-              }}
-            >
-              Submit
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setGraduationDate("");
-                setSchoolName("");
-                setFieldOfStudy("");
-                schoolId = null;
-              }}
-            >
-              Clear
-            </button>
+                  setGraduationDate("");
+                  setSchoolName("");
+                  setFieldOfStudy("");
+                }}
+                text="Submit"
+              />
+            </div>
           </form>
         </div>
       ) : null}
