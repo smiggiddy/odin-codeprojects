@@ -1,20 +1,15 @@
 import { useState } from "react";
+import Input from "./input";
 
 export default function ExperienceForm(props) {
-  // const [jobs, setJobs] = useState([]);
-  const [showJobForm, setShowJobForm] = useState(false);
-
   return (
-    <div className="Job-info-form">
-      <button onClick={() => setShowJobForm(!showJobForm)}>
-        Add Employer Info
-      </button>
+    <>
       <JobForm
         setJobs={props.setEmploymentHistory}
         jobs={props.employmentHistory}
-        isActive={showJobForm}
+        isActive={props.showJobForm}
       />
-    </div>
+    </>
   );
 }
 
@@ -52,57 +47,76 @@ function JobForm({ isActive, jobs, setJobs }) {
   return (
     <>
       {isActive ? (
-        <form action="" style={formStyle}>
-          <input
-            type="text"
-            placeholder="Employer"
-            value={employer}
-            onChange={(e) => setEmployer(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Job title"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Employment Start Date"
-            value={employmentStart}
-            onChange={(e) => setEmploymentStart(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Employment End Date"
-            value={employmentEnd}
-            onChange={(e) => setEmploymentEnd(e.target.value)}
-          />
-          <textarea
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              clear();
-            }}
-          >
-            Clear
-          </button>
-          <button
-            onClick={(e) =>
-              handleSubmit(e, {
-                employer,
-                jobTitle,
-                jobDescription,
-                employmentStart,
-                employmentEnd,
-              })
-            }
-          >
-            Submit
-          </button>
-        </form>
+        <div className="job-info-form">
+          <h2 className="general-info-header">Employment History</h2>
+          <form action="" style={formStyle}>
+            <Input
+              name="employer"
+              label={true}
+              labelName="Employer"
+              type="text"
+              placeholder=""
+              value={employer}
+              onChange={(e) => setEmployer(e.target.value)}
+            />
+            <Input
+              name="jobTitle"
+              label={true}
+              labelName="Job title"
+              type="text"
+              placeholder=""
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+            />
+            <Input
+              name="startDate"
+              label={true}
+              labelName="Start date"
+              type="text"
+              placeholder=""
+              value={employmentStart}
+              onChange={(e) => setEmploymentStart(e.target.value)}
+            />
+            <Input
+              name="endDate"
+              label={true}
+              labelName="End date"
+              type="text"
+              placeholder=""
+              value={employmentEnd}
+              onChange={(e) => setEmploymentEnd(e.target.value)}
+            />
+            <div className="input">
+              <label>Description</label>
+              <textarea
+                name="jobDescription"
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+              />
+            </div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                clear();
+              }}
+            >
+              Clear
+            </button>
+            <button
+              onClick={(e) =>
+                handleSubmit(e, {
+                  employer,
+                  jobTitle,
+                  jobDescription,
+                  employmentStart,
+                  employmentEnd,
+                })
+              }
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       ) : null}
     </>
   );

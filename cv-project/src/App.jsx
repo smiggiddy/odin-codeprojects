@@ -18,22 +18,39 @@ function App() {
   const [educationInfo, setEducationInfo] = useState([]);
   const [editEducation, setEditEducation] = useState(null);
   const [employmentHistory, setEmploymentHistory] = useState([]);
+  const [showJobForm, setShowJobForm] = useState(false);
+  const [educationItemActive, setEducationItemActive] = useState(false);
 
   return (
     <div className="container">
       <div className="form">
         <GeneralInfoForm setBasicInfo={setBasicInfo} basicInfo={basicInfo} />
+        <div className="btn-group">
+          <button
+            onClick={() => {
+              setEducationItemActive(!educationItemActive);
+            }}
+          >
+            Add Education Info
+          </button>
+          <button onClick={() => setShowJobForm(!showJobForm)}>
+            Add Employer Info
+          </button>
+        </div>
         <EducationInfoForm
           educationInfo={educationInfo}
           setEducationInfo={setEducationInfo}
           setEditEducation={setEditEducation}
           editEducation={editEducation}
+          educationItemActive={educationItemActive}
         />
         <ExperienceForm
           employmentHistory={employmentHistory}
           setEmploymentHistory={setEmploymentHistory}
+          showJobForm={showJobForm}
         />
       </div>
+
       <div className="resume">
         <GeneralInfoDisplay basicInfo={basicInfo} />
         <EducationInfoDisplay

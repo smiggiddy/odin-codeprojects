@@ -2,20 +2,10 @@ import { useState, useEffect } from "react";
 import Input from "./input";
 
 export default function EducationInfoForm(props) {
-  const [educationItemActive, setEducationItemActive] = useState(false);
-
   return (
     <>
-      <button
-        onClick={() => {
-          setEducationItemActive(!educationItemActive);
-        }}
-      >
-        Add Education Info
-      </button>
-
       <EducationForm
-        isActive={educationItemActive}
+        isActive={props.educationItemActive}
         educationInfo={props.educationInfo}
         setEducationInfo={props.setEducationInfo}
         editSchool={props.editEducation}
@@ -59,22 +49,32 @@ function EducationForm({
     <>
       {isActive ? (
         <div className="education-info-form">
+          <h2 className="general-info-header">Education History</h2>
           <form action="" style={contactFormStyle}>
             <Input
+              label={true}
+              labelName="School"
+              name="School"
               type="text"
-              placeholder="Enter university/school"
+              placeholder=""
               value={schoolName}
               onChange={(e) => setSchoolName(e.target.value)}
             />
             <Input
+              label={true}
+              labelName="Graduation date"
+              name="graduationDate"
               type="text"
-              placeholder="Enter graduation date"
+              placeholder=""
               value={graduationDate}
               onChange={(e) => setGraduationDate(e.target.value)}
             />
             <Input
+              label={true}
+              labelName="Degree/Field of study"
+              name="degree"
               type="text"
-              placeholder="Enter degree/field of study"
+              placeholder=""
               value={fieldOfStudy}
               onChange={(e) => setFieldOfStudy(e.target.value)}
             />
