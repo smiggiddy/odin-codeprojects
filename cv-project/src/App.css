@@ -36,6 +36,10 @@ body {
 .resume {
   min-width: 800px;
   /* background: gray; */
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
 }
 
 .form {
