@@ -16,9 +16,25 @@ function App() {
     email: "mgaye@motown.com",
     location: "Detriot, MI",
   });
-  const [educationInfo, setEducationInfo] = useState([]);
+
+  const [educationInfo, setEducationInfo] = useState([
+    {
+      schoolName: "Bowie State University",
+      graduationDatehttps://github.com/smiggiddy/odin-codeprojects/pull/18/conflict?name=cv-project%252Fsrc%252FApp.jsx&base_oid=7801fda840d1fa1854f23ddac31c617c382a3d13&head_oid=d00749cafbac7d5524c928f28cbb5b81e06b608e: "2020",
+      fieldOfStudy: "Computer Technology: Network Security",
+    },
+  ]);
   const [editEducation, setEditEducation] = useState(null);
-  const [employmentHistory, setEmploymentHistory] = useState([]);
+  const [employmentHistory, setEmploymentHistory] = useState([
+    {
+      employer: "Google",
+      jobTitle: "Site Reliability Engineer",
+      jobDescription: "Keeping servers online and happy",
+      employmentStart: "09/2020",
+      employmentEnd: "present",
+    },
+  ]);
+
   const [showJobForm, setShowJobForm] = useState(false);
   const [educationItemActive, setEducationItemActive] = useState(false);
 
