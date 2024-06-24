@@ -93,16 +93,11 @@ function JobForm({ isActive, jobs, setJobs }) {
                 name="jobDescription"
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
+                rows="5"
+                maxLength="400"
               />
             </div>
             <div className="btn-group">
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  clear();
-                }}
-                text="Clear"
-              />
               <Button
                 onClick={(e) =>
                   handleSubmit(e, {
@@ -115,6 +110,14 @@ function JobForm({ isActive, jobs, setJobs }) {
                 }
                 className="submit-btn"
                 text="Submit"
+              />
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  clear();
+                }}
+                className="clear-btn"
+                text="Clear"
               />
             </div>
           </form>

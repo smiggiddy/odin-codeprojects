@@ -51,7 +51,11 @@ function EducationForm({
       {isActive ? (
         <div className="education-info-form">
           <h2 className="general-info-header">Education History</h2>
-          <form action="" style={contactFormStyle}>
+          <form
+            action=""
+            style={contactFormStyle}
+            onSubmit={(e) => console.log(e.target)}
+          >
             <Input
               label={true}
               labelName="School"
@@ -81,20 +85,12 @@ function EducationForm({
             />
             <div className="btn-group">
               <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setGraduationDate("");
-                  setSchoolName("");
-                  setFieldOfStudy("");
-                  schoolId = null;
-                }}
-                text="Clear"
-              />
-              <Button
+                autoFocus={true}
                 type="submit"
                 className="submit-btn"
                 onClick={(e) => {
                   e.preventDefault();
+                  console.log(schoolName, graduationDate, fieldOfStudy);
                   const updatedSchools = [...educationInfo];
                   if (schoolId !== -1 && schoolId !== null) {
                     updatedSchools[schoolId] = {
@@ -120,6 +116,16 @@ function EducationForm({
                   setFieldOfStudy("");
                 }}
                 text="Submit"
+              />
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setGraduationDate("");
+                  setSchoolName("");
+                  setFieldOfStudy("");
+                  schoolId = null;
+                }}
+                text="Clear"
               />
             </div>
           </form>

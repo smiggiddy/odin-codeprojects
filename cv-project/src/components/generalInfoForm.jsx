@@ -2,10 +2,10 @@ import { useState } from "react";
 import Input from "./input";
 
 export default function GeneralInfoForm(props) {
-  const [fullName, setFullName] = useState("");
-  const [location, setLocation] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState(props.basicInfo.fullName);
+  const [location, setLocation] = useState(props.basicInfo.location);
+  const [phone, setPhone] = useState(props.basicInfo.phone);
+  const [email, setEmail] = useState(props.basicInfo.email);
 
   const contactFormStyle = {
     display: "flex",
