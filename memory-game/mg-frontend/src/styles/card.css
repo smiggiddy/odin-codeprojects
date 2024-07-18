@@ -1,9 +1,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
-  min-height: 300px;
   background: gray;
+  padding: 1em;
 }
 
 .card-img img {

@@ -1,5 +1,7 @@
 .gameboard {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 25px;
+  display: inline-grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  grid-template-columns: repeat(auto-fit, minmax(min(270px, 90%), 1fr));
+  gap: 1rem;
+  width: 75vw;
 }

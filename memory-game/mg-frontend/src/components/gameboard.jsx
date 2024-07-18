@@ -4,7 +4,6 @@ import "../styles/gameboard.css";
 
 export default function GameBoard(props) {
   const [cards, setCards] = useState([]);
-
   useEffect(() => {
     fetchCards({ setCards });
   }, []);
@@ -14,10 +13,12 @@ export default function GameBoard(props) {
       {cards.map((item) => {
         return (
           <Card
-            title={item}
-            imgSrc="placeholder"
+            title={item.topic}
+            imgSrc={item.medium_url}
             imgAl="Placeholder"
-            key={item}
+            key={item.topic}
+            setScore={props.setScore}
+            score={props.score}
           />
         );
       })}
@@ -26,6 +27,6 @@ export default function GameBoard(props) {
 }
 
 async function fetchCards({ setCards }) {
-  // some async thing that loads the cards
-  setTimeout(() => setCards([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]), 2000);
+  const cards = await fetch("http://localhost:8000/");
+  setCards(await cards.json());
 }
