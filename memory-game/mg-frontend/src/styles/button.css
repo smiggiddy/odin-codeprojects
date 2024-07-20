@@ -1,0 +1,59 @@
+:root {
+  /* Grays */
+  --lightest-gray: 208, 21%, 93%;
+  --lighter-gray: 210, 16%, 76%;
+  --light-gray: 208, 12%, 58%;
+  --dark-gray: 207, 12%, 43%;
+  --darker-gray: 209, 15%, 28%;
+
+  --dark-blue: 246, 87%, 30%;
+  --blue: 219, 100%, 57%;
+  --light-blue: 219, 100%, 69%;
+
+  --green: 158, 95%, 34%;
+  --green-hover: 158, 95%, 28%;
+}
+
+.btn {
+  border-radius: 0.4rem;
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  font-size: 1.2rem;
+  flex: 1;
+}
+
+.btn:hover {
+  /* background-color: hsl(var(--dark-gray)); */
+}
+
+.normal-btn {
+  background-color: hsl(var(--light-gray));
+  transition:
+    background-color 500ms ease-in-out,
+    color 500ms ease-in-out;
+}
+
+.normal-btn:hover {
+  background-color: hsl(var(--dark-gray));
+  color: hsl(var(--lighter-gray));
+}
+
+.submit-btn {
+  background-color: hsl(var(--green));
+  transition: background-color 600ms;
+}
+
+.submit-btn:hover {
+  background-color: hsl(var(--green-hover));
+}
+
+.clear-btn {
+  background-color: hsl(var(--lighter-gray));
+  transition: background-color 600ms;
+}
+.clear-btn:hover {
+  background-color: hsl(var(--light-gray));
+}

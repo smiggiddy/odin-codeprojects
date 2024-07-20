@@ -16,6 +16,7 @@ class Topics(BaseModel):
 
 class Results(BaseModel):
     topic: str
+    alt: str
     medium_url: str
     photo_id: int
     photo_url: str
@@ -35,7 +36,7 @@ class AI:
         )
 
         prompt = """
-          Return 12 items for a toddler aged 2 to 3 to choose from in a memory game. 
+          Return 12 items for a toddler aged 2 to 3 to choose from in a memory game. e.g. "ball", "car" . Don't use my examples words 
           """
         response = model.generate_content(prompt).text
 
@@ -43,9 +44,11 @@ class AI:
 
     def generate_card_json(self, photo_payload, topic):
         prompt = f"""
-        This JSON payload will need to be analayzed. Your job is to pick the alt field with the best match for the toddler matching game. return the properties of the object
+        This JSON payload will be analyzed for a toddler matching game. Your job is to identify which object within the payload that best matches the topic "{topic}".
+        Define a "best match" as containing the keywords from the topic within the "alt" field of the image object that would be appropriate for a toddler's matching game. a "best match" should also be the primary subject in the photo, if there are other items in the alt text then that's determined to be a bad match.  
+
+        if its determine the alt text is not a great match for the toddler game set the `bad_match` to True and for best matches set to False
         {photo_payload} 
-        and the original topic is {topic}. If the alt text and topic are a bad match set the bad_match bool.
         """
 
         model = genai.GenerativeModel(

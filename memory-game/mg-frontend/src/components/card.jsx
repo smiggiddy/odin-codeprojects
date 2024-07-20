@@ -4,7 +4,9 @@ export default function Card(props) {
   return (
     <div
       className="card"
-      onClick={(event) => onClick(event, props.setScore, props.score)}
+      onClick={(event) =>
+        onClick(event, props.clicked, props.setScore, props.score)
+      }
       data-cardname={props.title}
     >
       <div className="card-img">
@@ -19,8 +21,9 @@ function Image(props) {
   return <img src={props.src} alt={props.alt} />;
 }
 
-function onClick(event, setScore, score) {
+function onClick(event, clicked, setScore, score) {
   // implement something to handle the things ID
   setScore(score + 1);
+  clicked = true;
   console.log(event.currentTarget.dataset.cardname);
 }
