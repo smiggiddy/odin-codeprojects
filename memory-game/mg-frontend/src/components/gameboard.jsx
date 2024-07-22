@@ -17,8 +17,10 @@ export default function GameBoard(props) {
   );
 
   useEffect(() => {
-    fetchCards({ setCards });
-  }, []);
+    if (props.gameStarted) {
+      fetchCards({ setCards });
+    }
+  }, [props.gameStarted]);
 
   return (
     <>

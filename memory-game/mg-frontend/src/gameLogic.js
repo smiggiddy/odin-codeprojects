@@ -54,28 +54,34 @@ class GameLogic {
   }
 
   updateScore(key) {
+    if (this.score + 1 === this.cards.length) {
+      alert("You won! 12/12 right");
+      this.resetGame();
+      return;
+    }
+
+    // go through game
     if (!this.checkClick(key)) {
       this.setScore(this.score + 1);
     } else {
-      console.log("Game Over");
-      if (this.score + 1 > this.highScore) {
-        this.setHighScore(this.score);
-      }
-      // reset state
-      this.score = 0;
-      this.setScore(this.score);
-      this.setGameStarted(false);
+      this.handleLoss();
     }
   }
-  async fetchCards() {
-    const cards = await fetch("http://localhost:8000/cards");
-    const jsonCards = await cards.json();
+  handleLoss() {
+    alert(
+      `Game Over! ${this.score + 1}/${this.cards.length} answers correcet!`,
+    );
+    if (this.score + 1 > this.highScore) {
+      this.setHighScore(this.score);
+    }
+    this.resetGame();
+  }
 
-    let gameCards = await jsonCards.map((c) => {
-      return { ...c, clicked: false, key: crypto.randomUUID() };
-    });
-
-    this.setCards(gameCards);
+  resetGame() {
+    // reset state
+    this.score = 0;
+    this.setScore(this.score);
+    this.setGameStarted(false);
   }
 }
 
