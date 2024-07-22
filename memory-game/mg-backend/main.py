@@ -6,6 +6,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 import requests
+from random import shuffle
 import os
 from .photos import Pictures
 
@@ -78,11 +79,14 @@ def ai_cards(card: schemas.CardCreate, db: Session = Depends(get_db)):
 @app.get("/cards")
 def read_cards(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     cards = crud.get_cards(db, skip=skip, limit=limit)
+
+    # return the items in a random order for the game
+    shuffle(cards)
     return cards
 
 
 @app.get("/load-data")
-def load_data():
+async def load_data():
     topics = ai.generate_topics()
 
     try:
@@ -90,8 +94,6 @@ def load_data():
 
             logger.info(item)
             picture_data = photos.search(item["topic"])
-            logger.info(picture_data)
-            break
 
             card_json = ai.generate_card_json(picture_data, item)
             logger.info(card_json)

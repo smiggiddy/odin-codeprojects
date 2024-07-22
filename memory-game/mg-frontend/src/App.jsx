@@ -23,9 +23,10 @@ function App() {
         gameStarted={gameStarted}
       />
       <GameBoard
+        gameStarted={gameStarted}
+        setGameStarted={setGameStarted}
         score={score}
         setScore={setScore}
-        gameStarted={gameStarted}
         highScore={highScore}
         setHighScore={setHighScore}
       />

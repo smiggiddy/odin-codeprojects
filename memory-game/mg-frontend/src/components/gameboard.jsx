@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 import Card from "./card";
 import "../styles/gameboard.css";
+import { GameLogic } from "../gameLogic";
 
 export default function GameBoard(props) {
   const [cards, setCards] = useState([]);
+
+  const gl = new GameLogic(
+    cards,
+    setCards,
+    props.score,
+    props.setScore,
+    props.highScore,
+    props.setHighScore,
+    props.setGameStarted,
+  );
 
   useEffect(() => {
     fetchCards({ setCards });
@@ -14,16 +25,13 @@ export default function GameBoard(props) {
       {props.gameStarted ? (
         <div className="gameboard">
           {cards.map((item) => {
-            console.log(item.topic, item.clicked);
             return (
               <Card
                 title={item.topic}
                 imgSrc={item.medium_url}
-                imgAl="Placeholder"
+                imgAlt={item.alt}
                 key={item.key}
-                setScore={props.setScore}
-                score={props.score}
-                clicked={item.clicked}
+                onClick={() => gl.handleClick(item.key)}
               />
             );
           })}
@@ -42,12 +50,4 @@ async function fetchCards({ setCards }) {
   });
 
   setCards(gameCards);
-}
-
-function shuffleCards(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-    return arr;
-  }
 }
