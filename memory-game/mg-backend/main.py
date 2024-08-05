@@ -50,25 +50,6 @@ photos = Pictures(PEXELS_API_KEY)
 @app.get("/")
 async def read_main():
     return data
-    # data = []
-    #
-    # topics = ai.generate_topics()
-    #
-    # try:
-    #     for item in topics:
-    #
-    #         logger.info(item)
-    #         picture_data = photos.search(item["topic"])
-    #
-    #         card_json = ai.generate_card_json(picture_data, item)
-    #         logger.info(card_json)
-    #
-    #         data.append(card_json)
-    #
-    #     return data
-    # except Exception as e:
-    #     logger.error(e)
-    #     return {"error": "uname to handle request"}
 
 
 @app.post("/ai-cards", response_model=schemas.Card)
@@ -82,12 +63,14 @@ def read_cards(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
     # return the items in a random order for the game
     shuffle(cards)
-    return cards
+    return cards[:12]
 
 
 @app.get("/load-data")
-async def load_data():
-    topics = ai.generate_topics()
+def load_data(db: Session = Depends(get_db)):
+    # Get Current Topics
+    db_topics = [item[0] for item in crud.get_topics(db)]
+    topics = ai.generate_topics(db_topics)
 
     try:
         for item in topics:
@@ -103,6 +86,7 @@ async def load_data():
                 json=card_json,
                 headers={"Content-Type": "application/json"},
             )
+            logger.info(r.status_code)
             logger.info(r.json())
 
         return {"success": "entered into the db"}

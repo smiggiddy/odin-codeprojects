@@ -11,6 +11,10 @@ def get_cards(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Card).offset(skip).limit(limit).all()
 
 
+def get_topics(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Card.topic).offset(skip).limit(limit).all()
+
+
 def create_card(db: Session, card: schemas.CardCreate):
     db_card = models.Card(**card.model_dump())
     db.add(db_card)
