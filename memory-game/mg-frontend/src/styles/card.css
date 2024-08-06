@@ -13,26 +13,30 @@
 }
 
 .flip {
-  animation: flipCard 1s;
+  animation: flipCard 2.4s;
 }
 
 @keyframes flipCard {
+  from {
+    color: gray;
+  }
+  20% {
+    color: gray;
+    transform: rotateY(180deg);
+    background-color: black;
+  }
   to {
-    rotatey: 180deg;
+    transform: rotateY(-180deg);
+    visibility: visible;
   }
 }
 
 .card-front .card-back {
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-.card-back {
-  background: gray;
-  color: gray;
-  transform: rotateY(180deg);
-}
-
-.hidden img {
+.hidden img,
+.hidden .card-title {
   visibility: hidden;
 }

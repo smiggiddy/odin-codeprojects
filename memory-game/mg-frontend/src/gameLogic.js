@@ -24,9 +24,6 @@ class GameLogic {
   handleClick(key) {
     this.checkClickResult(key);
 
-    const cards = document.querySelectorAll(".card");
-    cards.forEach((card) => card.classList.add("flip", "card-back", "hidden"));
-
     const tempCards = this.cards.map((card) => {
       if (card.key === key) {
         card.clicked = true;
@@ -35,10 +32,10 @@ class GameLogic {
     });
     this.setCards(tempCards);
     this.randomArrayOrder();
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => card.classList.add("flip", "hidden"));
     setTimeout(() => {
-      cards.forEach((card) =>
-        card.classList.remove("flip", "card-back", "hidden"),
-      );
+      cards.forEach((card) => card.classList.remove("flip", "hidden"));
     }, 1000);
   }
 
@@ -67,17 +64,19 @@ class GameLogic {
   }
 
   checkClickResult(key) {
-    if (this.score + 1 === this.cards.length) {
-      this.setMessage("You won!\n12/12 right");
-      this.setButtonText("Play again?");
-      this.resetGame();
-      return;
-    }
-
-    // go through game
     if (!this.checkClick(key)) {
+      // Check if this move wins
+      if (this.score + 1 === this.cards.length) {
+        this.setMessage("You won!\n12/12 right");
+        this.setButtonText("Play again?");
+        this.resetGame();
+        return;
+      }
+      // Play a Sound for the right Answer
+      document.querySelector(".audio-right").play();
       this.setScore(this.score + 1);
     } else {
+      document.querySelector(".audio-wrong").play();
       this.handleLoss();
     }
   }

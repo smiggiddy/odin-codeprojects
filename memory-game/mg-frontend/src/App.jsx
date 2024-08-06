@@ -38,6 +38,8 @@ function App() {
         setMessage={setMessage}
         setButtonText={setButtonText}
       />
+      <audio src="public/collect-5930.mp3" className="audio-right"></audio>
+      <audio src="public/incorrect.mp3" className="audio-wrong"></audio>
     </>
   );
 }
