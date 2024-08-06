@@ -14,6 +14,8 @@ export default function GameBoard(props) {
     props.highScore,
     props.setHighScore,
     props.setGameStarted,
+    props.setMessage,
+    props.setButtonText,
   );
 
   useEffect(() => {

@@ -7,6 +7,8 @@ class GameLogic {
     highScore,
     setHighScore,
     setGameStarted,
+    setMessage,
+    setButtonText,
   ) {
     this.cards = cards;
     this.setCards = setCards;
@@ -15,10 +17,16 @@ class GameLogic {
     this.highScore = highScore;
     this.setHighScore = setHighScore;
     this.setGameStarted = setGameStarted;
+    this.setMessage = setMessage;
+    this.setButtonText = setButtonText;
   }
 
   handleClick(key) {
-    this.updateScore(key);
+    this.checkClickResult(key);
+
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => card.classList.add("flip", "card-back", "hidden"));
+
     const tempCards = this.cards.map((card) => {
       if (card.key === key) {
         card.clicked = true;
@@ -27,6 +35,11 @@ class GameLogic {
     });
     this.setCards(tempCards);
     this.randomArrayOrder();
+    setTimeout(() => {
+      cards.forEach((card) =>
+        card.classList.remove("flip", "card-back", "hidden"),
+      );
+    }, 1000);
   }
 
   randomArrayOrder() {
@@ -53,9 +66,10 @@ class GameLogic {
     return cardClicked.length > 0;
   }
 
-  updateScore(key) {
+  checkClickResult(key) {
     if (this.score + 1 === this.cards.length) {
-      alert("You won! 12/12 right");
+      this.setMessage("You won!\n12/12 right");
+      this.setButtonText("Play again?");
       this.resetGame();
       return;
     }
@@ -68,10 +82,11 @@ class GameLogic {
     }
   }
   handleLoss() {
-    alert(
-      `Game Over! ${this.score + 1}/${this.cards.length} answers correcet!`,
+    this.setMessage(
+      `Game Over!\n${this.score}/${this.cards.length} answers correct!`,
     );
-    if (this.score + 1 > this.highScore) {
+    this.setButtonText("Play again?");
+    if (this.score > this.highScore) {
       this.setHighScore(this.score);
     }
     this.resetGame();

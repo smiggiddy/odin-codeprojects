@@ -3,9 +3,36 @@
   flex-direction: column;
   background: gray;
   padding: 1em;
+  cursor: pointer;
+  perspective: 1000px;
 }
 
 .card-img img {
   width: 250px;
   height: 250px;
+}
+
+.flip {
+  animation: flipCard 1s;
+}
+
+@keyframes flipCard {
+  to {
+    rotatey: 180deg;
+  }
+}
+
+.card-front .card-back {
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background: gray;
+  color: gray;
+  transform: rotateY(180deg);
+}
+
+.hidden img {
+  visibility: hidden;
 }
