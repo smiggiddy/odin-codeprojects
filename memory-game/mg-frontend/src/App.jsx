@@ -4,9 +4,11 @@ import Button from "./components/button";
 import GameBoard from "./components/gameboard";
 import GameMessages from "./components/gameMessages";
 import Scoreboard from "./components/scoreboard";
+import SoundEffects from "./components/soundEffects";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
   const [buttonText, setButtonText] = useState("Start Game!");
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -38,8 +40,7 @@ function App() {
         setMessage={setMessage}
         setButtonText={setButtonText}
       />
-      <audio src="public/collect-5930.mp3" className="audio-right"></audio>
-      <audio src="public/incorrect.mp3" className="audio-wrong"></audio>
+      <SoundEffects soundOn={soundOn} />
     </>
   );
 }

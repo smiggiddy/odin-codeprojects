@@ -46,7 +46,7 @@ export default function GameBoard(props) {
 }
 
 async function fetchCards({ setCards }) {
-  const cards = await fetch("http://localhost:8000/cards");
+  const cards = await fetch("/cards");
   const jsonCards = await cards.json();
 
   let gameCards = await jsonCards.map((c) => {
