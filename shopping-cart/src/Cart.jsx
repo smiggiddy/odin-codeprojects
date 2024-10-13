@@ -1,30 +1,44 @@
+import PropTypes from "prop-types";
+
 const Cart = (props) => {
-    return (
-        <section>
-           {props.cart ? (
-            <div>
-                <h2>Cart</h2>
-                {props.cart.map((item) => 
-                     <CartItem item={item} qty={item.qty} />
-                )}
-            </div>
-           ) : (<h2>Your cart is empty</h2>)} 
-        
-        </section>
-    )
+  return (
+    <>
+      <div>
+        {props.cart ? (
+          <div>
+            <h2>Cart</h2>
+            {props.cart.map((item) => (
+              <CartItem item={item} key={item.id} />
+            ))}
+          </div>
+        ) : (
+          <h2>Your cart is empty</h2>
+        )}
+      </div>
+    </>
+  );
+};
+
+function CartItem({ item }) {
+  const { name, price, img, qty } = item;
+
+  return (
+    <div>
+      <img src={img} alt={name} />
+      <h3>{name}</h3>
+      <p>Qty: {qty}</p>
+      <p>{price}</p>
+      <p>{price * qty}</p>
+    </div>
+  );
 }
 
+CartItem.propTypes = {
+  item: PropTypes.object,
+};
 
-function CartItem({item, qty}) {
-    const {name, price, img} = item;
+Cart.propTypes = {
+  cart: PropTypes.array,
+};
 
-    return (
-        <div>
-            <img src={img} alt={name} />
-            <h3>{name}</h3>
-            <p>Qty: {qty}</p>
-            <p>{price}</p>
-            <p>{price * qty}</p>
-        </div>
-    )
-}
+export default Cart;

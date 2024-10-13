@@ -1,15 +1,16 @@
 import { useState } from "react";
-import "./App.css";
+import { Outlet, useParams } from "react-router-dom";
 import Main from "./components/main";
+import "./App.css";
 import Navbar from "./components/navbar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const { path } = useParams();
+  const [cartItems, setCartItems] = useState(0);
   return (
     <>
-      <Navbar />
-      <Main />
+      <Navbar cartItems={cartItems} />
+      {path === "cart" ? <Outlet /> : path === "store" ? <Outlet /> : <Main />}
     </>
   );
 }
