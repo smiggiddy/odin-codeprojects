@@ -1,14 +1,20 @@
 import PropTypes from "prop-types";
+import styles from "./css/cart.module.css";
+import { useOutletContext } from "react-router-dom";
 
-const Cart = (props) => {
+const Cart = () => {
+  const [cart, setCart] = useOutletContext();
+
+  const cartItems = Object.keys(cart);
+
   return (
     <>
       <div>
-        {props.cart ? (
+        {cart ? (
           <div>
             <h2>Cart</h2>
-            {props.cart.map((item) => (
-              <CartItem item={item} key={item.id} />
+            {cartItems.map((item, index) => (
+              <CartItem item={cart[item]} key={index} />
             ))}
           </div>
         ) : (
@@ -20,15 +26,16 @@ const Cart = (props) => {
 };
 
 function CartItem({ item }) {
-  const { name, price, img, qty } = item;
+  const { title, price, image, qty } = item;
 
   return (
-    <div>
-      <img src={img} alt={name} />
-      <h3>{name}</h3>
+    <div className={styles.container}>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
       <p>Qty: {qty}</p>
-      <p>{price}</p>
-      <p>{price * qty}</p>
+      <p>Price: {price}</p>
+      <p>Total: {price * qty}</p>
+      <p>{item.id}</p>
     </div>
   );
 }

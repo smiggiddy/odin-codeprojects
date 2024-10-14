@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import ProductCollection from "./components/productCollection";
+import { useOutletContext } from "react-router-dom";
 
-export default function Store(props) {
+export default function Store() {
+  const [cart, setCart] = useOutletContext();
   const { items, loading } = useFakeStoreAPI();
+
   return (
     <div>
       <h1>Smig.Tech Coaching Store</h1>
-      <ProductCollection loading={loading} items={items} />
+      <ProductCollection
+        loading={loading}
+        items={items}
+        cart={cart}
+        setCart={setCart}
+      />
     </div>
   );
 }
@@ -19,14 +27,19 @@ function useFakeStoreAPI() {
     fetch("https://fakestoreapi.com/products?limit=5", { mode: "cors" })
       .then((response) => {
         if (response.status >= 400) {
-          return { error: "unable to fetch items" };
+          throw new Error("unable to fetch items");
         }
         return response.json();
       })
       .then((response) => {
         const arr = [];
         response.forEach((item) => {
-          arr.push({ title: item.title, price: item.price, image: item.image });
+          arr.push({
+            title: item.title,
+            price: item.price,
+            image: item.image,
+            id: crypto.randomUUID(),
+          });
         });
         setItems(arr);
       })

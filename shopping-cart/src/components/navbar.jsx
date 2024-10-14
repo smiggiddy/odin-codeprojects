@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function Navbar({ cartItems }) {
+  const sumCartItems = Object.keys(cartItems).length;
+
   return (
     <nav className={styles.nav}>
       <h1>Smig.Tech</h1>
       <Nav />
-      {cartItems ? <h1>{cartItems}</h1> : <button>I&apos;m Ready</button>}
+      {sumCartItems > 0 ? (
+        <Link to="bag">
+          {" "}
+          <h1>{sumCartItems}</h1>
+        </Link>
+      ) : (
+        <button>I&apos;m Ready</button>
+      )}
     </nav>
   );
 }
@@ -26,5 +35,5 @@ function Nav() {
 }
 
 Navbar.propTypes = {
-  cartItems: PropTypes.number,
+  cartItems: PropTypes.object,
 };
