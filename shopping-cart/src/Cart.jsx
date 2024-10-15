@@ -3,7 +3,7 @@ import styles from "./css/cart.module.css";
 import { useOutletContext } from "react-router-dom";
 
 const Cart = () => {
-  const [cart, setCart] = useOutletContext();
+  const [cart, setCart, items, SetItems] = useOutletContext();
 
   const cartItems = Object.keys(cart);
 
