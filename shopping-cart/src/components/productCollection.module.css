@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% / 4);
+  justify-content: end;
+  /*flex: 1;*/
+  padding: 1.5rem;
+  margin: 1.5rem;
+}

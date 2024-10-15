@@ -1,6 +1,7 @@
 import App from "./App";
 import Cart from "./Cart";
 import Main from "./components/main";
+import ProductDetails from "./components/productDetails";
 import Store from "./Store";
 import ErrorPage from "./errorPage";
 
@@ -18,6 +19,10 @@ const routes = [
       {
         path: "store",
         element: <Store />,
+      },
+      {
+        path: "store/:id",
+        element: <ProductDetails />,
       },
       {
         path: "bag",

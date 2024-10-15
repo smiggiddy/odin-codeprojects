@@ -1,6 +1,6 @@
-import Product from "./products";
+import { Link } from "react-router-dom";
+import Products from "./products";
 import PropTypes from "prop-types";
-
 import styles from "./productCollection.module.css";
 
 export default function ProductCollection({ loading, items, cart, setCart }) {
@@ -9,7 +9,10 @@ export default function ProductCollection({ loading, items, cart, setCart }) {
       {!loading
         ? items.map((item, index) => {
             return (
-              <Product item={item} key={index} cart={cart} setCart={setCart} />
+              <div key={index} className={styles.card}>
+                <Products item={item} cart={cart} setCart={setCart} />
+                <Link to={item.id}> More Info</Link>
+              </div>
             );
           })
         : null}

@@ -1,11 +1,17 @@
-nav {
+.container {
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
+  /*position: relative;*/
 }
 
 .nav {
   display: flex;
   list-style-type: none;
   gap: 20px;
+  /*position: absolute;*/
+  /*right: 4vw;*/
+  padding-right: 1rem;
+  margin-left: auto;
+  align-self: center;
 }

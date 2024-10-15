@@ -6,7 +6,7 @@ export default function Navbar({ cartItems }) {
   const sumCartItems = Object.keys(cartItems).length;
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.container}>
       <h1>Smig.Tech</h1>
       <Nav />
       {sumCartItems > 0 ? (
