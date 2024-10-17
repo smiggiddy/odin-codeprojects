@@ -10,7 +10,7 @@ export default function Store() {
 
   return (
     <div>
-      <h1>Smig.Tech Coaching Store</h1>
+      <h1>Smig.Tech Store</h1>
       <ProductCollection
         loading={loading}
         items={items}
@@ -28,7 +28,9 @@ function useFakeStoreAPIData(items, setItems, loading, setLoading) {
       return;
     }
 
-    fetch("https://fakestoreapi.com/products?limit=5", { mode: "cors" })
+    fetch("https://fakestoreapi.com/products/category/electronics", {
+      mode: "cors",
+    })
       .then((response) => {
         if (response.status >= 400) {
           throw new Error("unable to fetch items");
@@ -40,7 +42,7 @@ function useFakeStoreAPIData(items, setItems, loading, setLoading) {
         response.forEach((item) => {
           arr.push({
             title: item.title,
-            price: item.price,
+            price: item.price * 100,
             image: item.image,
             id: crypto.randomUUID(),
           });
