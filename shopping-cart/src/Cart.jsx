@@ -10,8 +10,10 @@ const Cart = () => {
 
   return (
     <div>
-      <h2>Cart</h2>
-      <Bag cartKeys={cartKeys} cart={cart} setCart={setCart} />
+      <div className={styles.container}>
+        <Bag cartKeys={cartKeys} cart={cart} setCart={setCart} />
+        <OrderSummary cart={cart} />
+      </div>
     </div>
   );
 };
@@ -21,6 +23,7 @@ function Bag({ cartKeys, cart, setCart }) {
     <>
       {cartKeys.length > 0 ? (
         <div>
+          <h2>Cart</h2>
           {cartKeys.map((key, index) => (
             <CartItem
               item={cart[key]}
@@ -37,6 +40,30 @@ function Bag({ cartKeys, cart, setCart }) {
   );
 }
 
+function OrderSummary({ cart }) {
+  const cartItems = Object.keys(cart);
+  let numItems = 0;
+  let subTotal = 0;
+
+  cartItems.forEach((item) => {
+    subTotal += cart[item].price * cart[item].qty;
+    numItems += cart[item].qty;
+  });
+  const shippingFee = subTotal * 0.1;
+  const total = subTotal + shippingFee;
+
+  return (
+    <div className={styles.summary}>
+      <h2>Order Summary</h2>
+      <p>
+        Subtotal ({numItems} items): ${currencyFormat(subTotal)}
+      </p>
+      <p>Shipping (10%): ${currencyFormat(shippingFee)}</p>
+      <p>Total: ${currencyFormat(total)}</p>
+    </div>
+  );
+}
+
 function CartItem({ item, cart, setCart }) {
   const { title, price, image, qty } = item;
 
@@ -45,8 +72,8 @@ function CartItem({ item, cart, setCart }) {
       <img src={image} alt={title} />
       <div>
         <h3>{title}</h3>
-        <p>Price: ${currencyFormat(price)}</p>
-        <p>Qty: {qty}</p>
+        <p>Price: ${currencyFormat(price)} x </p>
+        <p>Qty: {qty} </p>
       </div>
       <div>
         <button onClick={() => decreaseQty(item, cart, setCart)}>
@@ -58,7 +85,7 @@ function CartItem({ item, cart, setCart }) {
         </button>
       </div>
       <div>
-        <p>Total: {currencyFormat(qty * price)}</p>
+        <p>total: ${currencyFormat(qty * price)} </p>
         <button onClick={() => removeFromCart(item, cart, setCart)}>
           Delete
         </button>
@@ -101,6 +128,10 @@ Bag.propTypes = {
   cartKeys: PropTypes.array,
   cart: PropTypes.object,
   setCart: PropTypes.func,
+};
+
+OrderSummary.propTypes = {
+  cart: PropTypes.object,
 };
 
 export default Cart;

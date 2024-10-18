@@ -1,3 +1,8 @@
 .container {
   display: flex;
+  justify-content: space-between;
+}
+
+.summary {
+  margin-right: 1.5rem;
 }
