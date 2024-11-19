@@ -62,6 +62,7 @@ function OrderSummary({ cart }) {
       </p>
       <p>Shipping (10%): ${currencyFormat(shippingFee)}</p>
       <p>Total: ${currencyFormat(total)}</p>
+      <button>Checkout</button>
     </div>
   );
 }
@@ -71,7 +72,7 @@ function CartItem({ item, cart, setCart }) {
 
   return (
     <div className={styles.cartItem}>
-      <img className={styles.img} src={image} alt={title} />
+      <img id={styles.img} src={image} alt={title} />
       <div className={styles.card}>
         <div>
           <h3>{title}</h3>
