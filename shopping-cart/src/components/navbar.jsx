@@ -15,7 +15,7 @@ export default function Navbar({ cartItems }) {
           <h1>{sumCartItems}</h1>
         </Link>
       ) : (
-        <button>I&apos;m Ready</button>
+        <img src="/shopping_cart_icon.svg" />
       )}
     </nav>
   );

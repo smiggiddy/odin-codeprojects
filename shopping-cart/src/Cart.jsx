@@ -22,16 +22,18 @@ function Bag({ cartKeys, cart, setCart }) {
   return (
     <>
       {cartKeys.length > 0 ? (
-        <div>
-          <h2>Cart</h2>
-          {cartKeys.map((key, index) => (
-            <CartItem
-              item={cart[key]}
-              cart={cart}
-              setCart={setCart}
-              key={index}
-            />
-          ))}
+        <div className={styles.fullwidth}>
+          <h2 className={styles.header}>Cart</h2>
+          <div className={styles.cartItems}>
+            {cartKeys.map((key, index) => (
+              <CartItem
+                item={cart[key]}
+                cart={cart}
+                setCart={setCart}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <h2>Your cart is empty</h2>
@@ -68,30 +70,38 @@ function CartItem({ item, cart, setCart }) {
   const { title, price, image, qty } = item;
 
   return (
-    <div className={styles.container}>
-      <img src={image} alt={title} />
-      <div>
-        <h3>{title}</h3>
-        <p>Price: ${currencyFormat(price)} x </p>
-        <p>Qty: {qty} </p>
-      </div>
-      <div>
-        <button onClick={() => decreaseQty(item, cart, setCart)}>
-          Decrease
-        </button>
-        <p>{qty}</p>
-        <button onClick={() => increaseQty(item, cart, setCart)}>
-          Increase
-        </button>
-      </div>
-      <div>
-        <p>total: ${currencyFormat(qty * price)} </p>
-        <button onClick={() => removeFromCart(item, cart, setCart)}>
-          Delete
-        </button>
+    <div className={styles.cartItem}>
+      <img className={styles.img} src={image} alt={title} />
+      <div className={styles.card}>
+        <div>
+          <h3>{title}</h3>
+          <p>Price: ${currencyFormat(price)} x </p>
+        </div>
+        <div className={styles.qtybtn}>
+          <button onClick={() => decreaseQty(item, cart, setCart)}>-</button>
+          <QuantityInput item={item} cart={cart} setCart={setCart} />
+          <button onClick={() => increaseQty(item, cart, setCart)}>+</button>
+        </div>
+        <div>
+          <p>total: ${currencyFormat(qty * price)} </p>
+          <button onClick={() => removeFromCart(item, cart, setCart)}>
+            Remove From Cart
+          </button>
+        </div>
       </div>
     </div>
   );
+}
+
+function QuantityInput({ item, cart, setCart }) {
+  function handleChange(e) {
+    const newQty = e.target.value;
+    let obj = { ...cart };
+    obj[item.id].qty = newQty;
+    setCart(obj);
+  }
+
+  return <input value={item.qty} onChange={handleChange} />;
 }
 
 function increaseQty(item, cart, setCart) {
@@ -132,6 +142,12 @@ Bag.propTypes = {
 
 OrderSummary.propTypes = {
   cart: PropTypes.object,
+};
+
+QuantityInput.propTypes = {
+  item: PropTypes.object,
+  cart: PropTypes.object,
+  setCart: PropTypes.func,
 };
 
 export default Cart;
