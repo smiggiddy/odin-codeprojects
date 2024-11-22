@@ -4,7 +4,7 @@ import styles from "./products.module.css";
 
 import { currencyFormat } from "../utils/currency";
 
-export default function Products({ item, cart, setCart }) {
+export default function Products({ item }) {
   return (
     <>
       <img src={item.image} alt={item.title} className={styles.img} />
@@ -16,6 +16,4 @@ export default function Products({ item, cart, setCart }) {
 
 Products.propTypes = {
   item: PropTypes.object,
-  cart: PropTypes.object,
-  setCart: PropTypes.func,
 };

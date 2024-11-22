@@ -1,6 +1,10 @@
 .btn {
   padding: 1rem;
   margin: 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
 }
 
 .action {

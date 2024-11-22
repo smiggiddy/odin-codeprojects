@@ -11,7 +11,10 @@ export default function ProductCollection({ loading, items, cart, setCart }) {
             return (
               <div key={index} className={styles.card}>
                 <Products item={item} cart={cart} setCart={setCart} />
-                <Link to={item.id}> More Info</Link>
+                <Link to={item.id} className={styles.link}>
+                  {" "}
+                  More Info
+                </Link>
               </div>
             );
           })

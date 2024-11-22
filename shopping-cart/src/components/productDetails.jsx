@@ -1,4 +1,5 @@
 import { useParams, useOutletContext, Link } from "react-router-dom";
+import Button from "./button";
 import Products from "./products";
 
 import styles from "./productDetails.module.css";
@@ -15,18 +16,23 @@ export default function ProductDetails() {
     <div className={styles.container}>
       {item ? (
         <div className={styles.card}>
-          <Link to="/store">Back</Link>
+          <Link to="/store" className={styles.link}>
+            Back
+          </Link>
           <Products item={item} cart={cart} setCart={setCart} />
-          <button
+          <Button
             onClick={() => {
               cart[item.id]
                 ? removeFromCart(item, cart, setCart)
                 : addToCart(item, cart, setCart);
             }}
-          >
-            {cart[item.id] ? "Remove from Cart" : "Add to Cart"}
-          </button>
-          <Link to="/bag">View Cart</Link>
+            text={cart[item.id] ? "Remove from Cart" : "Add to Cart"}
+          />
+          {Object.keys(cart).length > 0 ? (
+            <Link to="/bag" className={styles.link}>
+              View Cart
+            </Link>
+          ) : null}
         </div>
       ) : (
         <HandleInvalidItem />

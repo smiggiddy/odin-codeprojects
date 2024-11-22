@@ -3,6 +3,14 @@
   justify-content: space-between;
 }
 
+.empty-cart {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+}
+
 .summary {
   margin-right: 3rem;
   padding: 1rem;

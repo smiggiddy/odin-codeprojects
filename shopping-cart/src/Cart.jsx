@@ -1,3 +1,4 @@
+import Button from "./components/button";
 import PropTypes from "prop-types";
 import styles from "./css/cart.module.css";
 import { useOutletContext } from "react-router-dom";
@@ -23,7 +24,6 @@ function Bag({ cartKeys, cart, setCart }) {
     <>
       {cartKeys.length > 0 ? (
         <div className={styles.fullwidth}>
-          <h2 className={styles.header}>Cart</h2>
           <div className={styles.cartItems}>
             {cartKeys.map((key, index) => (
               <CartItem
@@ -36,7 +36,9 @@ function Bag({ cartKeys, cart, setCart }) {
           </div>
         </div>
       ) : (
-        <h2>Your cart is empty</h2>
+        <div className={styles["empty-cart"]}>
+          <h2>Your cart is empty</h2>
+        </div>
       )}
     </>
   );
@@ -44,15 +46,17 @@ function Bag({ cartKeys, cart, setCart }) {
 
 function OrderSummary({ cart }) {
   const cartItems = Object.keys(cart);
+  const shippingFee = 0.1;
   let numItems = 0;
   let subTotal = 0;
 
   cartItems.forEach((item) => {
-    subTotal += cart[item].price * cart[item].qty;
-    numItems += cart[item].qty;
+    subTotal += Number(cart[item].price) * Number(cart[item].qty);
+    numItems += Number(cart[item].qty);
   });
-  const shippingFee = subTotal * 0.1;
-  const total = subTotal + shippingFee;
+
+  const shippingCosts = shippingFee * subTotal;
+  const total = shippingCosts + subTotal;
 
   return (
     <div className={styles.summary}>
@@ -60,9 +64,9 @@ function OrderSummary({ cart }) {
       <p>
         Subtotal ({numItems} items): ${currencyFormat(subTotal)}
       </p>
-      <p>Shipping (10%): ${currencyFormat(shippingFee)}</p>
+      <p>Shipping (10%): ${currencyFormat(shippingCosts)}</p>
       <p>Total: ${currencyFormat(total)}</p>
-      <button>Checkout</button>
+      <Button text={"Checkout"} />
     </div>
   );
 }
@@ -85,9 +89,10 @@ function CartItem({ item, cart, setCart }) {
         </div>
         <div>
           <p>total: ${currencyFormat(qty * price)} </p>
-          <button onClick={() => removeFromCart(item, cart, setCart)}>
-            Remove From Cart
-          </button>
+          <Button
+            onClick={() => removeFromCart(item, cart, setCart)}
+            text={"Remove From Cart"}
+          />
         </div>
       </div>
     </div>
@@ -96,13 +101,19 @@ function CartItem({ item, cart, setCart }) {
 
 function QuantityInput({ item, cart, setCart }) {
   function handleChange(e) {
-    const newQty = e.target.value;
+    const newQty = Number(e.target.value);
     let obj = { ...cart };
-    obj[item.id].qty = newQty;
+    if (newQty !== 0) {
+      obj[item.id].qty = newQty;
+    } else {
+      obj[item.id].qty = 1;
+    }
     setCart(obj);
   }
 
-  return <input value={item.qty} onChange={handleChange} />;
+  return (
+    <input value={item.qty} onChange={handleChange} min="1" type="number" />
+  );
 }
 
 function increaseQty(item, cart, setCart) {

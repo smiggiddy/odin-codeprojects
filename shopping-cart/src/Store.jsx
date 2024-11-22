@@ -10,7 +10,6 @@ export default function Store() {
 
   return (
     <div>
-      <h1>Smig.Tech Store</h1>
       <ProductCollection
         loading={loading}
         items={items}

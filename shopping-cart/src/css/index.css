@@ -2,6 +2,7 @@
   font-family: Inter, system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 18px;
 
   /*color-scheme: light dark;*/
   /*color: rgba(255, 255, 255, 0.87);*/
@@ -16,6 +17,18 @@
 body {
   margin: 0;
   display: flex;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .roboto-condensed-fnt {
