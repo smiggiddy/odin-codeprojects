@@ -60,6 +60,16 @@
   border-bottom: 1px solid black;
 }
 
+.price-qty {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.price-qty p {
+  margin: 0;
+}
+
 .qtybtn {
   display: flex;
 }
@@ -80,4 +90,8 @@
 
 .header {
   margin: 1rem;
+}
+
+.input {
+  max-width: 30px;
 }

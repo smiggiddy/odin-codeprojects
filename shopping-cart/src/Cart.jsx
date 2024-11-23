@@ -66,7 +66,10 @@ function OrderSummary({ cart }) {
       </p>
       <p>Shipping (10%): ${currencyFormat(shippingCosts)}</p>
       <p>Total: ${currencyFormat(total)}</p>
-      <Button text={"Checkout"} />
+      <Button
+        text={"Checkout"}
+        onClick={() => alert("Congrats! You would've leveled up")}
+      />
     </div>
   );
 }
@@ -80,15 +83,21 @@ function CartItem({ item, cart, setCart }) {
       <div className={styles.card}>
         <div>
           <h3>{title}</h3>
-          <p>Price: ${currencyFormat(price)} x </p>
-        </div>
-        <div className={styles.qtybtn}>
-          <button onClick={() => decreaseQty(item, cart, setCart)}>-</button>
-          <QuantityInput item={item} cart={cart} setCart={setCart} />
-          <button onClick={() => increaseQty(item, cart, setCart)}>+</button>
+          <div className={styles["price-qty"]}>
+            <p> ${currencyFormat(price)} x </p>
+            <div className={styles.qtybtn}>
+              <button onClick={() => decreaseQty(item, cart, setCart)}>
+                -
+              </button>
+              <QuantityInput item={item} cart={cart} setCart={setCart} />
+              <button onClick={() => increaseQty(item, cart, setCart)}>
+                +
+              </button>
+            </div>
+            <p>Item total: ${currencyFormat(qty * price)} </p>
+          </div>
         </div>
         <div>
-          <p>total: ${currencyFormat(qty * price)} </p>
           <Button
             onClick={() => removeFromCart(item, cart, setCart)}
             text={"Remove From Cart"}
@@ -112,7 +121,14 @@ function QuantityInput({ item, cart, setCart }) {
   }
 
   return (
-    <input value={item.qty} onChange={handleChange} min="1" type="number" />
+    <input
+      value={item.qty}
+      onChange={handleChange}
+      min="1"
+      max="999"
+      type="number"
+      className={styles.input}
+    />
   );
 }
 
