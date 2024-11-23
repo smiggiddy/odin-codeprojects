@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  /*position: relative;*/
+}
+
+.nav {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+  /*position: absolute;*/
+  /*right: 4vw;*/
+  padding-right: 1rem;
+  margin-left: auto;
+  align-self: center;
+}
+
+.link {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #0e374e;
+}
+
+.nav-heading {
+  color: #0e374e;
+}
+
+.cart-icon-container {
+  position: relative;
+}
+
+.cart-icon-circle {
+  background: #85d5f4;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  opacity: 60%;
+}

@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  justify-content: end;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  background: #e2f3fc;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #0e374e;
+  font-weight: 600;
+  transition: font-weight 500ms;
+}
+
+.link:hover {
+  font-weight: 900;
+}
