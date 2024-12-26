@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Message the people</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+  <!-- this should be some stuff that loads --!>
+  <%- include('navbar', {links: links}) %>
+	<div class="container"> 
+
+	  <% msgs.forEach((msg) => { %>
+	    <div class="card">
+	     <h3><%= msg.user %></h3>
+	     <span><%= msg.added %></span>
+	     <p><%= msg.text %></p>
+	    </div>
+	      <% }); %>
+
+</div>
+
+
+  </body>
+</html>
