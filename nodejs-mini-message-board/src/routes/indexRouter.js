@@ -34,7 +34,11 @@ indexRouter.get("/new", (req, res) => {
 });
 
 indexRouter.post("/new", (req, res) => {
-  console.log(req);
+  messages.unshift({
+    text: req.body.message,
+    user: req.body.username,
+    added: new Date(),
+  });
   res.redirect("/");
 });
 
