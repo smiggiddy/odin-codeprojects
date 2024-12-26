@@ -1,10 +1,12 @@
 FROM node:23-alpine
 
-COPY . /app
+COPY package.json package-lock.json /app
 
 WORKDIR /app
 
 RUN npm install .
+
+COPY --chown nobody:nobody ./src /app
 
 EXPOSE 3000
 
