@@ -18,6 +18,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 //app.use("/new", msgRouter);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Webserver running on ${port}.`);
 });
+
+// Shutdown Logic
+const gracefulShutdownHandler = (signal) => {
+  console.log(`Caught ${signal}, gracefully shutting down`);
+
+  server.close(() => {
+    console.log(`Shutting down server`);
+    process.exit();
+  });
+};
+
+process.on("SIGINT", gracefulShutdownHandler);
+process.on("SIGTERM", gracefulShutdownHandler);
