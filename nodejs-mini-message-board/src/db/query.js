@@ -9,7 +9,7 @@ async function getAllMessages() {
 }
 
 async function insertMessage(msg) {
-  db.run("INSERT INTO MESSAGES (message, username, date) VALUES (?, ?, ?)", [
+  db.run("INSERT INTO MESSAGES (message, username, date) VALUES ($1, $2, $3)", [
     msg.message,
     msg.username,
     msg.date,
