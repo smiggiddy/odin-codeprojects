@@ -1,6 +1,14 @@
 {
+  "name": "Odin - Message Board",
+  "version": "0.1.0",
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-validator": "^7.2.0",
+    "sqlite3": "^5.1.7"
+  },
+  "scripts": {
+    "seed_db": "node $PWD/src/db/seedDb.js",
+    "start": "node --watch src/app.js"
   }
 }

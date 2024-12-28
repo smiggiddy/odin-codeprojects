@@ -1,6 +1,6 @@
 FROM node:23-alpine
 
-COPY package*.json /app/package*.json
+COPY package.json package-lock.json /app
 
 WORKDIR /app
 
@@ -12,6 +12,8 @@ EXPOSE 3000
 
 USER nobody
 
-CMD ["node", "src/app.js"]
+ENTRYPOINT ["node"]
+
+CMD ["src/app.js"]
 
 

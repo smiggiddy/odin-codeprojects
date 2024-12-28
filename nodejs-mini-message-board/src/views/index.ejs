@@ -6,13 +6,12 @@
   <body>
   <!-- this should be some stuff that loads --!>
   <%- include('navbar', {links: links}) %>
-	<div class="container"> 
-
+	<div class="container msg-feed"> 
 	  <% msgs.forEach((msg) => { %>
 	    <div class="card">
-	     <h3><%= msg.user %></h3>
-	     <span><%= msg.added %></span>
-	     <p><%= msg.text %></p>
+	     <h3><%= msg.username %></h3>
+	     <span><%= msg.date %></span>
+	     <p><%= msg.message %></p>
 	    </div>
 	      <% }); %>
 

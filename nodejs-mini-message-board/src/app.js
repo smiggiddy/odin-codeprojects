@@ -6,6 +6,7 @@ const port = 3000;
 
 const { indexRouter } = require("./routes/indexRouter");
 //const { msgRouter } = require("./routes/msgRouter");
+//
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -15,8 +16,15 @@ app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  req.time = new Date(Date.now()).toISOString();
+  console.log(req.time, req.method, req.hostname, req.path);
+  next();
+});
+
 app.use("/", indexRouter);
 //app.use("/new", msgRouter);
+//
 
 const server = app.listen(port, () => {
   console.log(`Webserver running on ${port}.`);

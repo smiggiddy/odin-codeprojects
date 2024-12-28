@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   list-style-type: none;
+  font-size: 1.5rem;
 }
 
 .nav-item {
@@ -25,7 +26,39 @@
   align-items: center;
 }
 
+.msg-feed {
+  margin-top: 3rem;
+}
+
 .card {
   display: flex;
   flex-direction: column;
+  min-width: 300px;
+  align-items: center;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  min-width: 300px;
+}
+
+.form-item input {
+  padding: 10px 20px;
+  margin: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.btn {
+  padding: 1rem;
+  margin: 0 1rem;
+  font-size: 1.3rem;
+  /*width: 100%;*/
+}
+
+.errors {
+  color: red;
 }
