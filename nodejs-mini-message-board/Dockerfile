@@ -8,8 +8,6 @@ RUN npm install . && chown nobody:nobody /app
 
 COPY --chown=nobody:nobody ./src /app/src
 
-EXPOSE 3000
-
 USER nobody
 
 ENTRYPOINT ["node"]

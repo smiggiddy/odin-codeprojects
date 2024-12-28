@@ -17,6 +17,18 @@ stat(dbDirPath, (err, stats) => {
     makeDirectory(dbDirPath);
   }
 });
+
 const db = new sqlite3.Database(dbPath);
+db.serialize(() => {
+  const SQL = `
+CREATE TABLE IF NOT EXISTS messages ( 
+  id INTEGER PRIMARY KEY ASC,
+  message TEXT,
+  username VARCHAR(25),
+  date TEXT
+);
+`;
+  db.exec(SQL);
+});
 
 module.exports = db;
