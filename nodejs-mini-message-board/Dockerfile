@@ -4,7 +4,7 @@ COPY package.json package-lock.json /app
 
 WORKDIR /app
 
-RUN npm install .
+RUN npm install . && chown nobody:nobody /app
 
 COPY --chown=nobody:nobody ./src /app/src
 
