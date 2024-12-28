@@ -1,28 +1,22 @@
 
-<html>
-  <head>
-    <title>Message the people</title>
-    <link rel="stylesheet" href="/styles.css">
-  </head>
-  <body>
-<%- include('navbar', {links: links}) %>
+<%- include('header') %>
 <%- include('partials/errors.ejs') %>
 <form method="POST" action="/new">
   <div class="container">
+    <h1 class="headline">Add a message :)</h1>
     <div class="form-item">
-      <label for="uername">Username</label>
+      <label for="uername">Name</label>
       <input type="text" id="username" name="username">
     </div>
     <div class="form-item">
       <label for="message">Message</label>
-      <input type="text" id="message" name="message">
+      <textarea id="message" name="message" rows="5"></textarea>
     </div>
     <div class="form-item">
-    <button class="btn" type="submit">Submit</button>
+    <button class="btn primary-btn" type="submit">Post</button>
     <button class="btn" type="button" onCLick="window.location='/';">Return</button>
     </div>
   </div>
 </form>
-</body>
-</html>
+<%- include('footer') %>
 <!--  vim: sts=2 sw=2 et ts=2 # -->

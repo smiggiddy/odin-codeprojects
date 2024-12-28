@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS messages (
   id INTEGER PRIMARY KEY ASC,
   message TEXT,
   username VARCHAR(25),
-  date TEXT
+  date NUMBER
 );
 `;
   db.exec(SQL);

@@ -1,5 +1,6 @@
 const db = require("../db/query");
 const { body, validationResult } = require("express-validator");
+const { dateParser } = require("../utils");
 
 const links = [
   { href: "/", text: "Home" },
@@ -7,18 +8,18 @@ const links = [
 ];
 
 const validateContent = [
-  body("message").isLength({ min: 2 }).withMessage("Must enter a message!"),
   body("username")
     .trim()
     .isLength({ min: 2, max: 25 })
-    .withMessage("Username Must be between 2 and 25 chars."),
+    .withMessage("Name must be between 2 and 25 characters."),
+  body("message").isLength({ min: 2 }).withMessage("Please enter a message."),
 ];
 
 async function indexGet(req, res, next) {
   try {
     const rows = await db.getAllMessages();
     if (rows === undefined) rows = [];
-    res.render("index", { links: links, msgs: rows });
+    res.render("index", { links: links, msgs: rows, dateParser: dateParser });
   } catch {
     res.render("index", { links: links, msgs: [] });
   }
@@ -40,7 +41,7 @@ async function newPost(req, res) {
   db.insertMessage({
     message: message,
     username: username,
-    date: new Date().toISOString(),
+    date: new Date(),
   });
   res.redirect("/");
 }
