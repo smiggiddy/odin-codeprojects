@@ -146,6 +146,7 @@ a {
   background-color: transparent;
   /*width: 100%;*/
   flex: 1;
+  color: black;
 }
 
 .primary-btn {
