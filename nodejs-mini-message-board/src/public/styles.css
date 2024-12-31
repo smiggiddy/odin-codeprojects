@@ -4,6 +4,12 @@
   background-color: #eff3ea;
 }
 
+a {
+  color: #86a788;
+  font-weight: 600;
+  text-decoration: none;
+}
+
 .nav {
   display: flex;
   justify-content: center;
@@ -13,7 +19,14 @@
 }
 
 .nav-item {
-  margin: 0 1rem;
+  margin: 10px 8px 0;
+  display: inline-block;
+  padding: 10px;
+  transition: background-color 1000ms ease-in-out;
+}
+
+.nav-item:hover {
+  background-color: hsl(123.64, 15.79%, 89.02%);
 }
 
 .nav-link {
@@ -25,6 +38,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.headline {
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+.msg-headline {
+  color: #86a788;
+  text-align: center;
+  margin: 60px 0 20px 0;
 }
 
 .msg-feed {
@@ -44,9 +68,19 @@
   box-shadow: 0px 1px 4px #525252;
 }
 
-.card p {
+.card-message {
+  width: 100%;
+  background-color: white;
+  margin: 0;
+  border-radius: 0 0 15px 15px;
+}
+
+.card-message p {
   word-wrap: break-word;
-  font-weight: 500;
+  font-family: "Leckerli One", serif;
+  font-size: 1.3rem;
+  padding: 1.3rem;
+  text-align: center;
 }
 
 .card-metadata {
@@ -63,7 +97,7 @@
 }
 
 .card-metadata > span {
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .form-item {
@@ -111,12 +145,17 @@
   border: 2px solid #677d6a;
   background-color: transparent;
   /*width: 100%;*/
+  flex: 1;
 }
 
 .primary-btn {
   background-color: #677d6a;
   color: #eff3ea;
   font-weight: 800;
+}
+
+.btn-row {
+  flex-direction: row;
 }
 
 .errors {

@@ -3,8 +3,9 @@ const path = require("node:path");
 const { stat } = require("node:fs");
 const { mkdir } = require("node:fs/promises");
 
-const dbDirPath = path.join(path.dirname(__dirname));
+const dbDirPath = path.join(path.dirname(__dirname), "/db");
 const dbPath = path.join(dbDirPath, "/message-board.db");
+console.log(dbPath);
 
 async function makeDirectory(path) {
   const dirCreation = await mkdir(path);
