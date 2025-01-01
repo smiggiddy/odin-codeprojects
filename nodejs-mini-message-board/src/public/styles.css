@@ -4,6 +4,25 @@
   background-color: #eff3ea;
 }
 
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  flex: 1;
+  align-self: center;
+  align-items: end;
+  display: flex;
+  margin-bottom: 5px;
+}
+
 a {
   color: #86a788;
   font-weight: 600;
