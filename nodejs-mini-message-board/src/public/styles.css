@@ -68,6 +68,10 @@ a {
   box-shadow: 0px 1px 4px #525252;
 }
 
+.material-symbols-outlined:hover {
+  cursor: pointer;
+}
+
 .card-message {
   width: 100%;
   background-color: white;
@@ -98,6 +102,12 @@ a {
 
 .card-metadata > span {
   font-weight: 400;
+}
+
+.metadata-right {
+  display: flex;
+  gap: 1rem;
+  padding: 0 10px;
 }
 
 .form-item {
@@ -161,4 +171,27 @@ a {
 
 .errors {
   color: red;
+}
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment span {
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+.comment .material-symbols-outlined:hover {
+  cursor: initial;
 }

@@ -8,7 +8,18 @@
 	    <div class="card">
 	    <div class="card-metadata">
 	     <h3>@<%= msg.username %></h3>
+	     <div class="metadata-right"> 
 	     <span><%= dateParser(msg.date) %></span>
+	     <% if (comments[msg.id]) { %>
+	     <span class="material-symbols-outlined" onClick="test(event)" data-message-id="<%= msg.id %>">
+		comment
+		</span>
+	     <% } else { %>
+	     <span class="material-symbols-outlined" onClick="test(event)" data-message-id="<%= msg.id %>">
+		mode_comment
+		</span>
+	     <% } %>
+	     </div>
 	     </div>
 	     <div class="card-message">
 	     	<p><%= msg.message %></p>

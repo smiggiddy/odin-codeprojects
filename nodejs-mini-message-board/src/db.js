@@ -28,6 +28,13 @@ CREATE TABLE IF NOT EXISTS messages (
   username VARCHAR(25),
   date NUMBER
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+  id INTEGER PRIMARY KEY ASC,
+  comment TEXT,
+  message_id INTEGER,
+  FOREIGN KEY (message_id) REFERENCES messages(id)
+)
 `;
   db.exec(SQL);
 });

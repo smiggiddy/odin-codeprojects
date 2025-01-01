@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const indexController = require("../controllers/indexController");
-const db = require("../db");
 
 const indexRouter = Router();
 
@@ -11,5 +10,7 @@ indexRouter.post(
   indexController.validateContent,
   indexController.newPost,
 );
+indexRouter.get("/comment", indexController.commentsGet);
+indexRouter.post("/comment", indexController.commentsPost);
 
 module.exports = { indexRouter };
