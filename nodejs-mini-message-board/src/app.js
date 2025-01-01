@@ -17,8 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 //Logging
 app.use((req, res, next) => {
   req.time = new Date(Date.now()).toISOString();
-  const clientIp =
-    req.header("http_cf_connecting_ip") || req.socket.remoteAddress;
+  const clientIp = req.header("cf_connecting_ip") || req.socket.remoteAddress;
   console.log(req.time, req.method, req.hostname, req.path, clientIp);
   next();
 });
