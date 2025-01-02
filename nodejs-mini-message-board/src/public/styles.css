@@ -214,3 +214,12 @@ a {
 .comment .material-symbols-outlined:hover {
   cursor: initial;
 }
+
+@media only screen and (max-width: 660px) {
+  /*@media (max-width: 600px) {*/
+  .card,
+  .form-item,
+  .comment-section {
+    max-width: 90vw;
+  }
+}
