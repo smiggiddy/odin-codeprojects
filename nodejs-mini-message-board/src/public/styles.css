@@ -1,0 +1,225 @@
+:root {
+  padding: 0;
+  margin: 0;
+  background-color: #eff3ea;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  flex: 1;
+  align-self: center;
+  align-items: end;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+a {
+  color: #86a788;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  font-size: 1.5rem;
+}
+
+.nav-item {
+  margin: 10px 8px 0;
+  display: inline-block;
+  padding: 10px;
+  transition: background-color 1000ms ease-in-out;
+}
+
+.nav-item:hover {
+  background-color: hsl(123.64, 15.79%, 89.02%);
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.headline {
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+.msg-headline {
+  color: #86a788;
+  text-align: center;
+  margin: 60px 0 20px 0;
+}
+
+.msg-feed {
+  margin-top: 3rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  align-items: center;
+  min-height: 150px;
+  background-color: #86a788;
+  width: 100%;
+  margin: 1rem;
+  border-radius: 15px;
+  box-shadow: 0px 1px 4px #525252;
+}
+
+.material-symbols-outlined:hover {
+  cursor: pointer;
+}
+
+.card-message {
+  width: 100%;
+  background-color: white;
+  margin: 0;
+  border-radius: 0 0 15px 15px;
+}
+
+.card-message p {
+  word-wrap: break-word;
+  font-family: "Leckerli One", serif;
+  font-size: 1.3rem;
+  padding: 1.3rem;
+  text-align: center;
+}
+
+.card-metadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  margin: 0 1rem;
+}
+
+.card-metadata > h3,
+.card-metadata > span {
+  margin: 1rem 1rem;
+}
+
+.card-metadata > span {
+  font-weight: 400;
+}
+
+.metadata-right {
+  display: flex;
+  gap: 1rem;
+  padding: 0 10px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  max-width: 600px;
+  width: 100%;
+}
+
+.form-item label {
+  font-size: 1.2rem;
+}
+
+.form-item input {
+  padding: 10px 20px;
+  margin: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border: 1px solid #525252;
+  background-color: #faf7f0;
+}
+
+.form-item textarea {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #525252;
+  background-color: #faf7f0;
+  padding: 20px;
+}
+
+.form-item > .btn {
+  margin: 5px;
+}
+
+.btn {
+  padding: 1rem;
+  margin: 0 1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 2px solid #677d6a;
+  background-color: transparent;
+  /*width: 100%;*/
+  flex: 1;
+  color: black;
+}
+
+.primary-btn {
+  background-color: #677d6a;
+  color: #eff3ea;
+  font-weight: 800;
+}
+
+.btn-row {
+  flex-direction: row;
+}
+
+.errors {
+  color: red;
+}
+.comment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment span {
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+.comment .material-symbols-outlined:hover {
+  cursor: initial;
+}
+
+@media only screen and (max-width: 660px) {
+  /*@media (max-width: 600px) {*/
+  .card,
+  .form-item,
+  .comment-section {
+    max-width: 90vw;
+  }
+}

@@ -1,0 +1,22 @@
+
+<%- include('header') %>
+<%- include('partials/errors.ejs') %>
+<form method="POST" action="/new">
+  <div class="container">
+    <h1 class="msg-headline">Add to the conversation :)</h1>
+    <div class="form-item">
+      <label for="uername">Name</label>
+      <input type="text" id="username" name="username" placeholder="Enter your name...">
+    </div>
+    <div class="form-item">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="what's on your mind?"></textarea>
+    </div>
+    <div class="form-item btn-row">
+    <button class="btn primary-btn" type="submit">Post</button>
+    <button class="btn" type="button" onCLick="window.location='/';">Return</button>
+    </div>
+  </div>
+</form>
+<%- include('footer') %>
+<!--  vim: sts=2 sw=2 et ts=2 # -->

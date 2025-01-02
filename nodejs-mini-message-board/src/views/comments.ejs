@@ -1,0 +1,49 @@
+<%- include('header') %>
+<%- include('partials/errors.ejs') %>
+
+  <div class="container">
+  <h1 class="msg-headline"> @<%= message.username %>'s message</h1>
+    <div class="card">
+    <div class="card-metadata">
+     <h3>@<%= message.username %></h3>
+     <div class="metadata-right"> 
+     <span><%= dateParser(message.date) %></span>
+     </div>
+     </div>
+     <div class="card-message">
+      <p><%= message.message %></p>
+     </div>
+    </div>
+    <h2> Comments</h2>
+    <div class="comment-section"> 
+    <% if (comments.length > 0) { %>
+	  <% comments.forEach((comment) => { %>
+    <div class="comment">
+    <span class="material-symbols-outlined">chat</span> 
+    <p> <%= comment.comment %></p>
+    </div>
+    
+    <% }); %>
+    <% } else { %>
+    <p> No comments yet, add one below </p>
+    <% } %>
+    </div>
+
+  </div>
+
+<form method="POST" action="/comment">
+  <div class="container">
+    <h1 class="msg-headline">Add a comment :)</h1>
+    <div class="form-item">
+      <label for="message">Comment</label>
+      <textarea id="comment" name="comment" rows="5" placeholder="Add your two cents..." required></textarea>
+      <input type="hidden" name="messageId" value=<%= message.id %> id="messageId">
+    </div>
+    <div class="form-item btn-row">
+    <button class="btn primary-btn" type="submit">Post</button>
+    <button class="btn" type="button" onCLick="window.location='/';">Return</button>
+    </div>
+  </div>
+</form>
+<%- include('footer') %>
+<!--  vim: sts=2 sw=2 et ts=2 # -->
