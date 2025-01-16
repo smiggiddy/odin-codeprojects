@@ -1,0 +1,34 @@
+
+<form method="POST" action="/item/id">
+	<div class="form-item"><label>Name</label><input name="name" value="<%= item.name %>" /></div>
+	<div class="form-item"><label>Price</label><input name="price" value=<%= item.price %> /></div>
+	<div class="form-item"><label>QTY</label><input name="qty" value=<%= item.qty %> /></div>
+  <div class="form-item">
+    <label>Categories</label>
+		<select class="categories-list" name="category">
+		<% categories.forEach((cat) => { %>
+		<% if (cat.name === item.category) {  %>
+			<option name=<%= cat.value %> data-cat-id=<%= cat.category_id %> selected><%= cat.name %></option>
+		<% } else { %>
+			<option name=<%= cat.value %> data-cat-id=<%= cat.category_id%>><%= cat.name %></option>
+		<% }; %>
+		<% }); %>
+    </select>
+  </div>
+  <div class="form-item">
+    <label>stores</label>
+    		
+		<select class="stores-list" name="store">
+		<% stores.forEach((cat) => { %>
+		<% if (cat.name === item.store) { %>
+		<option name=<%= cat.name %> data-cat-id=<%= cat.store_id %> selected><%= cat.name %></option>
+		<% } else { %>
+		<option name=<%= cat.name %> data-cat-id=<%= cat.store_id %>><%= cat.name %></option>
+
+		<% } %>
+	<% }); %>
+    </select>
+  </div>
+  <button type="submit" class="btn">Add Item</button><button>Close</button>
+</form>
+

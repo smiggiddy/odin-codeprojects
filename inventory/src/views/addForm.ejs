@@ -1,0 +1,16 @@
+<h1><%= type %></h1>
+<form method="POST" action="/<%= type %>">
+	<div class="container">
+		<div class="form-item">
+			<label for="name">Name</label>
+			<input type="text" name="name" placeholder="" required>
+		</div>
+		<div class="form-item btn-row">
+			<button type="submit">Submit</button>
+			<button type="button">Cancel</button>
+		</div>
+	</div>
+	
+</form>
+
+<%- include("card", {items: data}) %>

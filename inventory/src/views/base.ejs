@@ -1,0 +1,10 @@
+<%- include('header', {links: links}); %>
+
+<% if (page === "add") { %>
+	<%- include('addForm', {type: type}); %>
+<% } else if (page === "edit") { %>
+	<%- include('editForm', {item: item, categories: categories, stores: stores}); %>
+<% } else { %>
+	<%- include('itemTable', {items: items}); %>
+<% }; %>
+<%- include('footer'); %>

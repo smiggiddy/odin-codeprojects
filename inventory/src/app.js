@@ -7,8 +7,9 @@ const port = 8080;
 const { indexRouter } = require("./routes/indexRouter");
 const assetsPath = path.join(path.dirname(__dirname), "public");
 
+app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.set(express.static(assetsPath));
+app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
 

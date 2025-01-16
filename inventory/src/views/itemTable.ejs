@@ -1,0 +1,26 @@
+<table class="items">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Price</th>
+			<th scope="col">QTY</th>
+			<th scope="col">Store</th>
+			<th scope="col">Category</th>
+		</tr>
+	</thead>	
+	<tbody>
+
+	<% items.forEach(item => { %>
+	<tr data-item-id="<%=item.id %>">
+		<td><%= item.name %></td>
+		<td><%= item.price %></td>
+		<td><%= item.qty %></td>
+		<td><%= item.store_name %></td>
+		<td><%= item.category_name %></td>
+		<td class="edit-button">Edit</td>
+		<td class="delete-button" data-id="<%= item.name %>">Delete</td>
+	</tr>
+	<% }); %>
+	</tbody>
+</table>
+
