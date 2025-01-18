@@ -1,3 +1,4 @@
+const utils = require("../utils");
 const db = require("../db/queries");
 const { links } = require("../config");
 
@@ -31,6 +32,13 @@ async function storesGetAll(req, res) {
 async function storePost(req, res) {
   const r = await handlePostRequets({ reqBody: req.body, dbName: "store" });
   res.redirect("/store");
+}
+async function storeDelete(req, res) {
+  const query = await db.deleteStore(req.body.id);
+  if (query) {
+    res.send(`${query}`);
+  }
+  res.send("store deleted");
 }
 
 async function categoryGet(req, res) {
@@ -75,9 +83,10 @@ async function itemPost(req, res) {
   const storeId = await db.getStoreId({ name: req.body.store });
 
   let formData = req.body;
+
   const data = {
     name: formData.name,
-    price: formData.price,
+    price: utils.convertToInteger(formData.price),
     qty: formData.qty,
     store_id: storeId.store_id,
     category_id: categoryId.category_id,
@@ -142,6 +151,7 @@ module.exports = {
   itemDelete,
   storeGet,
   storePost,
+  storeDelete,
   storesGetAll,
   categoryGet,
   categoryPost,

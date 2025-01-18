@@ -1,5 +1,6 @@
 <%- include('header', {links: links}); %>
 
+<main>
 <% if (page === "add") { %>
 	<%- include('addForm', {type: type}); %>
 <% } else if (page === "edit") { %>
@@ -7,4 +8,5 @@
 <% } else { %>
 	<%- include('itemTable', {items: items}); %>
 <% }; %>
+</main>
 <%- include('footer'); %>

@@ -8,6 +8,7 @@ indexRouter.get("/", indexController.indexGet);
 indexRouter.get("/store", indexController.storeGet);
 indexRouter.get("/stores", indexController.storesGetAll);
 indexRouter.post("/store", indexController.storePost);
+indexRouter.delete("/store", indexController.storeDelete);
 indexRouter.get("/category", indexController.categoryGet);
 indexRouter.get("/categories", indexController.categoryGetAll);
 indexRouter.post("/category", indexController.categoryPost);

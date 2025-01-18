@@ -1,8 +1,7 @@
 import { modal } from "./components/modal.js";
+import { addForm } from "./components/addForm.js";
 
 const newItemLink = document.querySelector("a[href='/add']");
-//
-//if (newItemLink && window.location !== "/item/") {
 const modalElement = await modal();
 let modalToggle = false;
 async function handleDelete(e) {
@@ -25,7 +24,7 @@ document.querySelectorAll(".delete-button").forEach((button) =>
 
 document.querySelectorAll(".edit-button").forEach((button) => {
   button.addEventListener("click", async (e) => {
-    const itemId = e.target.parentNode.dataset.itemId;
+    const itemId = e.target.parentNode.parentNode.dataset.itemId;
 
     window.location.href = `/item/${itemId}`;
   });
@@ -37,7 +36,8 @@ document.querySelectorAll(".delete-btn").forEach((button) => {
     const data = new URLSearchParams(new FormData());
     data.append("id", itemId);
 
-    const res = await fetch("/category", {
+    const path = window.location.pathname;
+    const res = await fetch(`${path}`, {
       method: "DELETE",
       body: data,
     });
@@ -46,7 +46,7 @@ document.querySelectorAll(".delete-btn").forEach((button) => {
     if (message.includes("error")) {
       alert("unable to delete as item is using category");
     } else {
-      window.location.href = "/category";
+      window.location.href = `${path}`;
     }
   });
 });
@@ -60,4 +60,4 @@ newItemLink.addEventListener("click", (e) => {
 });
 
 document.body.append(modalElement);
-//}
+addForm();

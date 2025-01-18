@@ -103,6 +103,14 @@ async function insertStore(data) {
   }
 }
 
+async function deleteStore(itemId) {
+  try {
+    await pool.query("DELETE FROM store where store_id = $1", [itemId]);
+  } catch (e) {
+    return e;
+  }
+}
+
 module.exports = {
   insertItem,
   getItemById,
@@ -113,6 +121,7 @@ module.exports = {
   getCategoryId,
   getStores,
   getStoreId,
+  deleteStore,
   insertStore,
   insertCategory,
   deleteCategory,

@@ -1,5 +1,8 @@
-<h1><%= type %></h1>
-<form method="POST" action="/<%= type %>">
+<h1 class="heading"><%= type %></h1>
+
+<%- include("card", {items: data}) %>
+<button class="btn add-btn">New <%= type %></button>
+<form method="POST" action="/<%= type %>" class="add-form">
 	<div class="container">
 		<div class="form-item">
 			<label for="name">Name</label>
@@ -13,4 +16,3 @@
 	
 </form>
 
-<%- include("card", {items: data}) %>
