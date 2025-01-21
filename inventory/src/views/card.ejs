@@ -3,10 +3,10 @@
 	<p class="title">
 		<%= item.name %>
 	</p>
-		<button>Edit</button>
 		<% let itemId; %>
 		<% if (item.category_id) {itemId = item.category_id} else { itemId = item.store_id } %>
-		<button class="delete-btn" data-id="<%= itemId %>">Delete</button>
+		<button class="edit-btn btn">Edit</button>
+		<button class="delete-btn btn" data-id="<%= itemId %>">Delete</button>
 
 	</div>
 	<% }); %>

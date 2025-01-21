@@ -143,7 +143,7 @@ async function itemEditPost(req, res, next) {
 async function itemDelete(req, res) {
   const itemId = await db.getItemByName(req.body.name);
   if (itemId) db.deleteItem(itemId);
-  console.log(`Delted item: ${itemId}`);
+  console.log(`Delted item: ${JSON.stringify(itemId)}`);
   res.redirect("deleted item: ${item}");
 }
 

@@ -15,7 +15,8 @@ body {
   line-height: 1.5;
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
-  font-size: 18px;
+  font-size: 14px;
+  font-family: "Inter", serif;
 }
 
 /* 5. Improve media defaults */
@@ -89,9 +90,9 @@ li {
 
 ul {
   display: flex;
-  justify-content: space-around;
-  max-width: 50vw;
-  margin: 0 auto;
+  justify-content: space-evenly;
+  margin: 0;
+  padding: 0;
 }
 
 td {
@@ -115,10 +116,12 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5em;
 }
 
 nav {
   font-size: 1.5rem;
+  margin: 1em 0;
 }
 
 a {
@@ -127,8 +130,7 @@ a {
 
 .container {
   width: 100%;
-  max-width: 800px;
-  margin: 0.25em 1em;
+  margin: 0.25em 0;
 }
 
 .flex {
@@ -137,7 +139,7 @@ a {
 
 .btn {
   padding: 0.5em 1em;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 .container.flex {
@@ -154,7 +156,7 @@ a {
 }
 
 .items-table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -162,6 +164,8 @@ a {
 .form-item {
   display: flex;
   flex-direction: column;
+  margin: 0.7em 0;
+  width: 100%;
 }
 
 .form-item.btn-row {
@@ -175,4 +179,103 @@ a {
 
 .add-form {
   display: none;
+}
+
+@media only screen and (min-width: 778px) {
+  body {
+    font-size: 18px;
+  }
+  ul {
+    display: flex;
+    justify-content: space-around;
+    max-width: 50vw;
+    margin: 0 auto;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  thead {
+    text-transform: uppercase;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5em;
+  }
+
+  nav {
+    font-size: 1.5rem;
+    margin: 1em 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0.25em 0;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .btn {
+    padding: 0.5em 1em;
+    width: 100%;
+  }
+
+  .container.flex {
+    width: 100%;
+  }
+
+  .container.flex p {
+    align-self: center;
+  }
+
+  .container.flex p,
+  .container.flex button {
+    flex: 1;
+  }
+
+  .items-table {
+    width: 80%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0.7em 0;
+    width: 100%;
+  }
+
+  .form-item.btn-row {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-row button {
+    flex: 1;
+  }
+
+  .add-form {
+    display: none;
+  }
 }

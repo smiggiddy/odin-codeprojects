@@ -66,5 +66,19 @@ modalElement.addEventListener("click", (e) => {
   modalToggle = !modalToggle;
 });
 
+const itemTitles = document.querySelectorAll("p.title");
+const editItemBtn = document.querySelectorAll(".edit-btn");
+editItemBtn.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const parent = e.target.parentElement;
+    const itemId = e.target.nextElementSibling.dataset.id;
+    const p = e.target.previousElementSibling;
+    // temp hide
+    p.remove();
+    const input = document.createElement("input");
+    parent.insertBefore(input, e.target);
+  });
+});
+
 document.body.append(modalElement);
 addForm();
