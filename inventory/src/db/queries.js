@@ -33,6 +33,22 @@ async function insertItem(data) {
   }
 }
 
+async function updateItem(item) {
+  const { id, name, price, qty, category_id, store_id } = item;
+
+  try {
+    await pool.query(
+      `UPDATE items
+      SET name=$1, price=$2, qty=$3, category_id=$4, store_id=$5 
+      WHERE id=$6`,
+      [name, price, qty, category_id, store_id, id],
+    );
+    return null;
+  } catch (e) {
+    return e;
+  }
+}
+
 async function deleteItem(item) {
   try {
     const res = await pool.query("DELETE FROM items WHERE id = $1", [item.id]);
@@ -46,7 +62,7 @@ async function getAllItemsWithRelationships() {
   const { rows } = await pool.query(
     `SELECT items.id, items.name, items.price, items.qty, category.name AS category_name, store.name AS store_name FROM items 
     LEFT JOIN category ON items.category_id = category.category_id 
-    LEFT JOIN store ON items.store_id = store.store_id;`,
+    LEFT JOIN store ON items.store_id = store.store_id ORDER BY items.id;`,
   );
 
   return rows;
@@ -117,6 +133,7 @@ module.exports = {
   getAllItems,
   getItemByName,
   deleteItem,
+  updateItem,
   getCategories,
   getCategoryId,
   getStores,

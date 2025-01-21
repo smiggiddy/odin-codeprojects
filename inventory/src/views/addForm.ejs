@@ -1,7 +1,9 @@
 <h1 class="heading"><%= type %></h1>
 
+<div class="container">
 <%- include("card", {items: data}) %>
 <button class="btn add-btn">New <%= type %></button>
+</div>
 <form method="POST" action="/<%= type %>" class="add-form">
 	<div class="container">
 		<div class="form-item">

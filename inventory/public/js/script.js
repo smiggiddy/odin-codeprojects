@@ -4,6 +4,7 @@ import { addForm } from "./components/addForm.js";
 const newItemLink = document.querySelector("a[href='/add']");
 const modalElement = await modal();
 let modalToggle = false;
+
 async function handleDelete(e) {
   console.log(e.target);
 }
@@ -55,7 +56,13 @@ newItemLink.addEventListener("click", (e) => {
   e.preventDefault();
   modalToggle
     ? (modalElement.style.display = "none")
-    : (modalElement.style.display = "block");
+    : (modalElement.style.display = "flex");
+  modalToggle = !modalToggle;
+});
+
+modalElement.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (e.target === e.currentTarget) modalElement.style.display = "none";
   modalToggle = !modalToggle;
 });
 

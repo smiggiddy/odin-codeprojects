@@ -22,7 +22,7 @@ async function categoryPicker() {
   formItemDiv.classList.add("form-item");
 
   const formLabel = document.createElement("label");
-  formLabel.textContent = "Categories";
+  formLabel.textContent = "categories";
 
   const select = document.createElement("select");
   select.classList.add("categories-list-modal");

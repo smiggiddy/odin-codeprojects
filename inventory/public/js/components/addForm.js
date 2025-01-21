@@ -1,14 +1,17 @@
 function addForm() {
   let buttonClicked = true;
-  const addForm = document.querySelector(".add-form");
-  const button = document.querySelector(".add-btn");
+  const addFormClass = document.querySelector(".add-form");
 
-  button.addEventListener("click", () => {
-    buttonClicked
-      ? (addForm.style.display = " block")
-      : (addForm.style.display = "none");
-    buttonClicked = !buttonClicked;
-  });
+  if (addFormClass != null) {
+    const button = document.querySelector(".add-btn");
+
+    button.addEventListener("click", () => {
+      buttonClicked
+        ? (addFormClass.style.display = " block")
+        : (addFormClass.style.display = "none");
+      buttonClicked = !buttonClicked;
+    });
+  }
 }
 
 export { addForm };

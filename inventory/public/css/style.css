@@ -68,6 +68,21 @@ h6 {
   isolation: isolate;
 }
 
+/*
+* remove dumb stuff
+*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 li {
   list-style-type: none;
 }
@@ -106,6 +121,10 @@ nav {
   font-size: 1.5rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container {
   width: 100%;
   max-width: 800px;
@@ -118,7 +137,7 @@ nav {
 
 .btn {
   padding: 0.5em 1em;
-  margin: 1em;
+  width: 100%;
 }
 
 .container.flex {
@@ -137,10 +156,12 @@ nav {
 .items-table {
   width: 80%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .form-item {
   display: flex;
+  flex-direction: column;
 }
 
 .form-item.btn-row {

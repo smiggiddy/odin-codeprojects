@@ -122,13 +122,25 @@ async function itemEditGet(req, res, next) {
 }
 
 async function itemEditPost(req, res, next) {
-  const itemId = req.params.id;
-  console.log(itemId);
+  const { id, name, qty, price, category, store } = req.body;
+  const category_id = await db.getCategoryId({ name: category });
+  const store_id = await db.getStoreId({ name: store });
+
+  const update = {
+    id: id,
+    name: name,
+    qty: qty,
+    price: utils.convertToInteger(price),
+    category_id: category_id.category_id,
+    store_id: store_id.store_id,
+  };
+
+  const dbRes = await db.updateItem(update);
+
   res.redirect("/");
 }
 
 async function itemDelete(req, res) {
-  console.log(req.body.name);
   const itemId = await db.getItemByName(req.body.name);
   if (itemId) db.deleteItem(itemId);
   console.log(`Delted item: ${itemId}`);

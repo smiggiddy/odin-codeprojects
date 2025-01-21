@@ -1,8 +1,9 @@
 
 <form method="POST" action="/item/id">
-	<div class="form-item"><label>Name</label><input name="name" value="<%= item.name %>" /></div>
-	<div class="form-item"><label>Price</label><input name="price" value=<%= item.price %> /></div>
-	<div class="form-item"><label>QTY</label><input name="qty" value=<%= item.qty %> /></div>
+	<input type="hidden" value=<%= item.id %> name="id">
+	<div class="form-item"><label>Name</label><input name="name" value="<%= item.name %>" required /></div>
+	<div class="form-item"><label>Price</label><input name="price" value=<%= (item.price/100).toFixed(2) %> type="number" step="0.01" required /></div>
+	<div class="form-item"><label>QTY</label><input name="qty" value=<%= item.qty %> type="number" required /></div>
   <div class="form-item">
     <label>Categories</label>
 		<select class="categories-list" name="category">
@@ -29,6 +30,6 @@
 	<% }); %>
     </select>
   </div>
-  <button type="submit" class="btn">Add Item</button><button>Close</button>
+  <button type="submit" class="btn">UPDATE ITEM</button><button class="btn">RETURN</button>
 </form>
 
