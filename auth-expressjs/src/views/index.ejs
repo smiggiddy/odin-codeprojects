@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<% if (locals.user) {%>
+MY PERSON <%= user.username %>
+<a href="/log-out">LOG OUT</a>
+<p> Views: <%= sessions %></p>
+
+<% } else { %>
+<p> you should log in man </P
+<h1>please log in</h1>
+
+<form action="/log-in" method="POST">
+  <label for="username">Username</label>
+  <input id="username" name="username" placeholder="username" type="text" />
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" />
+  <button>Log In</button>
+</form>
+<% } %>
+
+  <a type="button" href="/login/federated/google">Sign in with Google</a>
+</body>
+</html>
+
