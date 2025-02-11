@@ -1,0 +1,166 @@
+:root {
+  --font-size: 18px;
+  --desktop-heading-font-size: 5em;
+  --desktop-line-height: 1;
+  --mobile-heading-font-size: 4em;
+  --mobile-line-height: 0.8;
+}
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  font-family: "Lato, serif";
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  9. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.flex {
+  display: flex;
+}
+
+.container.flex.hero {
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.container.hero {
+  text-align: center;
+}
+
+.container.hero * {
+  margin: 0.5em 0;
+}
+
+.container.hero p {
+  font-size: 1.2rem;
+  padding: 1em;
+}
+
+.hero__heading {
+  margin: 0;
+  font-size: var(--mobile-heading-font-size);
+  font-family: "Rokkitt", serif;
+  line-height: var(--desktop-line-height);
+}
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 0.7em;
+}
+
+.btn__link {
+  text-align: center;
+  background: #f0f0f0;
+  line-height: 1.5em;
+  max-width: 200px;
+}
+
+.btn__link:hover {
+  background: #bfbba9;
+}
+
+.hero > .btn__link {
+  margin-top: 2em;
+}
+
+#main {
+  padding: 0 50px;
+}
+
+#main > .container.flex {
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 750px) {
+  .hero__heading {
+    margin: 0;
+    font-size: var(--desktop-heading-font-size);
+    font-family: "Rokkitt", serif;
+    line-height: var(--desktop-line-height);
+  }
+  .container.hero p {
+    font-size: 1.5rem;
+    padding: 0.5em;
+  }
+  .container.flex * {
+    flex: 1;
+  }
+  #main {
+    padding: 0 100px;
+  }
+
+  #main > .container.flex {
+    gap: 10em;
+  }
+
+  .form-item > .btn {
+    max-width: 200px;
+  }
+}

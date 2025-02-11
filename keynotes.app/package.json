@@ -1,0 +1,11 @@
+{
+  "name": "KeyNotes.App",
+  "type": "module",
+  "dependencies": {
+    "connect-sqlite3": "^0.9.15",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1"
+  }
+}
