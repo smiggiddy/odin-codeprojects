@@ -20,6 +20,8 @@ stat(dbDirPath, (err, stats) => {
 });
 
 const db = new Database(dbPath);
+// Enable WAL Mode
+db.exec("PRAGMA journal_mode = WAL;");
 
 const initSQL = path.join(__dirname, "./init.sql");
 fs.readFile(initSQL, "utf8", (err, data) => {
@@ -27,7 +29,7 @@ fs.readFile(initSQL, "utf8", (err, data) => {
     console.error(err);
     return;
   }
-  db.query(data).get();
+  db.exec(data);
 });
 
 module.exports = db;

@@ -1,19 +1,30 @@
 <%- include('header') %>
-<form method="POST" action="/auth/register">
-	<div class="container">
-		<div class="form-item flex">
+<!-- views/partials/errors.ejs -->
+<% if (locals.errors) {%>
+  <div class="center-horizontal">
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+  </div>
+<% }; %>
+<form class="register-form center-horizontal" method="POST" action="/auth/register">
+	<div class="form-item flex">
 		<label for="username">UserName</label>
-		<input type="text" name="username"/>
-		</div>
-		<div class="form-item flex">
-		<label for="password">Password</label>
-		<input type="password" name="password"/>
-		</div>
-		<div class="form-item">
-			<button type="submit" class="btn">Register</button>
-			<button type="button" class="btn">Sign up with Google</button>
-		</div>
+		<input type="text" name="username" required/>
 	</div>
+	<div class="form-item flex">
+		<label for="password">Password</label>
+		<input type="password" name="password" required/>
+	</div>
+	<div class="form-item flex">
+		<label for="confirm-password">Confirm Password</label>
+		<input type="password" name="confirm-password" required/>
+	</div>
+		<div class="form-item flex">
+			<button type="submit" class="btn">Register</button>
+		</div>
 	
 </form>
 <%- include('footer') %>

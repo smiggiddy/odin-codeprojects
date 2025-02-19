@@ -1,20 +1,17 @@
 <%- include('header') %>
-<form method="POST" action="/auth/login">
-	<div class="container">
-		<div class="form-item flex">
+<form class="center-horizontal" method="POST" action="/auth/login">
+	<div class="form-item flex">
 		<label for="username">UserName</label>
-		<input type="text" name="username"/>
-		</div>
-		<div class="form-item flex">
-		<label for="password">Password</label>
-		<input type="password" name="password"/>
-		</div>
-		<div class="form-item">
-			<button type="submit" class="btn">Login</button>
-			<button type="button" class="btn">Sign in with Google</button>
-			<button type="button" class="btn" onclick="document.location.href='/auth/register'">Sign Up</button>
-		</div>
+		<input type="text" name="username" required/>
 	</div>
+	<div class="form-item flex">
+		<label for="password">Password</label>
+		<input type="password" name="password" required/>
+	</div>
+		<div class="form-item flex">
+			<button type="submit" class="btn">Login</button>
+			<button type="button" class="btn" onclick="document.location.href='/auth/register'">Sign up</button>
+		</div>
 	
 </form>
 <%- include('footer') %>

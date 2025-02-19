@@ -1,9 +1,9 @@
 const bcryptjs = require("bcryptjs");
-const db = require("../models/db");
-const passport = require("../middlewares/auth");
+const db = require("../models/query");
+const { validationResult } = require("express-validator");
 
 function loginGet(req, res, next) {
-  res.render("login", { pageTitle: "KeyNotes.App | Login" });
+  res.render("login", { pageTitle: "InspiredCliches | Login" });
 }
 
 function logOut(req, res, next) {
@@ -14,20 +14,24 @@ function logOut(req, res, next) {
 }
 
 function signUpGet(req, res, next) {
-  res.render("register", { pageTitle: "KeyNotes.App | Register" });
+  res.render("register", {
+    pageTitle: "InspiredCliches | Register",
+    errors: null,
+  });
 }
 
 async function signUpPost(req, res, next) {
-  const { username, password } = req.body;
-  try {
+  const result = validationResult(req);
+  if (result.isEmpty()) {
+    const { username, password } = req.body;
     const hashedPassword = await bcryptjs.hash(password, 10);
-    const query = db.query(
-      "INSERT INTO users (username, password) VALUES ($username, $password)",
-    );
-    query.run({ $username: username, $password: hashedPassword });
-    res.redirect("/");
-  } catch (err) {
-    next(err);
+    db.insertUser(username, hashedPassword);
+    res.redirect("/auth/login");
+  } else {
+    res.status(400).render("register", {
+      errors: result.array(),
+      pageTitle: "InspiredCliches | Register",
+    });
   }
 }
 

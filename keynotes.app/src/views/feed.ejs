@@ -1,0 +1,27 @@
+<%- include('header') %>
+<h1 class="feed-heading">
+	<%= currentUser.username %>'s <span class="normal">feed of cliche's</span>
+</h1>
+<div class="grid">
+	<% keynotes.forEach((note) => { %>
+		<% const likedPost = userLikedPosts.find((post) =>  post.message_id == note.message_id) %>
+		<% let extraMessageClass = "" %>
+		<% if (note.message.length > 250) { %>
+			<% extraMessageClass = " grid__span_two"; %>
+		<% }; %>
+		<div class="grid-item card<%= extraMessageClass %>">
+			<p class="card__message"><%= note.message %></p>
+			<div class="container flex grid__card__metadata">
+			<p class="card__author"><a href="/profile?userId=<%= note.user_id %>"><%= note.user %></a></p>
+			<p><%= note.likes_count %> Likes</p>
+			<a href="/like?noteId=<%= note.message_id %>">
+				<% if (likedPost) { %><i class="fa-solid fa-heart red"></i><% } else { %><i class="fa-regular fa-heart red"></i><% }; %>
+			</a>
+			<% if (currentUser.user_id === note.user_id) { %>
+				<a href="#">&nbsp;Delete</a>
+			<% }; %>
+			</div>
+		</div>
+	<% }); %>
+</div>
+<%- include('footer') %>
