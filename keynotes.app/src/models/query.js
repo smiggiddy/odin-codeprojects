@@ -11,7 +11,6 @@ function getEveryNote() {
     );
 
     const data = query.all();
-    console.log(data);
     return data;
   } catch (err) {
     return err;
