@@ -105,6 +105,10 @@ form {
   max-width: 50vw;
 }
 
+input {
+  padding: 0.75em;
+}
+
 .flex {
   display: flex;
 }
@@ -153,6 +157,7 @@ form {
   padding: 1em;
   text-decoration: none;
   border-radius: 0.7em;
+  font-size: 1em;
 }
 
 .btn__link {
@@ -163,6 +168,14 @@ form {
 }
 
 .btn__link:hover {
+  background: #bfbba9;
+}
+
+.btn__form {
+  background: #f0f0f0;
+}
+
+.btn__form:hover {
   background: #bfbba9;
 }
 
@@ -221,11 +234,15 @@ form {
 .form-item {
   flex-direction: column;
   width: 100%;
+  margin: 0.5em 0;
 }
 
-/*.active__underline {*/
-/**/
-/*}*/
+.form-item-row {
+  flex-direction: column;
+  width: 100%;
+  margin: 0.5em 0;
+  gap: 0.5em;
+}
 
 .hover__underline {
   /*display: inline-block;*/
@@ -280,6 +297,12 @@ form {
   }
   .grid__span_two {
     grid-column-end: span 2;
+  }
+  .form-item-row {
+    flex-direction: row;
+    width: 100%;
+    margin: 0.5em 0;
+    gap: 0.5em;
   }
 
   /*.form-item > .btn {*/
