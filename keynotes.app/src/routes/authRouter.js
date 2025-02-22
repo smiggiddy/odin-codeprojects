@@ -12,6 +12,7 @@ authRouter.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/auth/login",
+    failureMessage: true,
   }),
 );
 authRouter.get("/logout", authController.logOut);

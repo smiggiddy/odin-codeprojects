@@ -42,6 +42,19 @@ function addNotePost(req, res, next) {
   res.redirect("/");
 }
 
+function deleteNote(req, res) {
+  const { messageId, userId } = req.query;
+
+  if (res.locals.currentUser) {
+    const message = db.getNoteById(messageId);
+
+    if (message.user_id === Number(userId)) {
+      db.deleteNote(Number(messageId));
+    }
+    res.redirect("/");
+  }
+}
+
 function addNoteGet(req, res, next) {
   res.render("note-form", { pageTitle: "InspiredCliches | New Note" });
 }
@@ -69,6 +82,7 @@ module.exports = {
   indexGet,
   addNoteGet,
   addNotePost,
+  deleteNote,
   addLike,
   getProfile,
 };

@@ -4,6 +4,17 @@
   --desktop-line-height: 1;
   --mobile-heading-font-size: 4em;
   --mobile-line-height: 0.8;
+
+  /* colors */
+
+  --100-blue: hsl(219, 64%, 96%, 100%);
+  --200-blue: hsl(222, 81%, 94%, 100%);
+  --300-blue: hsl(221, 86%, 92%, 100%);
+  --400-blue: hsl(222, 92%, 90%, 100%);
+  --500-blue: hsl(222, 97%, 88%, 100%);
+  --600-blue: hsl(222, 97%, 85%, 100%);
+  --700-blue: hsl(222, 100%, 84%, 100%);
+  --800-blue: hsl(222, 100%, 34%, 100%);
 }
 /* 1. Use a more-intuitive box-sizing model */
 *,
@@ -23,6 +34,7 @@ body {
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   font-family: "Lato, serif";
+  background: var(--200-blue);
 }
 
 /* 5. Improve media defaults */
@@ -67,6 +79,10 @@ h6 {
   text-wrap: balance;
 }
 
+a {
+  color: var(--800-blue);
+}
+
 /*
   9. Create a root stacking context
 */
@@ -81,7 +97,7 @@ a {
 
 nav {
   font-size: 1.5rem;
-  margin: 1em 0 2em;
+  padding: 1em 0;
 }
 
 nav > ul {
@@ -100,6 +116,10 @@ ul > li {
   text-align: center;
 }
 
+li a {
+  color: black;
+}
+
 form {
   width: 100%;
   max-width: 50vw;
@@ -107,6 +127,18 @@ form {
 
 input {
   padding: 0.75em;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.divider {
+  height: 0.25em;
+  background: var(--300-blue);
+  width: 80vw;
+  margin: 0 auto 1em;
 }
 
 .flex {
@@ -227,6 +259,16 @@ input {
   justify-content: space-between;
 }
 
+.likes {
+  flex: 1;
+  flex-grow: 0;
+}
+
+.card__likes {
+  padding: 0;
+  font-weight: 300;
+}
+
 .card .card__message {
   margin-bottom: 1em;
 }
@@ -261,7 +303,7 @@ input {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: black;
+  background-color: var(--700-blue);
   transform-origin: bottom left;
   transition: transform 0.25s ease-out;
 }

@@ -16,8 +16,12 @@
 	<body>
 		<nav>
 			<ul class="container flex">
-				<li><a class="hover__underline" href="/">Home</a></li>
+				<% if (!currentUser) { %>
+				<li><a class="hover__underline" href="/auth/register">Sign Up</a></li>
+
+				<% } %>
 				<% if (currentUser) { %>
+				<li><a class="hover__underline" href="/">Home</a></li>
 				<li><a class="hover__underline" href="/new" class="new-link">New Cliche</a></li>
 				<li><a class="hover__underline" href="/profile?userId=<%= currentUser.user_id %>">Profile</a></li>
 				<li><a class="hover__underline" href="/auth/logout">Logout</a></li>
@@ -26,4 +30,5 @@
 				<% }; %>
 			</ul>
 		</nav>
+		<div class="divider"></div>
 	

@@ -26,6 +26,17 @@ function putNewNote(note) {
   query.run({ $1: message, $2: media, $3: userId, $4: date });
 }
 
+function deleteNote(messageId) {
+  try {
+    const query = db.query(`DELETE FROM likes WHERE message_id = $1`);
+    query.run({ $1: messageId });
+    const queryTwo = db.query(`DELETE FROM messages WHERE message_id = $1`);
+    queryTwo.run({ $1: messageId });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function getLikesByUser(userId) {
   const query = db.query(`SELECT message_id FROM likes WHERE user_id = $1`);
 
@@ -38,7 +49,9 @@ function getTotalLikesByMessageId(messageId) {
 }
 
 function getNoteById(noteId) {
-  const query = db.query(`SELECT message from messages WHERE message_id = $1`);
+  const query = db.query(
+    `SELECT message, user_id from messages WHERE message_id = $1`,
+  );
   return query.get({ $1: noteId });
 }
 
@@ -107,6 +120,7 @@ module.exports = {
   putNewNote,
   insertLike,
   deleteLike,
+  deleteNote,
   checkIfNotedLiked,
   insertUser,
   getLikesByUser,

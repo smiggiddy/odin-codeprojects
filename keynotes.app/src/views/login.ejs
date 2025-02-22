@@ -1,4 +1,13 @@
 <%- include('header') %>
+<% if (locals.errors) {%>
+  <div class="center-horizontal">
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
+  </div>
+<% }; %>
 <form class="center-horizontal" method="POST" action="/auth/login">
 	<div class="form-item flex">
 		<label for="username">UserName</label>

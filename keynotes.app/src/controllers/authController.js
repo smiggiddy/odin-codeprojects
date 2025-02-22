@@ -3,7 +3,10 @@ const db = require("../models/query");
 const { validationResult } = require("express-validator");
 
 function loginGet(req, res, next) {
-  res.render("login", { pageTitle: "InspiredCliches | Login" });
+  res.render("login", {
+    pageTitle: "InspiredCliches | Login",
+    errors: req.session.messages,
+  });
 }
 
 function logOut(req, res, next) {
