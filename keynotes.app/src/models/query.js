@@ -7,6 +7,7 @@ function getEveryNote() {
       FROM messages LEFT JOIN users ON messages.user_id = users.user_id 
       LEFT JOIN likes ON messages.message_id = likes.message_id
       GROUP BY messages.message_id, message, media, date, users.username
+      ORDER BY date DESC
       `,
     );
 

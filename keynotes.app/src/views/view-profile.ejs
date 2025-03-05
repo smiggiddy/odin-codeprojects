@@ -1,12 +1,11 @@
 <%- include("header") %>
 
-<div class="container flex center-horizontal">
+<div class="full-page container center-horizontal">
 	<h1 class="username"><%= user.username %></h1>
-	<h2 class="email"><%= user.user_email %></h2>
+	<% if(currentUser.user_id === user.user_id ) { %>
+		<p>This is your profile page.</p>
+	<% }; %>
 	<p><%= totalPosts %> Posts</p>
 
-	<% if(currentUser.user_id === user.user_id ) { %>
-		This is your profile page.
-	<% }; %>
 </div>
 <%- include("footer") %>
