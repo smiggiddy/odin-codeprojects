@@ -34,7 +34,7 @@ body {
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   font-family: "Lato, serif";
-  background: var(--200-blue);
+  background: var(--100-blue);
 }
 
 /* 5. Improve media defaults */
@@ -81,6 +81,7 @@ h6 {
 
 a {
   color: var(--800-blue);
+  text-decoration: none;
 }
 
 /*
@@ -89,10 +90,6 @@ a {
 #root,
 #__next {
   isolation: isolate;
-}
-
-a {
-  text-decoration: none;
 }
 
 nav {
@@ -178,6 +175,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 1em;
+  margin: 0 auto;
 }
 
 .hero__heading {
@@ -303,6 +301,11 @@ footer {
   flex-direction: column;
   width: 100%;
   margin: 0.5em 0;
+}
+
+.form-item.flex label {
+  text-align: left;
+  padding-left: 0.2em;
 }
 
 .form-item-row {

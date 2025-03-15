@@ -20,7 +20,7 @@ authRouter.get("/register", authController.signUpGet);
 authRouter.post(
   "/register",
   body("password").isLength({ min: 5 }).withMessage("Password is too short"),
-  body("confirm-password").custom((value, { req }) => {
+  body("password-confirmation").custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error("Passwords do not match!");
     }

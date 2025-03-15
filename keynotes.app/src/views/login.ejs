@@ -8,19 +8,21 @@
   </ul>
   </div>
 <% }; %>
-<form class="center-horizontal" method="POST" action="/auth/login">
-	<div class="form-item flex">
-		<label for="username">UserName</label>
-		<input type="text" name="username" required/>
-	</div>
-	<div class="form-item flex">
-		<label for="password">Password</label>
-		<input type="password" name="password" required/>
-	</div>
-		<div class="form-item-row flex">
-			<button type="submit" class="btn btn__form">Login</button>
-			<button type="button" class="btn btn__form" onclick="document.location.href='/auth/register'">Sign up</button>
+<main class="container full-page">
+	<form class="center-horizontal" method="POST" action="/auth/login">
+		<div class="form-item flex">
+			<label for="username">Username</label>
+			<input type="text" name="username" required/>
 		</div>
-	
-</form>
+		<div class="form-item flex">
+			<label for="password">Password</label>
+			<input type="password" name="password" required/>
+		</div>
+			<div class="form-item-row flex">
+				<button type="submit" class="btn btn__form">Login</button>
+			</div>
+			<a href="/auth/register">Need an account? Click here!</a>
+		
+	</form>
+</main>
 <%- include('footer') %>
