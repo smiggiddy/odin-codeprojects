@@ -108,11 +108,17 @@ function getUserById(userId) {
   return res;
 }
 
-function getAllNotesByUserId(userId) {
+function getSumNotesByUserId(userId) {
   const query = db.query(`SELECT COUNT(1) FROM messages WHERE user_id = $1`);
   const res = query.get({ $1: userId });
 
   return res["COUNT(1)"];
+}
+function getAllNotesByUserId(userId) {
+  const query = db.query(`SELECT * FROM messages WHERE user_id = $1`);
+  const res = query.all({ $1: userId });
+
+  return res;
 }
 
 module.exports = {
@@ -127,5 +133,6 @@ module.exports = {
   getLikesByUser,
   getTotalLikesByMessageId,
   getUserById,
+  getSumNotesByUserId,
   getAllNotesByUserId,
 };

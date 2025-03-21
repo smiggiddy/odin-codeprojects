@@ -18,9 +18,15 @@
 			<ul class="container flex">
 				<li><a class="hover__underline" href="/">Home</a></li>
 				<% if (currentUser) { %>
-				<li><a class="hover__underline" href="/new" class="new-link">New Cliche</a></li>
-				<li><a class="hover__underline" href="/profile?userId=<%= currentUser.user_id %>">Profile</a></li>
-				<li><a class="hover__underline" href="/auth/logout">Logout</a></li>
+				<li class="nav__profile"><%= currentUser.username %>
+				<div class="hidden nav__hover">
+					<ul class="container flex col">
+					<li><a class="hover__underline" href="/profile?userId=<%= currentUser.user_id %>">view profile</a></li>
+					<li><a class="hover__underline" href="/new" class="new-link">new cliche</a></li>
+					<li><a class="hover__underline" href="/auth/logout">logout</a></li>
+					</ul>
+					</div>
+				</li>
 				<% } else { %>
 				<li><a class="hover__underline" href="/auth/login">Login</a></li>
 				<% }; %>

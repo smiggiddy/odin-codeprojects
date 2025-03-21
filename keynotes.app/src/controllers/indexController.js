@@ -66,11 +66,13 @@ function getProfile(req, res, next) {
 
   if (res.locals.currentUser) {
     if (userExists) {
-      const sumUserPosts = db.getAllNotesByUserId(userId);
+      const sumUserPosts = db.getSumNotesByUserId(userId);
+      const allPosts = db.getAllNotesByUserId(userId);
       res.render("view-profile", {
         pageTitle: "InspiredCliches | Edit Profile",
         user: userExists,
         totalPosts: sumUserPosts,
+        allPosts: allPosts,
       });
     } else {
       res.redirect("/");

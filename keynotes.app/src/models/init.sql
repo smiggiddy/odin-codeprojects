@@ -31,7 +31,7 @@ INSERT OR IGNORE INTO users (username, password)
 VALUES ("jim", "$2a$10$Bmjre5WSpSSAi.nWBfLZFOlhQhbIAoY/MM7ikJz3Ho9tqeXCExaB6"),
 	("demo", "$2a$10$Vo.XmsVQVx9gGojRIdewpOap5SnhrgZ21/Im5IxhH3PC4FycM5uwC");
 
-INSERT OR REPLACE INTO messages (message_id, message, media, date, user_id)
+INSERT OR IGNORE INTO messages (message_id, message, media, date, user_id)
 VALUES
   (1, "When life gives you lemons, make lemonade.", NULL, strftime('%s', 'now')*1000, 1),
   (2, "Rome wasn’t built in a day – take your time.", NULL, strftime('%s', 'now')*1000, 1),

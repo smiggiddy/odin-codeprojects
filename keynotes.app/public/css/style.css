@@ -4,6 +4,9 @@
   --desktop-line-height: 1;
   --mobile-heading-font-size: 4em;
   --mobile-line-height: 0.8;
+  --border-radius-sm: 0.5em;
+  --border-radius-md: 0.7em;
+  --border-radius-lg: 1em;
 
   /* colors */
 
@@ -35,6 +38,9 @@ body {
   -webkit-font-smoothing: antialiased;
   font-family: "Lato, serif";
   background: var(--100-blue);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 5. Improve media defaults */
@@ -99,6 +105,8 @@ nav {
 
 nav > ul {
   list-style: none;
+  text-align: center;
+  margin: 0 auto;
 }
 
 ul {
@@ -127,12 +135,13 @@ input {
 }
 
 footer {
-  justify-content: center;
+  margin-top: auto;
+  padding: 2em;
 }
 
-.full-page {
-  height: 90vh;
-}
+/*.full-page {*/
+/*  height: 90vh;*/
+/*}*/
 
 .divider {
   height: 0.25em;
@@ -290,6 +299,10 @@ footer {
 
 .card__likes {
   padding: 0;
+  font-weight: 400;
+}
+
+.timestamp {
   font-weight: 300;
 }
 
@@ -342,10 +355,24 @@ footer {
   transform-origin: bottom left;
 }
 
+.hidden {
+  display: none;
+}
+
+.social-icons {
+  gap: 0.5em;
+  justify-content: baseline;
+}
+
+.social-icons a {
+  font-size: 1.2em;
+  color: var(--800-blue);
+}
+
 @media only screen and (min-width: 750px) {
-  ul {
-    max-width: 60vw;
-  }
+  /*ul {*/
+  /*  max-width: 40vw;*/
+  /*}*/
   .hero__heading {
     margin: 0;
     font-size: var(--desktop-heading-font-size);
@@ -379,6 +406,20 @@ footer {
     width: 100%;
     margin: 0.5em 0;
     gap: 0.5em;
+  }
+
+  .nav__profile {
+    position: relative;
+  }
+
+  .nav__hover {
+    position: absolute;
+    background: var(--100-blue);
+    border: 2px solid black;
+    width: 100%;
+    max-width: 150px;
+    border-radius: var(--border-radius-sm);
+    z-index: 1;
   }
 
   /*.form-item > .btn {*/

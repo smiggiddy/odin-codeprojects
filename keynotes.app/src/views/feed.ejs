@@ -1,7 +1,4 @@
 <%- include('header') %>
-<h1 class="feed-heading">
-	<%= currentUser.username %>'s <span class="normal">feed of cliche's</span>
-</h1>
 <div class="grid">
 	<% keynotes.forEach((note) => { %>
 		<% const likedPost = userLikedPosts.find((post) =>  post.message_id == note.message_id) %>
@@ -15,7 +12,7 @@
 			<div class="flex author__meta"> 
 			<p class="card__author"><a href="/profile?userId=<%= note.user_id %>"><%= note.user %></a></p>
 			<p class="card__likes">&bull;</p>
-			<p class="card__likes"><%= new Date(note.date).toLocaleString() %></p>
+			<p class="card__likes timestamp"><%= new Date(note.date).toLocaleString() %></p>
 			</div>
 			<% if (currentUser.user_id === note.user_id) { %>
 				<a href="/delete?userId=<%= currentUser.user_id %>&messageId=<%= note.message_id %>">delete post</a>
