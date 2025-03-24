@@ -14,6 +14,8 @@ RUN cd /temp/dev && bun install --frozen-lockfile
 FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
+RUN chown bun /usr/src/app
+
 
 
 # run the app
