@@ -19,6 +19,7 @@ COPY . .
 FROM base AS release
 COPY --from=prerelease /usr/src/app/public /usr/src/app/src .
 COPY --from=prerelease /usr/src/app/package.json .
+RUN chown -R bun /usr/src/app
 
 # run the app
 USER bun
