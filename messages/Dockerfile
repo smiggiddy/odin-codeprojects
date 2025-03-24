@@ -19,4 +19,4 @@ COPY . .
 # run the app
 USER bun
 EXPOSE $APP_PORT/tcp
-ENTRYPOINT [ "bun", "run", "app.js" ]
+ENTRYPOINT [ "bun", "run", "src/app.js" ]
