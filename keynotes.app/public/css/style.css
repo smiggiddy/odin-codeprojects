@@ -417,7 +417,7 @@ footer {
     background: var(--100-blue);
     border: 2px solid black;
     width: 100%;
-    max-width: 150px;
+    /*max-width: 150px;*/
     border-radius: var(--border-radius-sm);
     z-index: 1;
   }
