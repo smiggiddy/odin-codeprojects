@@ -15,11 +15,6 @@ FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
-# copy production dependencies and source code into final image
-FROM base AS release
-COPY --from=prerelease /usr/src/app/public /usr/src/app/src .
-COPY --from=prerelease /usr/src/app/package.json .
-RUN chown -R bun /usr/src/app
 
 # run the app
 USER bun
