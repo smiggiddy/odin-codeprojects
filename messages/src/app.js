@@ -10,6 +10,7 @@ const { indexRouter } = require("./routes/indexRouter");
 const { authRouter } = require("./routes/authRouter");
 
 const app = express();
+const port = process.env.APP_PORT || 5173;
 
 const assetsPath = path.join(path.dirname(__dirname), "public");
 app.use(express.static(assetsPath));
@@ -38,7 +39,9 @@ app.use((req, res, next) => {
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 
-const server = app.listen(5173, () => console.log(`App running on port: 5173`));
+const server = app.listen(port, () =>
+  console.log(`App running on port: ${port}`),
+);
 
 const gracefulShutdownHandler = (signal) => {
   console.log(`\n${signal} received.`);

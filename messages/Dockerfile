@@ -1,5 +1,6 @@
 FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
+ENV APP_PORT 3000
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
@@ -21,5 +22,5 @@ COPY --from=prerelease /usr/src/app/package.json .
 
 # run the app
 USER bun
-EXPOSE 3000/tcp
+EXPOSE $APP_PORT/tcp
 ENTRYPOINT [ "bun", "run", "app.js" ]
