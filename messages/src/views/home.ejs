@@ -1,0 +1,49 @@
+<%- include('header') %>
+	<% if (currentUser) { %>
+
+	<h1> Hi <%= currentUser.username %> </h1>
+
+	<% } %>
+<div class="container flex hero">
+
+	<div class="container hero">
+		<h1 class="hero__heading">Unlock Your Potential, One cliche at a time.</h1>
+		<p class="hero__subheading">Read a cliche a day, to keep the brain at bay</p>
+		<a href="/auth/login"  type="button" class="btn btn__link">Start Today</a>
+	</div>
+	
+</div>
+<section id="main">
+	<div class="container flex">
+		<div class="card">
+			<h2>Lorem</h2>
+			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt laboriosam, aliquam non ex consequuntur deleniti ut illo voluptatibus aperiam necessitatibus doloribus, quasi minima officia, inventore sed minus sit dolorem possimus.</p>
+		</div>
+		<div class="img">
+			<p>This is an image</p>
+		</div>
+
+	</div>
+	<div class="container flex">
+		<div class="img">
+			<p>This is an image</p>
+		</div>
+		<div class="card">
+			<h2>Lorem</h2>
+			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt laboriosam, aliquam non ex consequuntur deleniti ut illo voluptatibus aperiam necessitatibus doloribus, quasi minima officia, inventore sed minus sit dolorem possimus.</p>
+		</div>
+
+	</div>
+	<div class="container flex">
+		<div class="card">
+			<h2>Lorem</h2>
+			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt laboriosam, aliquam non ex consequuntur deleniti ut illo voluptatibus aperiam necessitatibus doloribus, quasi minima officia, inventore sed minus sit dolorem possimus.</p>
+		</div>
+		<div class="img">
+			<p>This is an image</p>
+		</div>
+
+	</div>
+</section>
+
+<%- include('footer') %>

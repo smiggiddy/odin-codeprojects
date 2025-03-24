@@ -1,0 +1,35 @@
+<%- include('header') %>
+<!-- views/partials/errors.ejs -->
+<% if (locals.errors) {%>
+  <div class="center-horizontal">
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+  </div>
+<% }; %>
+<main class="container full-page">
+	<form class="register-form center-horizontal" method="POST" action="/auth/register">
+		<div class="form-item flex">
+			<label for="username">username</label>
+			<input type="text" name="username" required/>
+			<div class="error"></div>
+		</div>
+		<div class="form-item flex">
+			<label for="password">password</label>
+			<input type="password" name="password" required/>
+			<div class="error flex col"></div>
+		</div>
+		<div class="form-item flex">
+			<label for="password-confirmation">confirm password</label>
+			<input type="password" name="password-confirmation" required/>
+			<div class="error"></div>
+		</div>
+			<div class="form-item flex">
+				<button type="submit" class="btn btn__form">register</button>
+			</div>
+		
+	</form>
+</main>
+<%- include('footer') %>

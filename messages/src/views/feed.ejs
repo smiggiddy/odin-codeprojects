@@ -1,0 +1,31 @@
+<%- include('header') %>
+<div class="grid">
+	<% keynotes.forEach((note) => { %>
+		<% const likedPost = userLikedPosts.find((post) =>  post.message_id == note.message_id) %>
+		<% let extraMessageClass = "" %>
+		<% if (note.message.length > 250) { %>
+			<% extraMessageClass = " grid__span_two"; %>
+		<% }; %>
+		<div class="grid-item card<%= extraMessageClass %>">
+			<p class="card__message"><%= note.message %></p>
+			<div class="container grid__card__metadata">
+			<div class="flex author__meta"> 
+			<p class="card__author"><a href="/profile?userId=<%= note.user_id %>"><%= note.user %></a></p>
+			<p class="card__likes">&bull;</p>
+			<p class="card__likes timestamp"><%= new Date(note.date).toLocaleString() %></p>
+			</div>
+			<% if (currentUser.user_id === note.user_id) { %>
+				<a href="/delete?userId=<%= currentUser.user_id %>&messageId=<%= note.message_id %>">delete post</a>
+			<% }; %>
+			<div class="likes">
+
+			<a href="/like?noteId=<%= note.message_id %>">
+				<% if (likedPost) { %><i class="fa-solid fa-heart red"></i><% } else { %><i class="fa-regular fa-heart red"></i><% }; %>
+			</a>
+			<p class="card__likes"><%= note.likes_count %></p>
+			</div>
+			</div>
+		</div>
+	<% }); %>
+</div>
+<%- include('footer') %>

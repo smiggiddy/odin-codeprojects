@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rokkitt:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<title><%= pageTitle %></title>
+		<link href="/css/style.css" rel="stylesheet">
+		<link rel="icon" href="/images/favicon.png">
+		<!--<script src="https://kit.fontawesome.com/24f16b96cf.js" crossorigin="anonymous"></script>-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+	</head>
+	<body>
+		<nav>
+			<ul class="container flex">
+				<li><a class="hover__underline" href="/">Home</a></li>
+				<% if (currentUser) { %>
+				<li class="nav__profile"><%= currentUser.username %>
+				<div class="hidden nav__hover">
+					<ul class="container flex col">
+					<li><a class="hover__underline" href="/profile?userId=<%= currentUser.user_id %>">view profile</a></li>
+					<li><a class="hover__underline" href="/new" class="new-link">new cliche</a></li>
+					<li><a class="hover__underline" href="/auth/logout">logout</a></li>
+					</ul>
+					</div>
+				</li>
+				<% } else { %>
+				<li><a class="hover__underline" href="/auth/login">Login</a></li>
+				<% }; %>
+			</ul>
+		</nav>
+		<div class="divider"></div>
+	
