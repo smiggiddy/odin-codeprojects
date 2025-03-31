@@ -1,8 +1,7 @@
-const fs = require("node:fs");
 const { logging } = require("./middlewares/logging");
 const path = require("node:path");
 const express = require("express");
-const passport = require("passport");
+const passport = require("./middlewares/auth");
 const session = require("express-session");
 const SQLiteStore = require("connect-sqlite3")(session);
 
@@ -17,25 +16,24 @@ app.use(express.static(assetsPath));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.use(
   session({
     store: new SQLiteStore({ dir: "./src/db/", db: "keynotes.db" }),
-    secret: "keynotes.app",
-    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
+    secret: "keynotes",
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: "strict" },
     saveUninitialized: false,
     resave: false,
   }),
 );
 
-app.use(passport.session());
+// app.use(passport.session());
+app.use(passport.authenticate("session"));
 app.use(express.urlencoded({ extended: false }));
 app.use(logging);
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
-
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 

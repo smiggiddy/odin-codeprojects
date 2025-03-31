@@ -1,11 +1,11 @@
 const db = require("../models/query");
 
-function indexGet(req, res, next) {
+function indexGet(req, res) {
   if (res.locals.currentUser) {
     const keynotes = db.getEveryNote();
     const userLikedPosts = db.getLikesByUser(res.locals.currentUser.user_id);
 
-    res.render("feed", {
+    return res.render("feed", {
       pageTitle: "InspiredCliches | Feed",
       keynotes: keynotes,
       userLikedPosts: userLikedPosts,
@@ -14,7 +14,7 @@ function indexGet(req, res, next) {
   res.render("home", { pageTitle: "InspiredCliches" });
 }
 
-function addLike(req, res, next) {
+function addLike(req, res) {
   const { noteId } = req.query;
 
   const noteExits = noteId ? db.getNoteById(noteId) : null;
@@ -30,15 +30,14 @@ function addLike(req, res, next) {
   res.redirect("/");
 }
 
-function addNotePost(req, res, next) {
+function addNotePost(req, res) {
   const { message, media } = req.body;
+  console.log("add note post");
 
   if (res.locals.currentUser) {
     const userId = res.locals.currentUser.user_id;
-
     db.putNewNote({ message: message, media: null, userId: userId });
   }
-
   res.redirect("/");
 }
 
@@ -55,11 +54,14 @@ function deleteNote(req, res) {
   }
 }
 
-function addNoteGet(req, res, next) {
-  res.render("note-form", { pageTitle: "InspiredCliches | New Note" });
+function addNoteGet(req, res) {
+  if (res.locals.currentUser)
+    return res.render("note-form", { pageTitle: "InspiredCliches | New Note" });
+
+  res.redirect("/");
 }
 
-function getProfile(req, res, next) {
+function getProfile(req, res) {
   const { userId } = req.query;
 
   const userExists = userId ? db.getUserById(userId) : null;

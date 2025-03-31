@@ -2,6 +2,8 @@
   "name": "KeyNotes.App",
   "type": "module",
   "dependencies": {
+    "KeyNotes.App": ".",
+    "bcryptjs": "^3.0.2",
     "connect-sqlite3": "^0.9.15",
     "ejs": "^3.1.10",
     "express": "^4.21.2",

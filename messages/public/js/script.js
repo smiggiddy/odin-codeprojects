@@ -1,7 +1,7 @@
 function usernameValidation(username) {
   const errors = [];
   if (username.length < 5) {
-    errors.push("*username must be at least 8 characters");
+    errors.push("*username must be at least 5 characters");
   }
 
   if (username.includes(" ")) {

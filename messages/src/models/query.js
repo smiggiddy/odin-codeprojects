@@ -1,4 +1,5 @@
 const db = require("./db");
+console.log(`${db.filename} test`);
 
 function getEveryNote() {
   try {
