@@ -20,7 +20,7 @@ app.use(
   session({
     store: new SQLiteStore({ dir: "./src/db/", db: "keynotes.db" }),
     secret: "keynotes",
-    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: "strict" },
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
     saveUninitialized: false,
     resave: false,
   }),

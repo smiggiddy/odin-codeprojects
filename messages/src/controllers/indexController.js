@@ -32,7 +32,6 @@ function addLike(req, res) {
 
 function addNotePost(req, res) {
   const { message, media } = req.body;
-  console.log("add note post");
 
   if (res.locals.currentUser) {
     const userId = res.locals.currentUser.user_id;

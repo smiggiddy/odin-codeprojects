@@ -3,11 +3,9 @@ const db = require("../models/query");
 const { validationResult } = require("express-validator");
 
 function loginGet(req, res, next) {
-  console.log(req.user, req.session.cookie);
-  console.table(req.session);
-  if (!req.user && req.session.id) {
-    req.session.id = null;
-  }
+  // if (!req.user && req.session.id) {
+  //   req.session.id = null;
+  // }
   res.render("login", {
     pageTitle: "InspiredCliches | Login",
     errors: req.session.messages,
@@ -15,11 +13,18 @@ function loginGet(req, res, next) {
 }
 
 function logOut(req, res, next) {
-  res.clearCookie("connect.sid", { path: "/" });
   req.logout((err) => {
-    if (err) return next(err);
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie("connect.sid"); // Clear the session cookie
+      res.redirect("/");
+    });
   });
-  res.redirect("/");
 }
 
 function signUpGet(req, res, next) {
