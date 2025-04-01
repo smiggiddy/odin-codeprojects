@@ -2,7 +2,7 @@ const { Database } = require("bun:sqlite");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const dbDirPath = path.join(path.dirname(__dirname), "db");
+const dbDirPath = path.join(path.dirname(__dirname), "../db");
 const dbPath = path.join(dbDirPath, "/keynotes.db");
 
 if (!fs.existsSync(dbDirPath)) {

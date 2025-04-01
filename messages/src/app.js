@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
   session({
-    store: new SQLiteStore({ dir: "./src/db/", db: "keynotes.db" }),
+    store: new SQLiteStore({ dir: "./db/", db: "keynotes.db" }),
     secret: "keynotes",
     cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
     saveUninitialized: false,
