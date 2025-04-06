@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "bcrypt": "^5.1.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
@@ -18,6 +19,12 @@
     "passport": "^0.7.0"
   },
   "devDependencies": {
-    "prisma": "^6.5.0"
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "prisma": "^6.5.0",
+    "style-loader": "^4.0.0",
+    "template-ejs-loader": "^0.9.4",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
   }
 }

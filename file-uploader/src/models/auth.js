@@ -1,7 +1,46 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Prisma } = require("@prisma/client");
 // const { Prisma } = require("prisma");
 
-const primsa = new PrismaClient()
+class Auth {
+  constructor() {
+    this.primsa = new PrismaClient();
+  }
+  async createUser(user) {
+    try {
+      await this.primsa.user.create({
+        data: {
+          username: user.username,
+          email: user?.email,
+          password: user.password,
+        },
+      });
+      return { message: "user created" };
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === "P2002") {
+          console.log("User must use a unique username");
+          return { error: "must use unique username" };
+        }
+      }
+    }
+  }
+
+  async allUsers() {
+    return await this.primsa.user.findMany();
+  }
+
+  async getUserByUsername(username) {
+    try {
+      return await this.primsa.user.findUnique({
+        where: {
+          username: username,
+        },
+      });
+    } catch (e) {
+      return { error: e };
+    }
+  }
+}
 
 // async function main() {
 //     const allUsers = await primsa.user.findMany()
@@ -18,18 +57,5 @@ const primsa = new PrismaClient()
 //         process.exit(1)
 //     })
 
-async function createUser(user) {
-    await primsa.user.create({
-        data: {
-            username: user.username,
-            email: user?.email,
-            password: user.password
-        }
-    })
-}
+module.exports = { Auth };
 
-async function allUsers() {
-    return await primsa.user.findMany()
-}
-
-module.exports = { createUser, allUsers }
