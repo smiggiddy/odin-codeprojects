@@ -18,7 +18,6 @@ jobs:
           - auth-expressjs
           - battleship
           - calculator
-          - cv
           - cv-project
           - inventory
           - library
