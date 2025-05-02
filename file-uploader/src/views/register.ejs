@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header') %>
+    <form action="/auth/register" method="post" class="register-form">
+        <div class="form-input">
+            <label for="username">Username</label>
+            <input type="text" name="username">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <form action="/auth/register" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username">
+        </div>
+        <div class="form-input">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-        <label for="password-confirmation">Password Confirmation</label>
-        <input type="password-confirmation" name="password-confirmation" id="password-confirmation">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email">
+        <input type="password" name="password" id="password" required>
+        </div>
+        <div class="form-input">
+            <label for="password-confirmation">Password Confirmation</label>
+            <input type="password" name="password-confirmation" id="password-confirmation" required>
+        </div>
+        <div class="form-input">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
         <button type="submit">Submit</button>
     </form>
-        <script src="/js/form.js"></script>
-</body>
 
-</html>
+    <script src="/js/form.js"></script>
+
+<%- include('partials/footer') %>
+
+

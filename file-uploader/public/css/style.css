@@ -1,0 +1,142 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+    margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+    isolation: isolate;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+input[type='file'] {
+    outline: none;
+    padding: 4px;
+    margin: -4px;
+}
+
+input[type='file']::file-selector-button {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0 1em;
+    height: 2em;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+}
+
+/* file upload button hover state */
+input[type='file']::file-selector-button:hover {
+    background-color: #f3f4f6;
+}
+
+/* file upload button active state */
+input[type='file']::file-selector-button:active {
+    background-color: #e5e7eb;
+}
+
+input[type='file'] {
+    position: relative;
+    outline: none;
+    padding: 4px;
+    margin: -4px;
+}
+
+input[type='file']:focus-within::file-selector-button,
+input[type='file']:focus::file-selector-button {
+    outline: 2px solid #0964b0;
+    outline-offset: 2px;
+}
+
+@supports (-moz-appearance: none) {
+    input[type='file']::file-selector-button {
+        color: #0964b0;
+    }
+}
+
+/* .file { */
+/*     opacity: 0; */
+/*     width: 0.1px; */
+/*     height: 0.1px; */
+/*     position: absolute; */
+/* } */

@@ -15,17 +15,20 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique @db.VarChar(50)
-  email    String @unique
+  id       Int      @id @default(autoincrement())
+  username String   @unique @db.VarChar(50)
+  email    String   @unique
   password String
   files    File[]
+  Folder   Folder[]
 }
 
 model File {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   url       String
+  size      Int
+  mimetype  String
   createdAt DateTime @default(now())
   owner     User?    @relation(fields: [ownerId], references: [id])
   ownerId   Int?
@@ -34,7 +37,21 @@ model File {
 }
 
 model Folder {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-  File File[]
+  id                Int      @id @default(autoincrement())
+  name              String   @db.VarChar(255)
+  creation_date     DateTime @default(now())
+  modification_date DateTime @default(now())
+  File              File[]
+  owner             User?    @relation(fields: [owner_user_id], references: [id])
+  owner_user_id     Int?
+  parentId          Int?
+  parent            Folder? @relation("ParentDirectory", fields: [parentId], references: [id])
+  Directories       Folder[] @relation("ParentDirectory")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }

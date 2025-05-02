@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Folder" ALTER COLUMN "modification_date" SET DEFAULT CURRENT_TIMESTAMP;
