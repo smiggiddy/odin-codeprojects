@@ -5,7 +5,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY restaurant/app .
+COPY app .
 
 # Install dependencies
 RUN npm install 
