@@ -28,7 +28,6 @@ jobs:
           - shopping-cart
           - signup_form
           - tictactoe
-          - todo
           - weather
     steps:
       - name: Checkout code
