@@ -4,17 +4,14 @@ FROM node:18-alpine AS builder
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if present)
-COPY /app/package*.json ./
+# Copy package files
+COPY restaurant/app .
 
 # Install dependencies
-RUN npm install
+RUN npm install 
 
-# Copy the rest of the application code
-COPY . .
-
-# Build the application using webpack
-RUN npm run build -- --config app/webpack.config.js
+# Build the application
+RUN npm run build -- --config ./webpack.config.js
 
 # Use an Nginx base image to serve the static files
 FROM nginx:alpine
