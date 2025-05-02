@@ -1,77 +1,60 @@
-name: Build Docker Images
+name: Build and Push Docker Images
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    
+    strategy:
+      matrix:
+        project: [admin-dashboard, auth-expressjs, battleship, calculator, cv, cv-project, inventory, library, messages, nodejs-mini-message-board, portfolio, restaurant, shopping-cart, signup_form, tictactoe, todo, weather]
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      # Log into the GitHub Container Registry
-      - name: Login to GHCR
+
+      - name: Set target revision
+        id: set-revision
+        run: |
+          echo "target_revision=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker Login
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
-      # Define the list of project directories
-      - name: Set project list
-        id: set_projects
-        run: |
-          echo "projects<<EOF" >> $GITHUB_OUTPUT
-          echo "admin-dashboard" >> $GITHUB_OUTPUT
-          echo "battleship" >> $GITHUB_OUTPUT
-          echo "calculator" >> $GITHUB_OUTPUT
-          echo "cv" >> $GITHUB_OUTPUT
-          echo "cv-project" >> $GITHUB_OUTPUT
-          echo "inventory" >> $GITHUB_OUTPUT
-          echo "library" >> $GITHUB_OUTPUT
-          echo "messages" >> $GITHUB_OUTPUT
-          echo "nodejs-mini-message-board" >> $GITHUB_OUTPUT
-          echo "portfolio" >> $GITHUB_OUTPUT
-          echo "restaurant" >> $GITHUB_OUTPUT
-          echo "shopping-cart" >> $GITHUB_OUTPUT
-          echo "signup_form" >> $GITHUB_OUTPUT
-          echo "tictactoe" >> $GITHUB_OUTPUT
-          echo "todo" >> $GITHUB_OUTPUT
-          echo "weather" >> $GITHUB_OUTPUT
-          echo "auth-expressjs" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
 
-      # Build and push Docker images for changed projects
-      - name: Build and push Docker images
-        id: build_push
-        env:
-          PROJECTS: ${{ steps.set_projects.outputs.projects }}
+      - name: Check for existing image
+        id: check-image
         run: |
-          # Loop through each project directory
-          for project in $(cat <<< "$PROJECTS"); do
-            # Check if the project has changes
-            if git diff --quiet HEAD^ HEAD -- "$project" || git diff --quiet HEAD^ HEAD -- "${project}/devops"; then
-              echo "Changes detected in project: $project"
-              # Set the image name dynamically using github context
-              image_name="ghcr.io/${{ github.repository_owner }}/$project:${{ github.sha }}"
-              # Build the docker image
-              echo "Building image: $image_name"
-              docker build -t "$image_name" "$project/devops"
-              # Push the docker image to the github container registry
-              echo "Pushing image: $image_name"
-              docker push "$image_name"
-            else
-              echo "No changes detected in project: $project"
-            fi
-          done
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
+          if docker manifest inspect $IMAGE_NAME > /dev/null 2>&1; then
+            echo "image_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "image_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build and Push Docker Image
+        if: steps.check-image.outputs.image_exists == 'false'
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.project }}
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
+          target: ${{ matrix.project }}
+
+      - name: Build and Push Docker Image If Changed
+        if: steps.check-image.outputs.image_exists == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.project }}
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
+          target: ${{ matrix.project }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
