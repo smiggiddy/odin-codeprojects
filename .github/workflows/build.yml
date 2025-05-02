@@ -11,6 +11,26 @@ jobs:
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        project:
+          - admin-dashboard
+          - auth-expressjs
+          - battleship
+          - calculator
+          - cv
+          - cv-project
+          - inventory
+          - library
+          - messages
+          - nodejs-mini-message-board
+          - portfolio
+          - restaurant
+          - shopping-cart
+          - signup_form
+          - tictactoe
+          - todo
+          - weather
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,39 +45,46 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push images
+      - name: Build and Push Docker Image
+        id: build-and-push
         env:
-          REGISTRY: ghcr.io
-          IMAGE_NAME_PREFIX: ${{ github.repository_owner }}
+          IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}
         run: |
-          set -eux
+          IMAGE_TAG_LATEST=$IMAGE_NAME:latest
+
+          # Check if the latest image exists in the registry
+          IMAGE_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://ghcr.io/v2/${{ github.repository_owner }}/${{ matrix.project }}/manifests/latest")
           
-          find . -name 'Dockerfile' -path '*/devops/*' -print0 | while IFS= read -r -d $'\0' dockerfile; do
-            dir=$(dirname "$dockerfile")
-            project=$(basename "$(dirname "$dir")")
-            image="$REGISTRY/$IMAGE_NAME_PREFIX/$project:latest"
-            echo "Building $image using $dockerfile"
+          if [ "$IMAGE_EXISTS" == "200" ]; then
+            echo "Latest image exists, checking for changes..."
 
-            # Check if an image with the same tag already exists
-            manifest=$(curl -s -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -u "${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }}" "https://ghcr.io/v2/$IMAGE_NAME_PREFIX/$project/manifests/latest" 2> /dev/null)
-            if [[ -z "$manifest" ]]; then
-              echo "No existing image found for $project, building..."
-              docker buildx build --push --platform linux/amd64,linux/arm64 -t "$image" -f "$dockerfile" "$dir"
+            # Get the latest image digest
+            LATEST_DIGEST=$(curl -s -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://ghcr.io/v2/${{ github.repository_owner }}/${{ matrix.project }}/manifests/latest" | jq -r '.config.digest')
+
+            # Get the digest of the current revision image
+            CURRENT_DIGEST=$(docker buildx bake --print ${{ matrix.project }}/devops/Dockerfile | grep '^sha256:' | head -n 1 | awk '{print $2}')
+           
+            if [ "$LATEST_DIGEST" == "$CURRENT_DIGEST" ]; then
+              echo "No changes detected, skipping build."
             else
-              echo "Found existing image for $project, checking for changes..."
-              
-              # Determine the last commit hash that resulted in a successful build
-              last_commit=$(git log -n 1 --pretty=format:%H)
-                
-              # Get the list of changed files
-              changed_files=$(git diff --name-only "$last_commit" HEAD "$dir" || true)
-
-              # Check if the project has changed
-              if [[ -n "$changed_files" ]] || [[ $(git diff --quiet HEAD "$dir" || echo "changed") != "" ]]; then
-                echo "Changes detected for $project, building..."
-                docker buildx build --push --platform linux/amd64,linux/arm64 -t "$image" -f "$dockerfile" "$dir"
-              else
-                echo "No changes detected for $project, skipping build."
-              fi
+              echo "Changes detected, building..."
+              docker buildx build \
+                --push \
+                -t $IMAGE_TAG_LATEST \
+                -f ${{ matrix.project }}/devops/Dockerfile \
+                --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
+                --cache-from type=gha \
+                --cache-to type=gha,mode=max \
+                ${{ matrix.project }}
             fi
-          done
+          else
+            echo "Latest image does not exist, building..."
+            docker buildx build \
+              --push \
+              -t $IMAGE_TAG_LATEST \
+              -f ${{ matrix.project }}/devops/Dockerfile \
+              --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
+              --cache-from type=gha \
+              --cache-to type=gha,mode=max \
+              ${{ matrix.project }}
+          fi
