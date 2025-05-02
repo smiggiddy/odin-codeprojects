@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-mini-message-board-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejs-mini-message-board
+  template:
+    metadata:
+      labels:
+        app: nodejs-mini-message-board
+    spec:
+      containers:
+      - name: nodejs-mini-message-board
+        image: ghcr.io/smiggiddy/odin-codeprojects/nodejs-mini-message-board:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-mini-message-board-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nodejs-mini-message-board
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

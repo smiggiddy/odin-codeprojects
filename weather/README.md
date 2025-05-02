@@ -1,5 +1,15 @@
-# webpack-template
+# Weather Project
 
-Vanilla template for webpack
+This project is a web application that allows you to search for weather information for different locations. It is built using HTML, CSS, and JavaScript.
 
-sets up common utilities needed for vanilla JS/HTML/CSS development
+## Features
+
+*   Search for weather by city name.
+*   Displays current weather conditions.
+
+## Local Development
+
+To run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+

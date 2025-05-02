@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-form-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: signup-form
+  template:
+    metadata:
+      labels:
+        app: signup-form
+    spec:
+      containers:
+        - name: signup-form
+          image: ghcr.io/smiggiddy/odin-codeprojects/signup-form:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: signup-form-service
+spec:
+  selector:
+    app: signup-form
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
