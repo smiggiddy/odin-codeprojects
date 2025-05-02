@@ -52,6 +52,7 @@ jobs:
           # Check if the latest image exists in the registry
           IMAGE_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://ghcr.io/v2/${{ github.repository_owner }}/${{ matrix.project }}/manifests/latest")
           
+          cd ${{ matrix.project }}
           if [ "$IMAGE_EXISTS" == "200" ]; then
             echo "Latest image exists, checking for changes..."
 
@@ -68,7 +69,7 @@ jobs:
               docker buildx build \
                 --push \
                 -t $IMAGE_TAG_LATEST \
-                -f ${{ matrix.project }}/devops/Dockerfile \
+                -f ./devops/Dockerfile \
                 --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
                 --cache-from type=gha \
                 --cache-to type=gha,mode=max \
@@ -79,7 +80,7 @@ jobs:
             docker buildx build \
               --push \
               -t $IMAGE_TAG_LATEST \
-              -f ${{ matrix.project }}/devops/Dockerfile \
+              -f ./devops/Dockerfile \
               --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
               --cache-from type=gha \
               --cache-to type=gha,mode=max \
