@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cv # Updated to match instruction
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.repoUrl }} # Updated to match instruction
+    path: cv/devops
+    targetRevision: {{ .Values.targetRevision }} # Updated to match instruction
+  destination:
+    server: {{ .Values.targetServer }}
+    namespace: {{ .Values.targetNamespace }} # Updated to match instruction
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,4 @@
+repoUrl: https://github.com/smiggiddy/odin-codeprojects
+targetRevision: HEAD
+targetNamespace: default
+targetServer: https://kubernetes.default.svc

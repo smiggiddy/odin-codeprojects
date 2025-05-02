@@ -1,0 +1,6 @@
+apiVersion: v2
+name: odin-projects-root
+description: A Helm chart for deploying the root Argo CD application to manage Odin projects.
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

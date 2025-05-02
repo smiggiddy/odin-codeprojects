@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-expressjs-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: auth-expressjs
+  template:
+    metadata:
+      labels:
+        app: auth-expressjs
+    spec:
+      containers:
+      - name: auth-expressjs
+        image: auth-expressjs:latest # Replace with your image name and tag
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: production
+        volumeMounts:
+          - mountPath: /app/src/data
+            name: data
+      volumes:
+      - name: data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-expressjs-service
+spec:
+  selector:
+    app: auth-expressjs
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
