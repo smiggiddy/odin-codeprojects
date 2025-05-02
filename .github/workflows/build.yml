@@ -69,7 +69,7 @@ jobs:
               docker buildx build \
                 --push \
                 -t $IMAGE_TAG_LATEST \
-                -f ./devops/Dockerfile \
+                -f ${{ matrix.project }}/devops/Dockerfile \
                 --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
                 --cache-from type=gha \
                 --cache-to type=gha,mode=max \
@@ -80,7 +80,7 @@ jobs:
             docker buildx build \
               --push \
               -t $IMAGE_TAG_LATEST \
-              -f ./devops/Dockerfile \
+              -f ${{ matrix.project }}/devops/Dockerfile \
               --build-arg TARGET_REVISION=$(git rev-parse HEAD) \
               --cache-from type=gha \
               --cache-to type=gha,mode=max \
