@@ -20,7 +20,7 @@ function App() {
   const [educationInfo, setEducationInfo] = useState([
     {
       schoolName: "Bowie State University",
-      graduationDatehttps://github.com/smiggiddy/odin-codeprojects/pull/18/conflict?name=cv-project%252Fsrc%252FApp.jsx&base_oid=7801fda840d1fa1854f23ddac31c617c382a3d13&head_oid=d00749cafbac7d5524c928f28cbb5b81e06b608e: "2020",
+      graduationDate: "2020",
       fieldOfStudy: "Computer Technology: Network Security",
     },
   ]);
