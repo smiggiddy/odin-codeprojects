@@ -6,55 +6,58 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project: [admin-dashboard, auth-expressjs, battleship, calculator, cv, cv-project, inventory, library, messages, nodejs-mini-message-board, portfolio, restaurant, shopping-cart, signup_form, tictactoe, todo, weather]
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set target revision
-        id: set-revision
-        run: |
-          echo "target_revision=${GITHUB_SHA}" >> $GITHUB_OUTPUT
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Docker Login
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check for existing image
-        id: check-image
+      - name: Build and push images
+        env:
+          REGISTRY: ghcr.io
+          IMAGE_NAME_PREFIX: ${{ github.repository_owner }}
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
-          if docker manifest inspect $IMAGE_NAME > /dev/null 2>&1; then
-            echo "image_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "image_exists=false" >> $GITHUB_OUTPUT
-          fi
+          set -eux
+          
+          find . -name 'Dockerfile' -path '*/devops/*' -print0 | while IFS= read -r -d $'\0' dockerfile; do
+            dir=$(dirname "$dockerfile")
+            project=$(basename "$(dirname "$dir")")
+            image="$REGISTRY/$IMAGE_NAME_PREFIX/$project:latest"
+            echo "Building $image using $dockerfile"
 
-      - name: Build and Push Docker Image
-        if: steps.check-image.outputs.image_exists == 'false'
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.project }}
-          push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
-          target: ${{ matrix.project }}
+            # Check if an image with the same tag already exists
+            manifest=$(curl -s -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -u "${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }}" "https://ghcr.io/v2/$IMAGE_NAME_PREFIX/$project/manifests/latest" 2> /dev/null)
+            if [[ -z "$manifest" ]]; then
+              echo "No existing image found for $project, building..."
+              docker buildx build --push --platform linux/amd64,linux/arm64 -t "$image" -f "$dockerfile" "$dir"
+            else
+              echo "Found existing image for $project, checking for changes..."
+              
+              # Determine the last commit hash that resulted in a successful build
+              last_commit=$(git log -n 1 --pretty=format:%H)
+                
+              # Get the list of changed files
+              changed_files=$(git diff --name-only "$last_commit" HEAD "$dir" || true)
 
-      - name: Build and Push Docker Image If Changed
-        if: steps.check-image.outputs.image_exists == 'true'
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.project }}
-          push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
-          target: ${{ matrix.project }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ matrix.project }}:${{ steps.set-revision.outputs.target_revision }}
+              # Check if the project has changed
+              if [[ -n "$changed_files" ]] || [[ $(git diff --quiet HEAD "$dir" || echo "changed") != "" ]]; then
+                echo "Changes detected for $project, building..."
+                docker buildx build --push --platform linux/amd64,linux/arm64 -t "$image" -f "$dockerfile" "$dir"
+              else
+                echo "No changes detected for $project, skipping build."
+              fi
+            fi
+          done
