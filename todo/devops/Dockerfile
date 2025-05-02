@@ -28,9 +28,6 @@ RUN rm -rf ./*
 # Copy static files from the builder stage
 COPY --from=builder /app/dist .
 
-# Copy the nginx configuration file
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
 # Expose port 80
 EXPOSE 80
 
