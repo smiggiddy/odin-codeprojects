@@ -15,7 +15,6 @@ jobs:
       matrix:
         project:
           - admin-dashboard
-          - auth-expressjs
           - battleship
           - calculator
           - cv-project
