@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-dashboard-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: admin-dashboard.odin.thecodedom.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-dashboard-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - admin-dashboard.odin.thecodedom.com
+      secretName: admin-dashboard-tls

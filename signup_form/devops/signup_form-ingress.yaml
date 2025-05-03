@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: signup-form-ingress
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: signup-form.odin.thecodedom.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: signup-form-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - signup-form.odin.thecodedom.com
+      secretName: signup-form-tls
+  annotations:
+      cert-manager.io/cluster-issuer: letsencrypt

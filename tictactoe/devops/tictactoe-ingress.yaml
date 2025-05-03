@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tictactoe-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: tictactoe.odin.thecodedom.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: tictactoe-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - tictactoe.odin.thecodedom.com
+      secretName: tictactoe-tls

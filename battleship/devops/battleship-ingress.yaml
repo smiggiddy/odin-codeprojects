@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: battleship-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: battleship.odin.thecodedom.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: battleship-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - battleship.odin.thecodedom.com
+      secretName: battleship-tls
