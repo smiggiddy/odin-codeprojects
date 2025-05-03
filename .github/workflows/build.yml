@@ -34,10 +34,13 @@ jobs:
 
       - name: Set Registry based on GITHUB_SERVER_URL
         run: |
-          if [[ "${{ github.server_url }}" == "*github.com*" ]]; then
+          SERVER_URL="${{ github.server_url }}"
+          if [[ "${SERVER_URL}" == "*github.com*" ]]; then
             echo "REGISTRY=ghcr.io" >> $GITHUB_ENV
-          elif [[ "${{ github.server_url }}" == "*git.thecodedom.com"* ]]; then
+            REGISTRY=ghcr.io
+          elif [[ "${SERVER_URL}" == "*git.thecodedom.com"* ]]; then
             echo "REGISTRY=git.thecodedom.com" >> $GITHUB_ENV
+            REGISTRY=git.thecodedom.com
           fi
           echo "Registry is $REGISTRY"
 
