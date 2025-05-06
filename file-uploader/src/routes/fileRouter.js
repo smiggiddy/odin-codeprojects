@@ -9,5 +9,6 @@ fileRouter.post(
     fileController.fileUpload,
 );
 fileRouter.post('/directory', fileController.createDirectory);
+fileRouter.get('/directory', fileController.directoryContents);
 
 module.exports = fileRouter;

@@ -25,9 +25,9 @@ passport.use(
 
             // ensure users root directory has been created
             const rootDirId = await db.file.getUserRootDirectoryId(user.id);
-            console.log(rootDirId);
             if (rootDirId === null)
                 await db.file.createDirectory(user, 'root', null);
+
             return done(null, user);
         } catch (err) {
             return done(err);
@@ -42,6 +42,8 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await db.auth.getUserById(id);
+        const rootDirId = await db.file.getUserRootDirectoryId(user.id);
+        user.rootDirectoryId = rootDirId;
         done(null, user);
     } catch (err) {
         done(err);

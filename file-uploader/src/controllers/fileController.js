@@ -1,34 +1,26 @@
 const multer = require('multer');
 const Db = require('../models/db');
+const {
+    mkDirectory,
+    getDirectoryContents,
+} = require('../services/fileService');
 const upload = multer({ dest: '/tmp/testing/' });
 
 const db = new Db();
-//
-// const createUserRootDir = async () => {
-//     const user = await db.auth.getUserByUsername(username);
-//     console.log(`USERID: ${user.id}`);
-//     const dir = await db.file.createDirectory(user, 'root');
-//     if (dir.error) {
-//         console.log(dir.error);
-//     } else {
-//         console.log(dir.message);
-//     }
-// };
 
 const createDirectory = async (req, res) => {
     const { parentId, 'directory-name': directoryName } = req.body;
+    const referer = req.get('referer');
+    const result = await mkDirectory(directoryName, req.user, Number(parentId));
 
-    const result = await db.file.createDirectory(
-        req.user,
-        directoryName,
-        Number(parentId),
-    );
-
-    res.redirect('/');
+    if (referer && result) {
+        res.redirect(referer);
+    } else {
+        res.redirect('/');
+    }
 };
 
 const fileUpload = async (req, res) => {
-    console.log(req.file);
     const { folderId } = req.body;
     const file = {
         name: req.file.originalname,
@@ -38,7 +30,6 @@ const fileUpload = async (req, res) => {
         mimetype: req.file.mimetype,
         size: req.file.size,
     };
-    console.log(file, req.user);
     try {
         const result = await db.file.createFile(req.user.id, file);
         console.log(result);
@@ -49,10 +40,23 @@ const fileUpload = async (req, res) => {
     res.redirect('/');
 };
 
-const userDirs = (req, res) => {
-    if (req.user) {
-        // logic to grab the current dir based on path maybe
-        // logic to grab all user dirs?
+const directoryContents = async (req, res) => {
+    if (!req.user) return res.redirect('/');
+
+    const { directoryId } = req.query;
+    const { id } = req.user;
+    const directoryListing = await getDirectoryContents(
+        Number(directoryId),
+        id,
+    );
+
+    if (directoryListing) {
+        res.render('partials/directoryListing', {
+            directoryListing: directoryListing,
+            pageTitle: `FileUpload - ${directoryListing.name}`,
+        });
+    } else {
+        res.redirect('/');
     }
 };
 
@@ -62,4 +66,4 @@ const getFiles = (req, res) => {
     }
 };
 
-module.exports = { createDirectory, upload, fileUpload };
+module.exports = { createDirectory, upload, fileUpload, directoryContents };

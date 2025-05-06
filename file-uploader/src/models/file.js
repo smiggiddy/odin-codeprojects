@@ -21,7 +21,7 @@ class File {
         }
     }
 
-    async getDirectoryIdByName(dirId, userId) {
+    async getDirectoryIdByName(dirId) {
         try {
             await this.prisma.folder.findUnique({
                 where: {
@@ -51,6 +51,26 @@ class File {
         } catch (e) {
             console.error(e);
             return null;
+        }
+    }
+
+    async getDirectoryContents(directoryId, ownerId) {
+        try {
+            const contents = await this.prisma.folder.findFirst({
+                relationLoadStrategy: 'join',
+                include: {
+                    File: true,
+                    Directories: true,
+                },
+                where: {
+                    id: directoryId,
+                    owner_user_id: ownerId,
+                },
+            });
+            return contents;
+        } catch (e) {
+            console.error(e);
+            return { error: e };
         }
     }
 

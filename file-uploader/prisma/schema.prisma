@@ -5,8 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+  output          = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -45,7 +46,7 @@ model Folder {
   owner             User?    @relation(fields: [owner_user_id], references: [id])
   owner_user_id     Int?
   parentId          Int?
-  parent            Folder? @relation("ParentDirectory", fields: [parentId], references: [id])
+  parent            Folder?  @relation("ParentDirectory", fields: [parentId], references: [id])
   Directories       Folder[] @relation("ParentDirectory")
 }
 

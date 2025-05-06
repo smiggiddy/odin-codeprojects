@@ -1,17 +1,32 @@
-const Db = require('../models/db');
+const { getDirectoryContents } = require('../services/fileService');
 
-const db = new Db();
 const indexGet = async (req, res) => {
-    // const data = await db.allUsers()
-    // console.dir(data)
     if (req.user) {
-        const id = await db.file.getUserRootDirectoryId(req.user.id);
-        if (id === null) console.log('id is null');
-        console.log(id);
-        res.render('main', { pageTitle: 'FileUpload', folder: { id: id } });
+        // res.render('main', {
+        //     pageTitle: 'FileUpload',
+        //     folder: { id: req.user.rootDirectoryId },
+        // });
+
+        res.redirect(`/${req.user.username}/${req.user.rootDirectoryId}`);
+        // if unauthenticated
     } else {
         res.render('main', { pageTitle: 'FileUpload', folder: {} });
     }
 };
 
-module.exports = { indexGet };
+const userDirectoryNavigation = async (req, res) => {
+    const { username, directoryId } = req.params;
+    if (username !== req.user.username) res.redirect('/');
+
+    const dirContents = await getDirectoryContents(directoryId, req.user.id);
+
+    if (!dirContents) res.redirect('/');
+
+    res.render('main', {
+        pageTitle: 'FileUpload - Dashboard',
+        folder: { id: directoryId },
+        directoryListing: dirContents,
+    });
+};
+
+module.exports = { indexGet, userDirectoryNavigation };

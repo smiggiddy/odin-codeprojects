@@ -1,0 +1,13 @@
+<div class="container">
+    <h1> <%= directoryListing.name %> </h1>
+    <h2> Folders</h2>
+    	    <ul>
+		    <% directoryListing.Directories.forEach(d => { %>
+		    <li><a href="/<%= currentUser.username %>/<%= d.id %>"> <%= d.name %> </a></li>
+		    <% }); %>
+	    </ul>
+    <h2> Files: </h2>
+	    <% directoryListing.File.forEach(f => { %>
+	    <p> <%= f.name %> </p>
+	    <% }); %>
+</div>
