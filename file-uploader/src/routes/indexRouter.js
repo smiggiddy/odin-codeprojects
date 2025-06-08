@@ -1,12 +1,13 @@
 const { Router } = require('express');
 const indexController = require('../controllers/indexController');
+const { loggedIn } = require('../middlewares/auth');
 
-indexRouter = Router();
+const indexRouter = Router();
 indexRouter.get('/', indexController.indexGet);
 indexRouter.get(
-    '/:username/:directoryId',
+    '/fs/:username/:directoryId',
+    loggedIn,
     indexController.userDirectoryNavigation,
 );
 
 module.exports = indexRouter;
-

@@ -4,6 +4,8 @@
        <p> Hello <%= currentUser.username %> </p>
        <a href="/auth/logout">sign out</a>
        <%- include('partials/fileUpload') %>
+       <%- include('partials/parentDirectories') %>
+       <%- include('partials/directoryListing') %>
         <% } else {  %>
     <form action="/auth/login" method="post">
         <label for="username">Username</label>
@@ -16,5 +18,4 @@
 
 
     <% } %>
-    <%- include('partials/directoryListing') %>
 <%- include('partials/footer') %>

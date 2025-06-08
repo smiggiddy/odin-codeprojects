@@ -21,6 +21,19 @@ class File {
         }
     }
 
+    async deleteDirectory(user, dirName) {
+        try {
+            await this.prisma.folder.delete({
+                data: {
+                    name: dirName,
+                },
+            });
+        } catch (e) {
+            console.error(e);
+            return { error: 'issue deleting directory' };
+        }
+    }
+
     async getDirectoryIdByName(dirId) {
         try {
             await this.prisma.folder.findUnique({
@@ -78,7 +91,7 @@ class File {
 
     async createFile(userId, file) {
         try {
-            await this.prisma.file.create({
+            const result = await this.prisma.file.create({
                 data: {
                     name: file.name,
                     size: file.size,
@@ -88,9 +101,32 @@ class File {
                     ownerId: userId,
                 },
             });
+            return result;
         } catch (e) {
             console.error(e);
+            return e;
         }
+    }
+    async getParentFolders(folderId) {
+        const result = await this.prisma.$queryRaw`
+	    WITH RECURSIVE folder_hierarchy AS (
+	      SELECT id, name, "parentId", 1 AS level
+	      FROM "Folder"
+	      WHERE id = ${folderId}
+	      
+	      UNION ALL
+	      
+	      SELECT f.id, f.name, f."parentId", h.level + 1
+	      FROM "Folder" f
+	      JOIN folder_hierarchy h ON f.id = h."parentId"
+	    )
+	    SELECT id, name
+	    FROM folder_hierarchy
+	    WHERE id != ${folderId}
+	    ORDER BY level DESC;
+	`;
+
+        return result;
     }
 }
 

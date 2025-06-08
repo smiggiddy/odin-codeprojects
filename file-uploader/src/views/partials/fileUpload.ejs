@@ -1,7 +1,8 @@
 <form action="/file" method="post" enctype="multipart/form-data">
 <div class="container file-upload">
-    <input type="file" name="fileUpload" id="fileUpload" class="file">
+    <input type="file" name="fileUpload" id="fileUpload" class="file" required>
     <input type="hidden" name="folderId" value=<%= folder.id %>>
+    <input type="hidden" name="folderName" value=<%= folder.name %>>
     <button type="submit">Upload</button>
 </div>
 </form>
@@ -10,7 +11,7 @@
 <form action="/file/directory" method="post">
 	<div class="container">
 		<label for="directory-name">Directory Name:</label>
-		<input type="text" name="directory-name" placeholder="">
+		<input type="text" name="directory-name" placeholder="" required>
     		<input type="hidden" name="parentId" value=<%= folder.id %>>
 		<button>Create Directory</button>
 	</div>

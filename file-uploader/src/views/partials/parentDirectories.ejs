@@ -1,0 +1,9 @@
+<div class="container">
+<p>
+<% parentDirectories.forEach(d => { %>
+ <a href="/fs/<%= currentUser.username %>/<%= d.id %>"><%= d.name %></a><span> /</span>
+
+<% }); %>
+ <span> <%= directoryListing.name %></span>
+</p>
+</div>

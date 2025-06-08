@@ -5,54 +5,54 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
-  output          = "../node_modules/.prisma/client"
+        provider        = "prisma-client-js"
+        previewFeatures = ["relationJoins"]
+        output          = "../node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+        provider = "postgresql"
+        url      = env("DATABASE_URL")
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String   @unique @db.VarChar(50)
-  email    String   @unique
-  password String
-  files    File[]
-  Folder   Folder[]
+        id       String   @id @default(uuid())
+        username String   @unique @db.VarChar(50)
+        email    String   @unique
+        password String
+        files    File[]
+        Folder   Folder[]
 }
 
 model File {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  url       String
-  size      Int
-  mimetype  String
-  createdAt DateTime @default(now())
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   Int?
-  folder    Folder?  @relation(fields: [folderId], references: [id])
-  folderId  Int?
+        id        String   @id @default(uuid())
+        name      String   @db.VarChar(255)
+        url       String
+        size      Int
+        mimetype  String
+        createdAt DateTime @default(now())
+        owner     User?    @relation(fields: [ownerId], references: [id])
+        ownerId   String?
+        folder    Folder?  @relation(fields: [folderId], references: [id])
+        folderId  String?
 }
 
 model Folder {
-  id                Int      @id @default(autoincrement())
-  name              String   @db.VarChar(255)
-  creation_date     DateTime @default(now())
-  modification_date DateTime @default(now())
-  File              File[]
-  owner             User?    @relation(fields: [owner_user_id], references: [id])
-  owner_user_id     Int?
-  parentId          Int?
-  parent            Folder?  @relation("ParentDirectory", fields: [parentId], references: [id])
-  Directories       Folder[] @relation("ParentDirectory")
+        id                String   @id @default(uuid())
+        name              String   @db.VarChar(255)
+        creation_date     DateTime @default(now())
+        modification_date DateTime @default(now())
+        File              File[]
+        owner             User?    @relation(fields: [owner_user_id], references: [id])
+        owner_user_id     String?
+        parentId          String?
+        parent            Folder?  @relation("ParentDirectory", fields: [parentId], references: [id])
+        Directories       Folder[] @relation("ParentDirectory")
 }
 
 model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String
-  expiresAt DateTime
+        id        String   @id
+        sid       String   @unique
+        data      String
+        expiresAt DateTime
 }

@@ -1,33 +1,37 @@
 {
-  "name": "file-uploader",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@prisma/client": "^6.5.0",
-    "@quixo3/prisma-session-store": "^3.1.13",
-    "bcrypt": "^5.1.1",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "express-session": "^1.18.1",
-    "express-validator": "^7.2.1",
-    "multer": "^1.4.5-lts.2",
-    "passport": "^0.7.0",
-    "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
-    "css-loader": "^7.1.2",
-    "html-webpack-plugin": "^5.6.3",
-    "prisma": "^6.5.0",
-    "style-loader": "^4.0.0",
-    "template-ejs-loader": "^0.9.4",
-    "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1"
-  }
+    "name": "file-uploader",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@prisma/client": "^6.5.0",
+        "@quixo3/prisma-session-store": "^3.1.13",
+        "@supabase/supabase-js": "^2.49.8",
+        "bcrypt": "^5.1.1",
+        "ejs": "^3.1.10",
+        "express": "^5.1.0",
+        "express-session": "^1.18.1",
+        "express-validator": "^7.2.1",
+        "multer": "^1.4.5-lts.2",
+        "passport": "^0.7.0",
+        "passport-local": "^1.0.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.27.0",
+        "css-loader": "^7.1.2",
+        "eslint": "^9.27.0",
+        "eslint-config-prettier": "^10.1.5",
+        "html-webpack-plugin": "^5.6.3",
+        "prisma": "^6.5.0",
+        "style-loader": "^4.0.0",
+        "template-ejs-loader": "^0.9.4",
+        "webpack": "^5.98.0",
+        "webpack-cli": "^6.0.1"
+    }
 }

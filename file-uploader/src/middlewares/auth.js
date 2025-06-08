@@ -50,4 +50,9 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-module.exports = { passport };
+const loggedIn = function (req, res, next) {
+    if (!req.user) res.redirect('/');
+    next();
+};
+
+module.exports = { passport, loggedIn };
