@@ -1,0 +1,10 @@
+<div class="container">
+
+    <div class="file-metadata">
+	    <h2>File: <%= file.name %> </h2>
+	    <p>Size: <%= file.size %> </p>
+	    <p>Created At: <%= file.createdAt %></p>
+	    <p>Modified At: <%= file?.modifiedAt %></p>
+    </div>
+    <a href="/fs/<%= currentUser.username %>/<%= file.folderId %>">Back</a>
+</div>

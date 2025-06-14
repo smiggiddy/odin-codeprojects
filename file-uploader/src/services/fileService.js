@@ -8,6 +8,14 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const db = new Db();
 
+async function createFileRecord(userId, fileData) {
+    return await db.file.createFile(userId, fileData);
+}
+
+async function editFile(file) {
+    return await db.file.editFile(file);
+}
+
 async function getDirectoryContents(directoryId, userId) {
     return await db.file.getDirectoryContents(directoryId, userId);
 }
@@ -16,10 +24,10 @@ async function getParentDirectories(directoryId) {
     return await db.file.getParentFolders(directoryId);
 }
 
-async function uploadFile(file) {
+async function uploadToStorage(file) {
     const { data, error } = await supabase.storage
         .from('odin')
-        .upload(file.path, file.data);
+        .upload(file.path, file.data, { upsert: true });
 
     return { data: data, error: error };
 }
@@ -52,11 +60,18 @@ async function getProperPath(directoryId) {
     return directories.join('/');
 }
 
+async function getFileMetaData(fileId) {
+    return await db.file.getFileMetaData(fileId);
+}
+
 module.exports = {
-    uploadFile,
+    createFileRecord,
+    editFile,
+    uploadToStorage,
     mkDirectory,
     getParentDirectories,
     getDirectoryContents,
     getProperPath,
     rmDirectory,
+    getFileMetaData,
 };

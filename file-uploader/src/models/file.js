@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const { Prisma, PrismaClient } = require('@prisma/client');
 
 class File {
     constructor() {
@@ -87,8 +87,6 @@ class File {
         }
     }
 
-    async getDirectoriesByUser() {}
-
     async createFile(userId, file) {
         try {
             const result = await this.prisma.file.create({
@@ -99,6 +97,48 @@ class File {
                     url: file.path,
                     folderId: file.folderId,
                     ownerId: userId,
+                    id: file.id,
+                },
+            });
+            return result;
+        } catch (e) {
+            return e;
+        }
+    }
+
+    async editFile(file) {
+        const data = await this.prisma.file.update({
+            where: { id: file.id },
+            data: {
+                name: file.name,
+                size: file.size,
+                mimetype: file.mimetype,
+                url: file.path,
+                modifiedAt: new Date(),
+            },
+        });
+        return data;
+    }
+
+    async deleteFile(userId, fileId) {
+        try {
+            const result = await this.prisma.file.delete({
+                data: {
+                    id: fileId,
+                    ownerId: userId,
+                },
+            });
+            return result;
+        } catch (e) {
+            console.error(e);
+            return e;
+        }
+    }
+    async getFileMetaData(fileId) {
+        try {
+            const result = await this.prisma.file.findUnique({
+                where: {
+                    id: fileId,
                 },
             });
             return result;

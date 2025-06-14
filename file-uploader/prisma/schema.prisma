@@ -25,16 +25,17 @@ model User {
 }
 
 model File {
-        id        String   @id @default(uuid())
-        name      String   @db.VarChar(255)
-        url       String
-        size      Int
-        mimetype  String
-        createdAt DateTime @default(now())
-        owner     User?    @relation(fields: [ownerId], references: [id])
-        ownerId   String?
-        folder    Folder?  @relation(fields: [folderId], references: [id])
-        folderId  String?
+        id         String   @id @default(uuid())
+        name       String   @db.VarChar(255)
+        url        String
+        size       Int
+        mimetype   String
+        createdAt  DateTime @default(now())
+        modifiedAt DateTime @default("2020-03-19T14:21:00+02:00")
+        owner      User?    @relation(fields: [ownerId], references: [id])
+        ownerId    String?
+        folder     Folder?  @relation(fields: [folderId], references: [id])
+        folderId   String?
 }
 
 model Folder {

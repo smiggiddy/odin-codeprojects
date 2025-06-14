@@ -51,6 +51,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const loggedIn = function (req, res, next) {
+    if (req.isAuthenticated()) console.log('logged in');
     if (!req.user) res.redirect('/');
     next();
 };

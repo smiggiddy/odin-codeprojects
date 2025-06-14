@@ -11,5 +11,6 @@ fileRouter.post(
 );
 fileRouter.post('/directory', loggedIn, fileController.createDirectory);
 fileRouter.get('/directory', loggedIn, fileController.directoryContents);
+fileRouter.get('/file', loggedIn, fileController.getFileData);
 
 module.exports = fileRouter;

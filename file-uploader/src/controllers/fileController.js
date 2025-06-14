@@ -1,16 +1,15 @@
 const multer = require('multer');
-const Db = require('../models/db');
 const {
-    uploadFile,
+    uploadToStorage,
     mkDirectory,
     getDirectoryContents,
-    getProperPath,
+    createFileRecord,
+    getFileMetaData,
+    editFile,
 } = require('../services/fileService');
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+const { getFullUploadPath, formatBytes } = require('../utils/formatHelpers');
+const { Prisma } = require('@prisma/client');
 const upload = multer({ dest: '/tmp/odin/' });
-
-const db = new Db();
 
 const createDirectory = async (req, res) => {
     const { parentId, 'directory-name': directoryName } = req.body;
@@ -28,35 +27,45 @@ const fileUpload = async (req, res) => {
     const { folderId, folderName } = req.body;
     const referer = req.get('referer');
 
-    let fullPath = await getProperPath(folderId);
-    fullPath =
-        fullPath === '/' ? `/${folderName}` : fullPath + `/${folderName}`;
-
-    const path = `${req.user.username}/${fullPath}/${req.file.originalname}`;
-    const file = {
-        name: req.file.originalname,
-        path: path,
-        folderId: folderId,
-        mimetype: req.file.mimetype,
-        size: req.file.size,
-    };
-    const data = {
-        name: req.file.originalname,
-        path: path,
-        data: req.file.filename,
-    };
-
     try {
-        const supabaseResult = await uploadFile(data);
-        if (supabaseResult.error === null) {
-            const result = await db.file.createFile(req.user.id, file);
-            console.log(result);
+        const path = await getFullUploadPath(
+            folderId,
+            folderName,
+            req.user.username,
+            req.file.originalname,
+        );
+
+        const fileMetaData = {
+            name: req.file.originalname,
+            path: path,
+            folderId: folderId,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+        };
+        const data = {
+            name: req.file.originalname,
+            path: path,
+            data: req.file.filename,
+        };
+
+        const supabaseResult = await uploadToStorage(data);
+        if (!supabaseResult.error) {
+            // make sure the uploaded file and the db have the same ID
+            fileMetaData.id = supabaseResult.data.id;
+            const result = await createFileRecord(req.user.id, fileMetaData);
+            if (result instanceof Prisma.PrismaClientKnownRequestError) {
+                // if user uploads the samefile name, just overwrite it
+                await editFile(fileMetaData);
+            }
+            res.redirect(referer);
+        } else {
+            console.error(supabaseResult.error);
+            res.status(500).redirect(referer);
         }
     } catch (e) {
         console.error(e);
+        res.status(500).redirect(referer);
     }
-
-    res.redirect(referer);
 };
 
 const directoryContents = async (req, res) => {
@@ -74,6 +83,31 @@ const directoryContents = async (req, res) => {
     }
 };
 
-const getFiles = (req, res) => {};
+const getFileData = async (req, res) => {
+    const { fileId } = req.query;
 
-module.exports = { createDirectory, upload, fileUpload, directoryContents };
+    try {
+        const file = await getFileMetaData(fileId);
+        file.size = formatBytes(file.size);
+
+        res.render('partials/fileInfo', {
+            file: file,
+            pageTitle: 'FileUpload - File Details',
+        });
+    } catch (e) {
+        console.error(e);
+        res.redirect('/');
+    }
+};
+
+const editFilePost = async (req, res) => {
+    const { id, name, url, modifiedAt, mimetype } = req.body;
+};
+
+module.exports = {
+    createDirectory,
+    upload,
+    fileUpload,
+    directoryContents,
+    getFileData,
+};

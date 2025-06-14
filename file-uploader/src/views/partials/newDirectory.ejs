@@ -1,0 +1,10 @@
+<form action="/file/directory" method="post">
+	<div class="container">
+		<div class="form-item">
+			<label for="directory-name">Directory Name:</label>
+			<input type="text" name="directory-name" placeholder="" required>
+		</div>
+    		<input type="hidden" name="parentId" value=<%= folder.id %>>
+		<button class="btn">Create Directory</button>
+	</div>
+</form>

@@ -1,12 +1,41 @@
-<div class="container">
-    <h2> Folders</h2>
-    	    <ul>
-		    <% directoryListing.Directories.forEach(d => { %>
-		    <li><a href="/fs/<%= currentUser.username %>/<%= d.id %>"> <%= d.name %> </a></li>
-		    <% }); %>
-	    </ul>
-    <h2> Files: </h2>
-	    <% directoryListing.File.forEach(f => { %>
-	    <p> <%= f.name %> <%= f.id %></p>
-	    <% }); %>
-</div>
+<section class="container directory-listing">
+    <div class="directory-grid">
+    <div class="col file-name heading directory__grid_heading">
+    	<p>Name</p>
+    </div>
+
+    <div class="col file-size directory__grid__heading">
+   	<p>Size</p> 
+    </div>
+
+    <div class="col file-modified directory__grid__heading">
+    	<p>Modified Last</p>
+    </div>
+    <!-- Combined loop for both directories and files -->
+    <% 
+      const renderItem = (item, isDirectory) => { 
+    %>
+      <div class="col file-name">
+        <% if (isDirectory) { %>
+          d <a href="/fs/<%= currentUser.username %>/<%= item.id %>"><%= item.name %></a> /
+        <% } else { %>
+          - <%= item.name %> <a href="/file/file?fileId=<%= item.id %>">Details</a>
+        <% } %>
+      </div>
+      <div class="col file-size">
+          <p><%= item?.size %></p>
+      </div>
+      <div class="col file-modified">
+         <p><%= item?.modifiedAt %></p>
+      </div>
+    <% }; %>
+
+    <!-- Render directories -->
+    <% directoryListing.Directories.forEach(d => renderItem(d, true)); %>
+
+    <!-- Render files -->
+    <% directoryListing.File.forEach(f => renderItem(f, false)); %>
+  </div>  
+
+    </div>  
+</section>
