@@ -8,7 +8,7 @@ const getFullUploadPath = async (folderId, folderName, username, filename) => {
 };
 
 const formatBytes = (bytes, decimals = 2) => {
-    if (!+bytes) return '0 Bytes';
+    if (!+bytes) return '-';
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;

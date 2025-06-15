@@ -2,9 +2,10 @@ const {
     getDirectoryContents,
     getParentDirectories,
 } = require('../services/fileService');
+const { formatBytes } = require('../utils/formatHelpers');
 
 const indexGet = async (req, res) => {
-    if (req.user) {
+    if (req.isAuthenticated()) {
         res.redirect(`/fs/${req.user.username}/${req.user.rootDirectoryId}`);
         // if unauthenticated redirect
     } else {
@@ -27,6 +28,7 @@ const userDirectoryNavigation = async (req, res) => {
         folder: { id: directoryId, name: dirContents.name },
         directoryListing: dirContents,
         parentDirectories: parentDirectories,
+        formatBytes: formatBytes,
     });
 };
 

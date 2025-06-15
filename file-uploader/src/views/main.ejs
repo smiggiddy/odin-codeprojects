@@ -1,23 +1,22 @@
 <%- include('partials/header') %>
 <body>
     <% if(currentUser) { %>
-      <div class="container flex">
-       <p> Hello <%= currentUser.username %> </p>
-       <a href="/auth/logout">sign out</a>
-	</div>
-
+      <div class="container flex app">
+      <aside class="nav">
+	       <p> Hello <%= currentUser.username %> </p>
+	       <a href="/auth/logout">sign out</a>
+	       <%- include('partials/newDirectory') %>
+	       <%- include('partials/fileUpload') %>
+      </aside>
        <main>
            <div class="container">
-		<div class="container flex">
-		       <%- include('partials/newDirectory') %>
-		       <%- include('partials/fileUpload') %>
-		</div>
 
 
 	       <%- include('partials/parentDirectories') %>
 	       <%- include('partials/directoryListing') %>
 	   </div>
        </main>
+	</div>
         <% } else {  %>
     <main>
 	    <form action="/auth/login" method="post">

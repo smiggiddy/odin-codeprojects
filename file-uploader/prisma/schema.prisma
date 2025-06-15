@@ -41,7 +41,7 @@ model File {
 model Folder {
         id                String   @id @default(uuid())
         name              String   @db.VarChar(255)
-        creation_date     DateTime @default(now())
+        createdAt         DateTime @default(now())
         modification_date DateTime @default(now())
         File              File[]
         owner             User?    @relation(fields: [owner_user_id], references: [id])

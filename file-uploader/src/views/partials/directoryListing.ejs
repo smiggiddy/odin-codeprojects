@@ -1,15 +1,15 @@
 <section class="container directory-listing">
     <div class="directory-grid">
     <div class="col file-name heading directory__grid_heading">
-    	<p>Name</p>
+    	<p class="title__heading">Name</p>
     </div>
 
     <div class="col file-size directory__grid__heading">
-   	<p>Size</p> 
+   	<p class="title__heading">Size</p> 
     </div>
 
     <div class="col file-modified directory__grid__heading">
-    	<p>Modified Last</p>
+    	<p class="title__heading">Created</p>
     </div>
     <!-- Combined loop for both directories and files -->
     <% 
@@ -23,10 +23,10 @@
         <% } %>
       </div>
       <div class="col file-size">
-          <p><%= item?.size %></p>
+          <p><%= formatBytes(item?.size) %></p>
       </div>
       <div class="col file-modified">
-         <p><%= item?.modifiedAt %></p>
+         <p><%= item?.createdAt %></p>
       </div>
     <% }; %>
 
@@ -36,6 +36,5 @@
     <!-- Render files -->
     <% directoryListing.File.forEach(f => renderItem(f, false)); %>
   </div>  
-
-    </div>  
+</div>  
 </section>
