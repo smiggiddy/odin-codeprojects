@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "File" ADD COLUMN     "modifiedAt" TIMESTAMP(3) NOT NULL DEFAULT '2020-03-19 14:21:00 +02:00';

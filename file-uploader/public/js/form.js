@@ -34,8 +34,7 @@ const passwordValid = () => {
 
     const passwordValidityCheck = (password) => {
         if (!/\d/.test(password)) return false;
-        if (!/[\!@#%\^&\*\(\)\_\+\-=\[\]{}\|;':",\.\/\<\>\~\`]/.test(password))
-            return false;
+        if (!/[!@#%^&*()_+\-=[\]{}|;':",./<>~`]/.test(password)) return false;
         if (password.length < 8) return false;
 
         return true;

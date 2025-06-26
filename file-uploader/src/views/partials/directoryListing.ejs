@@ -19,7 +19,7 @@
         <% if (isDirectory) { %>
           d <a href="/fs/<%= currentUser.username %>/<%= item.id %>"><%= item.name %></a> /
         <% } else { %>
-          - <%= item.name %> <a href="/file/file?fileId=<%= item.id %>">Details</a>
+          - <%= item.name %> <a href="/file/detail?fileId=<%= item.id %>">Details</a>
         <% } %>
       </div>
       <div class="col file-size">
