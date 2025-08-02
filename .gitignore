@@ -132,3 +132,10 @@ dist
 .pnp.*
 
 .DS_STORE
+
+
+# Prisma
+prisma/.env          # Prisma-specific environment variables
+prisma/migrations/   # Migration files (optional, if you don't want to commit them)
+prisma/dev.db        # SQLite database file (if using SQLite)
+prisma/dev.db-journal # SQLite journal file (if using SQLite)
