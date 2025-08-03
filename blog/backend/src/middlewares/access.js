@@ -15,10 +15,12 @@ function verifyTokenHeader(req, res, next) {
 }
 
 function authorizedOnly(req, res, next) {
-  jwt.verify(req.token, secretKey, (err) => {
+  jwt.verify(req.token, secretKey, (err, userData) => {
     if (err) {
       res.json({ error: "Unauthorized" }).status(403);
     }
+    const { password, ...user } = userData.user;
+    req.user = user;
     next();
   });
 }

@@ -1,17 +1,22 @@
 import { Router } from "express";
 
-import { getAllPosts } from "../prisma/queries";
+import {
+  getPosts,
+  newPost,
+  deletePost,
+  getComments,
+  postComment,
+  getPost,
+} from "../controllers/blogController";
 import { authorizedOnly, verifyTokenHeader } from "../middlewares/access";
 
 const blogRouter = Router();
 
-blogRouter.get("/", async (req, res) => {
-  const posts = await getAllPosts();
-  res.json({ posts: posts });
-});
-
-blogRouter.post("/", verifyTokenHeader, authorizedOnly, async (req, res) => {
-  res.json({ msg: req.body });
-});
+blogRouter.get("/", getPosts);
+blogRouter.post("/", verifyTokenHeader, authorizedOnly, newPost);
+blogRouter.delete("/", verifyTokenHeader, authorizedOnly, deletePost);
+blogRouter.get("/:postId", getPost);
+blogRouter.get("/:postId/comments", getComments);
+blogRouter.post("/:postId/comments", postComment);
 
 export { blogRouter };
