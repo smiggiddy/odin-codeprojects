@@ -26,6 +26,7 @@ model Post {
         content     String?
         published   Boolean    @default(false)
         dateCreated DateTime   @default(now())
+        dateUpdated DateTime   @default(now())
         author      User       @relation(fields: [authorId], references: [id])
         authorId    String
         Comments    Comments[]
@@ -33,11 +34,11 @@ model Post {
 
 model Comments {
         id          String   @id @default(uuid())
-        name        String?
+        name        String
         content     String
         dateCreated DateTime @default(now())
-        author      User     @relation(fields: [authorId], references: [id])
-        authorId    String
+        author      User?    @relation(fields: [authorId], references: [id])
+        authorId    String?
         post        Post     @relation(fields: [postId], references: [id])
         postId      Int
 }

@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   getPosts,
   newPost,
+  editPost,
   deletePost,
   getComments,
   postComment,
@@ -14,7 +15,8 @@ const blogRouter = Router();
 
 blogRouter.get("/", getPosts);
 blogRouter.post("/", verifyTokenHeader, authorizedOnly, newPost);
-blogRouter.delete("/", verifyTokenHeader, authorizedOnly, deletePost);
+blogRouter.put("/:postId", verifyTokenHeader, authorizedOnly, editPost);
+blogRouter.delete("/:postId", verifyTokenHeader, authorizedOnly, deletePost);
 blogRouter.get("/:postId", getPost);
 blogRouter.get("/:postId/comments", getComments);
 blogRouter.post("/:postId/comments", postComment);

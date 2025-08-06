@@ -1,10 +1,13 @@
+import cors from "cors";
 import express from "express";
 import { blogRouter } from "./routers/blogRouter";
 import { authRouter } from "./routers/authRouter";
 
 const app = express();
+
 const port = process.env.NODE_PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

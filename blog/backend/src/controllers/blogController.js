@@ -2,6 +2,7 @@ import {
   addComment,
   createPost,
   delPost,
+  updatePost,
   getAllPosts,
   getCommentsByPost,
   getPostById,
@@ -32,9 +33,24 @@ async function newPost(req, res) {
   }
 }
 
+async function editPost(req, res) {
+  try {
+    const data = {
+      ...req.body,
+      authorId: req.user.id,
+      postId: +req.params.postId,
+    };
+    const result = await updatePost(data);
+    res.status(200).json({ msg: "post updated", result: result });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ error: e.message });
+  }
+}
+
 async function deletePost(req, res) {
   try {
-    const postId = req.body.postId;
+    const postId = req.params.postId;
     const result = await delPost(postId);
     res.json({ msg: "post deleted", result: result }).status(200);
   } catch (e) {
@@ -54,12 +70,12 @@ async function getComments(req, res) {
 
 async function postComment(req, res) {
   const { postId } = req.params;
+  console.log(req.user);
   try {
     const data = {
-      id: postId,
+      postId: +postId,
       ...((req.body && req.user?.id && { authorId: req?.user.id }) || req.body),
     };
-    console.log(data);
     const result = await addComment(data);
     res.status(200).json({ msg: "comment added", result: result });
   } catch (e) {
@@ -68,4 +84,12 @@ async function postComment(req, res) {
   }
 }
 
-export { getPost, getPosts, newPost, deletePost, getComments, postComment };
+export {
+  getPost,
+  getPosts,
+  editPost,
+  newPost,
+  deletePost,
+  getComments,
+  postComment,
+};

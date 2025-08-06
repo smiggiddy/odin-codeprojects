@@ -5,7 +5,21 @@ async function getUser() {
 }
 
 async function getAllPosts() {
-  return await prisma.post.findMany();
+  return await prisma.post.findMany({
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    orderBy: {
+      dateCreated: "desc",
+    },
+    omit: {
+      authorId: true,
+    },
+  });
 }
 
 async function getPostById(postId) {
@@ -31,6 +45,26 @@ async function createPost(data) {
         title: data.title,
         content: data.content,
         authorId: data.authorId,
+      },
+    });
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientValidationError) {
+      throw e;
+    }
+  }
+}
+
+async function updatePost(data) {
+  try {
+    return await prisma.post.update({
+      where: {
+        id: +data.postId,
+      },
+      data: {
+        title: data.title,
+        content: data.content,
+        authorId: data.authorId,
+        dateUpdated: new Date(),
       },
     });
   } catch (e) {
@@ -88,6 +122,7 @@ export {
   getAllPosts,
   getPostById,
   createPost,
+  updatePost,
   delPost,
   getCommentsByPost,
   getCommentById,
