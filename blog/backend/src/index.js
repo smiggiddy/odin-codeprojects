@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.json({ status: "ok" }).status(200);
+  res.status(200).json({ status: "ok" });
 });
 app.use("/posts", blogRouter);
 app.use("/auth", authRouter);
