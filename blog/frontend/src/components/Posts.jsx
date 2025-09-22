@@ -1,40 +1,58 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import useBlogPosts from "../hooks/posts";
+import { Link } from "react-router-dom";
+import PostAdminControls from "./PostAdminControls";
+import PostMetaData from "./PostMetaData";
 
 const Div = styled.div`
   display: grid;
   justify-content: center;
 `;
 
+const PostsDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+  padding: 1em;
+`;
+
+const PreviewP = styled.p`
+  // overflow: hidden;
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+`;
+
+function blogPostPreview(content) {
+  const maxChars = 200;
+  let preview = content;
+  if (content.length > maxChars) {
+    preview = content.substring(0, maxChars) + ". . .";
+  }
+  return preview;
+}
+
 export default function Posts(props) {
-  const [posts, setPosts] = useState(null);
-  const [statusMessage, setStatusMessage] = useState("loading");
-  const [loading, setLoading] = useState(true);
+  const { error, posts, loading } = useBlogPosts("posts");
 
-  useEffect(() => {
-    fetch("http://localhost:3001/posts", { mode: "cors" })
-      .then((response) => response.json())
-      .then((r) => {
-        setPosts(r.posts);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setStatusMessage(`Unable to load posts: ${error.message}`);
-      });
-  }, []);
-
-  if (loading) return <p>{statusMessage}</p>;
+  if (loading) return <p>loading...</p>;
+  if (error) return <p>{error}</p>;
+  console.log(posts[0]);
 
   return (
     <Div>
       {posts.map((post) => {
         return (
-          <div key={post.id} className="post">
-            <h1 className="post-title">{post.title}</h1>
-            <h3 className="post-author">By: {post.author.name}</h3>
-            <p className="post-body">{post.content}</p>
-          </div>
+          <PostsDiv key={post.id}>
+            <PostMetaData post={post} />
+            <PostAdminControls post={post} admin={props.admin} />
+            <PreviewP className="post-body">
+              {blogPostPreview(post.content)}
+            </PreviewP>
+            <Link to={`/post/${post.id}`}>Read More...</Link>
+          </PostsDiv>
         );
       })}
     </Div>

@@ -23,9 +23,14 @@ async function getAllPosts() {
 }
 
 async function getPostById(postId) {
-  return await prisma.post.findMany({
+  return await prisma.post.findFirst({
     where: {
       id: +postId,
+    },
+    include: {
+      author: {
+        select: { name: true },
+      },
     },
   });
 }

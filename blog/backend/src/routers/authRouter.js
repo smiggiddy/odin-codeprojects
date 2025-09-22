@@ -2,13 +2,16 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUser } from "../prisma/queries";
+import { authorizedOnly, verifyTokenHeader } from "../middlewares/access";
 
 const authRouter = Router();
 const secretKey = process.env.SECRET_KEY || "secretkey";
 
+authRouter.get("/", verifyTokenHeader, authorizedOnly, async (req, res) => {
+  res.status(200).json({ msg: "logged in" });
+});
 authRouter.post("/token", async (req, res) => {
   try {
-    console.log("REQ BODY", req.body, req);
     const user = await getUser();
     const username = req.body.username;
     const password = req.body.password;
@@ -16,15 +19,13 @@ authRouter.post("/token", async (req, res) => {
       (await bcrypt.compare(password, user.password)) &&
       username === user.username;
 
-    console.log(`MATCHED: ${match}, ${user}`);
     if (match) {
       const token = jwt.sign({ user }, secretKey);
       res.json({ token }).status(200);
     } else {
       res.json({ error: "invalid username/password" }).status(403);
     }
-  } catch (e) {
-    console.log("catch", e);
+  } catch {
     res.json({ error: "invalid username/password!" }).status(403);
   }
 });

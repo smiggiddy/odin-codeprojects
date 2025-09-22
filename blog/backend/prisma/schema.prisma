@@ -40,6 +40,6 @@ model Comments {
         dateCreated DateTime @default(now())
         author      User?    @relation(fields: [authorId], references: [id])
         authorId    String?
-        post        Post     @relation(fields: [postId], references: [id])
+        post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
         postId      Int
 }

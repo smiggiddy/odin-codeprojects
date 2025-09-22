@@ -16,9 +16,9 @@ async function getPosts(req, res) {
 async function getPost(req, res) {
   const postId = req.params.postId;
   try {
-    const result = await getPostById(postId);
+    const result = await getPostById(+postId);
     res.status(200).json({ post: result });
-  } catch {
+  } catch (e) {
     res.status(404).json({ error: "post not found" });
   }
 }
@@ -29,7 +29,7 @@ async function newPost(req, res) {
     const result = await createPost(data);
     res.json({ msg: "new post created.", result: result }).status(200);
   } catch (e) {
-    res.json({ error: e.message }).status(400);
+    res.status(400).json({ error: e.message });
   }
 }
 
