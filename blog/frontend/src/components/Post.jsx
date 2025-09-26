@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import { use, useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { use, useEffect, useState } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Comments from "./Comments";
-import useAuth from "../hooks/loggedIn";
-import { AuthContext } from "../contexts/AuthContext";
-import PostAdminControls from "./PostAdminControls";
 import PostMetaData from "./PostMetaData";
 
 const Div = styled.div`
@@ -44,7 +41,6 @@ function usePost(id) {
 export default function Post() {
   const { id } = useParams();
   const { post, loading, error } = usePost(id);
-  const { header } = useContext(AuthContext);
 
   if (loading) return <p>loading...</p>;
   if (error) return <p>{error}</p>;
@@ -52,7 +48,6 @@ export default function Post() {
   return (
     <Div>
       <PostMetaData key={post.id} post={post} />
-      <PostAdminControls post={post} />
       <Link to="/">Back</Link>
       <h2>Comments</h2>
       <Comments />

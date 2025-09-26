@@ -1,10 +1,7 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-
+import { useState } from "react";
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { header } = useContext(AuthContext);
 
   const URL = process.env.BUN_PUBLIC_BACKEND_API_URL;
 
@@ -14,7 +11,7 @@ export default function CreatePost() {
       mode: "cors",
       method: "POST",
       body: JSON.stringify({ title: title, content: content }),
-      headers: { ...header, "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
     })
       .then((res) =>
         res.json().then(() => {

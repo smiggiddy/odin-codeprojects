@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import useBlogPosts from "../hooks/posts";
 import { Link } from "react-router-dom";
-import PostMetaData from "./PostMetaData";
+import PostAdminControls from "./PostAdminControls";
+import PostMetaData from "../PostMetaData";
 
 const Div = styled.div`
   display: grid;
@@ -33,12 +33,9 @@ function blogPostPreview(content) {
   return preview;
 }
 
-export default function Posts(props) {
-  const { error, posts, loading } = useBlogPosts("posts");
-
+export default function Posts({ posts, loading, error }) {
   if (loading) return <p>loading...</p>;
   if (error) return <p>{error}</p>;
-  console.log(posts[0]);
 
   return (
     <Div>
@@ -46,7 +43,7 @@ export default function Posts(props) {
         return (
           <PostsDiv key={post.id}>
             <PostMetaData post={post} />
-            <PostAdminControls post={post} admin={props.admin} />
+            <PostAdminControls post={post} />
             <PreviewP className="post-body">
               {blogPostPreview(post.content)}
             </PreviewP>
