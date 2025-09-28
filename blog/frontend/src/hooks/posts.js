@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function useBlogPosts(path) {
   const [posts, setPosts] = useState([]);
@@ -6,11 +7,25 @@ export default function useBlogPosts(path) {
   const [loading, setLoading] = useState(true);
 
   const URL = process.env.BUN_PUBLIC_BACKEND_API_URL;
-  useEffect(() => {
+  const auth = useContext(AuthContext);
+
+  const authenticatedFetch = async (url, options = {}) => {
+    return fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.token}`,
+        ...options.headers,
+      },
+    });
+  };
+
+  const fetchPosts = async () => {
     fetch(`${URL}/${path}`, { mode: "cors" })
       .then((response) => response.json())
       .then((r) => {
-        setPosts(r.posts);
+        const data = r.posts || [];
+        setPosts(data);
       })
       .catch((error) => {
         setError(error);
@@ -19,7 +34,22 @@ export default function useBlogPosts(path) {
         console.log(`Unable to load posts: ${error.message}`);
       })
       .finally(() => setLoading(false));
-  }, []);
+  };
 
-  return { posts, loading, error };
+  useEffect(() => {
+    fetchPosts();
+  }, [path]);
+
+  const createPost = async (title, content) => {
+    const response = await authenticatedFetch(`${URL}/posts`, {
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify({ title: title, content: content }),
+    });
+
+    if (!response.ok) console.error("failed");
+    await fetchPosts();
+  };
+
+  return { posts, loading, error, createPost };
 }

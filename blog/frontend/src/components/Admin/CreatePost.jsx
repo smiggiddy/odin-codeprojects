@@ -1,25 +1,18 @@
 import { useState } from "react";
+import useBlogPosts from "../../hooks/posts";
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const URL = process.env.BUN_PUBLIC_BACKEND_API_URL;
+  const { createPost } = useBlogPosts("posts");
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    fetch(`${URL}/posts`, {
-      mode: "cors",
-      method: "POST",
-      body: JSON.stringify({ title: title, content: content }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) =>
-        res.json().then(() => {
-          setTitle("");
-          setContent("");
-        }),
-      )
-      .catch((e) => console.error(e));
+    await createPost(title, content);
+
+    setTitle("");
+    setContent("");
   };
 
   return (

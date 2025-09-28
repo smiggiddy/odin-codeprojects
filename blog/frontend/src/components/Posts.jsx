@@ -46,7 +46,6 @@ export default function Posts(props) {
         return (
           <PostsDiv key={post.id}>
             <PostMetaData post={post} />
-            <PostAdminControls post={post} admin={props.admin} />
             <PreviewP className="post-body">
               {blogPostPreview(post.content)}
             </PreviewP>
