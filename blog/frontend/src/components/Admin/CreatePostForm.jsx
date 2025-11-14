@@ -1,11 +1,10 @@
 import { useState } from "react";
 import useBlogPosts from "../../hooks/posts";
-export default function CreatePost() {
+export default function CreatePostForm({ createPost }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const URL = process.env.BUN_PUBLIC_BACKEND_API_URL;
-  const { createPost } = useBlogPosts("posts");
 
   const handleClick = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useBlogPosts from "../hooks/posts";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import PostMetaData from "./PostMetaData";
 
 const Div = styled.div`
@@ -33,12 +33,16 @@ function blogPostPreview(content) {
   return preview;
 }
 
-export default function Posts(props) {
-  const { error, posts, loading } = useBlogPosts("posts");
+export default function Posts() {
+  const posts = useLoaderData();
+  // const { error, loading } = useBlogPosts({
+  //   path: "posts",
+  //   posts: posts,
+  //   setPosts: setPosts,
+  // });
 
-  if (loading) return <p>loading...</p>;
-  if (error) return <p>{error}</p>;
-  console.log(posts[0]);
+  // if (loading) return <p>loading...</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <Div>

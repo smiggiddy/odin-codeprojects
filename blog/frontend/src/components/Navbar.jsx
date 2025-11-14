@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const Ul = styled.ul`
   display: flex;
@@ -27,13 +28,13 @@ export default function Navbar() {
     <Nav aria-label="Main navigation">
       <Ul>
         <li>
-          <a href="#missions">missions</a>
+          <Link to={"/"}>home</Link>
         </li>
         <li>
-          <a href="#contact">contact</a>
+          <Link to={"posts"}>blog</Link>
         </li>
         <li>
-          <a href="#fun">fun</a>
+          <Link to={"about"}>about</Link>
         </li>
       </Ul>
     </Nav>

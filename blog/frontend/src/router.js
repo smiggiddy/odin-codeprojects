@@ -5,15 +5,38 @@ import AdminRoute from "./AdminRoute.jsx";
 import { createBrowserRouter } from "react-router-dom";
 import Post from "./components/Post.jsx";
 import Posts from "./components/Posts.jsx";
+import { GetPosts as postsLoader, GetPost as postLoader } from "./api/posts.js";
+import FrontPage from "./pages/FrontPage.jsx";
+
+const ErrorPage = () => {
+  return <h1>Error! Not Found</h1>;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "post/:id",
-    element: <Post />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "post/:id",
+        element: <Post />,
+        loader: postLoader,
+      },
+      {
+        index: true,
+        element: <FrontPage />,
+      },
+      {
+        path: "posts",
+        element: <Posts />,
+        loader: postsLoader,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
   },
   {
     path: "admin",
@@ -32,10 +55,6 @@ const router = createBrowserRouter([
         element: <Posts admin={true} />,
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
 ]);
 

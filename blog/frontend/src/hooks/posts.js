@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
-export default function useBlogPosts(path) {
-  const [posts, setPosts] = useState([]);
+export default function useBlogPosts({ path, posts, setPosts }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,8 +46,11 @@ export default function useBlogPosts(path) {
       body: JSON.stringify({ title: title, content: content }),
     });
 
-    if (!response.ok) console.error("failed");
-    await fetchPosts();
+    if (!response.ok) {
+      console.error("failed");
+    } else {
+      await fetchPosts();
+    }
   };
 
   return { posts, loading, error, createPost };
