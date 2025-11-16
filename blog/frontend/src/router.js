@@ -7,6 +7,11 @@ import Post from "./components/Post.jsx";
 import Posts from "./components/Posts.jsx";
 import { GetPosts as postsLoader, GetPost as postLoader } from "./api/posts.js";
 import FrontPage from "./pages/FrontPage.jsx";
+import {
+  AddComment as commentAction,
+  GetComments as commentsLoader,
+} from "./api/comments.js";
+import Comments from "./components/Comments.jsx";
 
 const ErrorPage = () => {
   return <h1>Error! Not Found</h1>;
@@ -19,13 +24,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <FrontPage />,
+      },
+      {
         path: "post/:id",
         element: <Post />,
         loader: postLoader,
-      },
-      {
-        index: true,
-        element: <FrontPage />,
+        children: [
+          {
+            index: true,
+            element: <Comments />,
+            loader: commentsLoader,
+            action: commentAction,
+          },
+        ],
       },
       {
         path: "posts",

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function FrontPage() {
@@ -9,19 +10,20 @@ export default function FrontPage() {
   );
 }
 
+const CenteredDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 50vw;
+  margin: 2em auto 0;
+  gap: 10em;
+`;
+const Heading = styled.h1`
+  flex: 1 0 auto;
+`;
+
 function Hero() {
-  const CenteredDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 50vw;
-    margin: 2em auto 0;
-    gap: 10em;
-  `;
-  const Heading = styled.h1`
-    flex: 1 0 auto;
-  `;
   return (
     <CenteredDiv>
       <Heading>Now THIS is a tech blog</Heading>
@@ -39,23 +41,38 @@ function Hero() {
   );
 }
 
+const CTADiv = styled.div`
+  width: 100%;
+  max-width: 50vw;
+  margin: 2em auto 0;
+  text-align: center;
+  padding: 5em 0;
+`;
 function CTA() {
-  const CenteredDiv = styled.div`
-    width: 100%;
-    max-width: 50vw;
-    margin: 2em auto 0;
-    text-align: center;
-    padding: 5em 0;
-  `;
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   return (
-    <CenteredDiv>
+    <CTADiv>
       <h1> This is a statement to get you to do something</h1>
       <p>This is a sub statement to get you to click here</p>
       <form>
-        <input type="text" />
-        <input type="text" />
+        <input
+          type="text"
+          placeholder="Name..."
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Email..."
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <button type="submit">Join us</button>
       </form>
-    </CenteredDiv>
+    </CTADiv>
   );
 }

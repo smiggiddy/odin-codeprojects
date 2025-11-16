@@ -21,6 +21,8 @@ const Ul = styled.ul`
 const Nav = styled.nav`
   display: flex;
   justify-content: center;
+  font-size: 1.7em;
+  margin: 1em 0;
 `;
 
 export default function Navbar() {
