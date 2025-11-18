@@ -14,20 +14,23 @@ const CenteredDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 50vw;
   margin: 2em auto 0;
-  gap: 10em;
+  padding: 5rem 3rem;
 `;
 const Heading = styled.h1`
-  flex: 1 0 auto;
+  padding: 5rem;
+  flex: 1 1 auto;
+`;
+
+const HeroP = styled.p`
+  width: 50%;
 `;
 
 function Hero() {
   return (
     <CenteredDiv>
       <Heading>Now THIS is a tech blog</Heading>
-      <p>
+      <HeroP>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
         est quis sapien blandit, ut sodales magna ornare. Sed libero urna,
         consectetur a sagittis sed, congue sit amet ex. Nunc sollicitudin eros
@@ -36,43 +39,49 @@ function Hero() {
         amet ornare pretium, ante orci feugiat dui, tristique laoreet erat sem
         non velit. Sed fermentum ante vitae purus suscipit congue. Aliquam
         dignissim metus non purus vulputate, eu tempus ligula posuere.
-      </p>
+      </HeroP>
     </CenteredDiv>
   );
 }
 
 const CTADiv = styled.div`
-  width: 100%;
   max-width: 50vw;
   margin: 2em auto 0;
   text-align: center;
   padding: 5em 0;
+`;
+
+const Container = styled.div`
+  background-color: gray;
+  margin: 0 auto;
 `;
 function CTA() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   return (
-    <CTADiv>
-      <h1> This is a statement to get you to do something</h1>
-      <p>This is a sub statement to get you to click here</p>
-      <form>
-        <input
-          type="text"
-          placeholder="Name..."
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email..."
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">Join us</button>
-      </form>
-    </CTADiv>
+    <Container>
+      <CTADiv>
+        <h1> This is a statement to get you to do something</h1>
+        <p>This is a sub statement to get you to click here</p>
+        <form>
+          <input
+            type="text"
+            placeholder="Name..."
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Email..."
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button type="submit">Join us</button>
+        </form>
+      </CTADiv>
+    </Container>
   );
 }

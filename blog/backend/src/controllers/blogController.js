@@ -70,7 +70,7 @@ async function getComments(req, res) {
 
 async function postComment(req, res) {
   const { postId } = req.params;
-  console.log(req.user);
+
   try {
     const data = {
       postId: +postId,
@@ -80,7 +80,7 @@ async function postComment(req, res) {
     res.status(200).json({ msg: "comment added", result: result });
   } catch (e) {
     console.log(e);
-    res.status(400).json({ error: "posting comment" });
+    res.status(400).json({ error: "comment not added" });
   }
 }
 
