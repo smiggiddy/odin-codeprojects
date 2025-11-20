@@ -55,6 +55,28 @@ const Container = styled.div`
   background-color: gray;
   margin: 0 auto;
 `;
+
+const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Row = styled.div`
+  padding: 0.25em 1em;
+  width: 100%;
+`;
+
+const HeaderCTA = styled.h1`
+  padding: 0.2em 1em 0.25em;
+`;
+
+const ParagraphCTA = styled.p`
+  padding: 0.5em 1em;
+`;
+
+const ButtonCTA = styled.button`
+  padding: 1em;
+`;
 function CTA() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -62,24 +84,34 @@ function CTA() {
   return (
     <Container>
       <CTADiv>
-        <h1> This is a statement to get you to do something</h1>
-        <p>This is a sub statement to get you to click here</p>
+        <HeaderCTA>This is a statement to get you to do something</HeaderCTA>
+        <ParagraphCTA>
+          This is a sub statement to get you to click here
+        </ParagraphCTA>
         <form>
-          <input
-            type="text"
-            placeholder="Name..."
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Email..."
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit">Join us</button>
+          <Col>
+            <Row>
+              <input
+                type="text"
+                placeholder="Name..."
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Row>
+            <Row>
+              <input
+                type="text"
+                placeholder="Email..."
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Row>
+            <Row>
+              <ButtonCTA type="submit">Join us</ButtonCTA>
+            </Row>
+          </Col>
         </form>
       </CTADiv>
     </Container>

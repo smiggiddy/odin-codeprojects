@@ -6,6 +6,8 @@ import PostMetaData from "./PostMetaData";
 const Div = styled.div`
   display: grid;
   justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1em 2em 1em;
 `;
 
 const PostsDiv = styled.div`
@@ -19,9 +21,11 @@ const PostsDiv = styled.div`
 `;
 
 const PreviewP = styled.p`
-  // overflow: hidden;
-  // white-space: nowrap;
-  // text-overflow: ellipsis;
+  align-self: start;
+`;
+
+const HeadingOne = styled.h1`
+  text-align: center;
 `;
 
 function blogPostPreview(content) {
@@ -35,28 +39,22 @@ function blogPostPreview(content) {
 
 export default function Posts() {
   const posts = useLoaderData();
-  // const { error, loading } = useBlogPosts({
-  //   path: "posts",
-  //   posts: posts,
-  //   setPosts: setPosts,
-  // });
-
-  // if (loading) return <p>loading...</p>;
-  // if (error) return <p>{error}</p>;
 
   return (
-    <Div>
-      {posts.map((post) => {
-        return (
-          <PostsDiv key={post.id}>
-            <PostMetaData post={post} />
-            <PreviewP className="post-body">
-              {blogPostPreview(post.content)}
-            </PreviewP>
-            <Link to={`/post/${post.id}`}>Read More...</Link>
-          </PostsDiv>
-        );
-      })}
-    </Div>
+    <>
+      <HeadingOne>Inspring thoughts collection</HeadingOne>
+      <Div>
+        {posts.map((post) => {
+          return (
+            <PostsDiv key={post.id}>
+              <PostMetaData post={post} />
+              <PreviewP className="post-body">
+                {blogPostPreview(post.content)}
+              </PreviewP>
+            </PostsDiv>
+          );
+        })}
+      </Div>
+    </>
   );
 }

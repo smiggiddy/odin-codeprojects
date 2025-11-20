@@ -15,8 +15,8 @@ export default function Post() {
   return (
     <Div>
       <PostMetaData key={post.id} post={post} />
-      <Link to="/posts">Back</Link>
       <h2>Comments</h2>
+      <Link to="/posts">Back</Link>
       <Outlet />
     </Div>
   );
