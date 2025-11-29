@@ -7,6 +7,17 @@ const Div = styled.div`
   justify-content: center;
 `;
 
+const Hr = styled.hr`
+  margin: 1.25em 0;
+`;
+
+const ContentDiv = styled.div`
+  margin: 2.5em 0 1em;
+`;
+
+const CommentsHeading = styled.h2`
+  margin: 1.25em 0;
+`;
 export default function Post() {
   const post = useLoaderData();
   // const { id } = useParams();
@@ -15,8 +26,9 @@ export default function Post() {
   return (
     <Div>
       <PostMetaData key={post.id} post={post} />
-      <h2>Comments</h2>
-      <Link to="/posts">Back</Link>
+      <ContentDiv>{post.content}</ContentDiv>
+      <Hr />
+      <CommentsHeading>Comments</CommentsHeading>
       <Outlet />
     </Div>
   );

@@ -46,7 +46,9 @@ export default function Comments() {
           );
         })
       ) : (
-        <p>"no comments"</p>
+        <Container>
+          <p>"no comments"</p>
+        </Container>
       )}
       <AddComment />
     </div>

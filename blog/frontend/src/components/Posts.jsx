@@ -8,11 +8,13 @@ const Div = styled.div`
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1em 2em 1em;
+  align-items: center;
 `;
 
 const PostsDiv = styled.div`
   display: flex;
   justify-content: center;
+  justify-self: center;
   flex-direction: column;
   align-items: center;
   max-width: 400px;
@@ -25,7 +27,7 @@ const PreviewP = styled.p`
 `;
 
 const HeadingOne = styled.h1`
-  text-align: center;
+  text-align: left;
 `;
 
 function blogPostPreview(content) {

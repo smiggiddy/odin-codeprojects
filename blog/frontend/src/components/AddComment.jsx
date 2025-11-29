@@ -27,6 +27,7 @@ export default function AddComment() {
           setComment("");
         }}
       >
+        <h2>Add Comment</h2>
         <input
           type="text"
           name="name"

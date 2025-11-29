@@ -27,6 +27,8 @@ const Span = styled.span`
 
 const Authorp = styled.p`
   font-weight: 600;
+  font-size: 0.9em;
+  align-self: flex-end;
 `;
 
 const StyledLink = styled(Link)`
