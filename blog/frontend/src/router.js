@@ -12,6 +12,8 @@ import {
   GetComments as commentsLoader,
 } from "./api/comments.js";
 import Comments from "./components/Comments.jsx";
+import AdminPosts from "./components/Admin/Posts.jsx";
+import CreatePostForm from "./components/Admin/CreatePostForm.jsx";
 
 const ErrorPage = () => {
   return <h1>Error! Not Found</h1>;
@@ -61,11 +63,25 @@ const router = createBrowserRouter([
     children: [
       {
         path: "post/:id",
-        element: <Post admin={true} />,
+        element: <Post />,
+        loader: postLoader,
+        children: [
+          {
+            index: true,
+            element: <Comments />,
+            loader: commentsLoader,
+            action: commentAction,
+          },
+        ],
       },
       {
         path: "posts",
-        element: <Posts admin={true} />,
+        element: <AdminPosts />,
+        loader: postsLoader,
+      },
+      {
+        path: "new",
+        element: <CreatePostForm />,
       },
     ],
   },

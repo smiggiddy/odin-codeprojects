@@ -13,15 +13,15 @@ const Hr = styled.hr`
 
 const ContentDiv = styled.div`
   margin: 2.5em 0 1em;
+  white-space: pre-line;
 `;
 
 const CommentsHeading = styled.h2`
   margin: 1.25em 0;
 `;
+
 export default function Post() {
   const post = useLoaderData();
-  // const { id } = useParams();
-  // const { post, loading, error } = usePost(id);
 
   return (
     <Div>

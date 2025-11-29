@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import PostAdminControls from "./PostAdminControls";
 import PostMetaData from "../PostMetaData";
 
@@ -33,9 +33,8 @@ function blogPostPreview(content) {
   return preview;
 }
 
-export default function Posts({ posts, loading, error }) {
-  if (loading) return <p>loading...</p>;
-  if (error) return <p>{error}</p>;
+export default function AdminPosts() {
+  const posts = useLoaderData();
 
   return (
     <Div>
@@ -47,7 +46,7 @@ export default function Posts({ posts, loading, error }) {
             <PreviewP className="post-body">
               {blogPostPreview(post.content)}
             </PreviewP>
-            <Link to={`/post/${post.id}`}>Read More...</Link>
+            <Link to={`/admin/post/${post.id}`}>Read More...</Link>
           </PostsDiv>
         );
       })}

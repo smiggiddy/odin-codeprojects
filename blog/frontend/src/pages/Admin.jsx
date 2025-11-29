@@ -1,46 +1,57 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { Outlet, redirect, useNavigate } from "react-router-dom";
-import CreatePostForm from "../components/Admin/CreatePostForm.jsx";
-import AdminPosts from "../components/Admin/Posts";
+import { useContext, useState } from "react";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import useBlogPosts from "../hooks/posts.js";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+`;
+const Nav = styled.div`
+  flex: 1;
+  max-width: 350px;
+`;
+
+const AdminLayout = (props) => {
+  return (
+    <Container>
+      <Nav>
+        <h1> Admin Area </h1>
+        {props.navbar}
+      </Nav>
+      <main>
+        <Outlet />
+      </main>
+    </Container>
+  );
+};
+
+const AdminLink = ({ name, path }) => {
+  return (
+    <li>
+      <Link to={path}>{name}</Link>
+    </li>
+  );
+};
+
+const AdminNavBar = () => {
+  return (
+    <>
+      <ul>
+        <AdminLink name={"Create Post"} path={"new"} />
+        <AdminLink name={"View Post"} path={"posts"} />
+        <li>Logout</li>
+      </ul>
+    </>
+  );
+};
 
 export default function Admin() {
   const navigate = useNavigate();
-  const [viewPosts, setViewPosts] = useState(false);
-  const [createToggle, setCreateToggle] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const { error, loading, createPost } = useBlogPosts({
-    path: "posts",
-    posts: posts,
-    setPosts: setPosts,
-  });
 
   function logOut() {
     localStorage.removeItem("jwt_token");
     return navigate("/");
   }
 
-  function handleViewPosts(event) {
-    event.preventDefault();
-    setViewPosts(!viewPosts);
-  }
-
-  function handleCreatePost(event) {
-    event.preventDefault();
-    setCreateToggle(!createToggle);
-  }
-  return (
-    <>
-      <h1> Admin Area </h1>
-      <button onClick={logOut}>Logout</button>
-      <button onClick={handleCreatePost}>Create Post</button>
-      <button onClick={handleViewPosts}>View Posts</button>
-      {createToggle ? <CreatePostForm createPost={createPost} /> : null}
-      {viewPosts ? (
-        <AdminPosts posts={posts} loading={loading} error={error} />
-      ) : null}
-    </>
-  );
+  return <AdminLayout navbar={AdminNavBar()} />;
 }
-// {createToggle ? <CreatePost /> : null}
